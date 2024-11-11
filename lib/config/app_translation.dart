@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../core/enum/language.dart';
+import '../features/user_features/home/presentation/view/widgets/company_home_view.dart';
 
 class Translation extends Translations {
   @override
@@ -205,6 +206,9 @@ class Translation extends Translations {
           "Pre order": "الطلبات المسبقة",
           Language.arabic.name: "العربية",
           Language.english.name: "English",
+          FilterTypes.top.name: "الاعلى تقييما",
+          FilterTypes.less.name: "الاقل تقييما",
+          'Press again to exit':"اضفط مجددا للخروج",
           "No Notifications right now.!": "لا يوجد تنبيهات فى الوقت الحالى",
           "No orders right now.!": "لا يوجد طلبات فى الوقت الحالى",
           "are you sure you want to cancel order?":

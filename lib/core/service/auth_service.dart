@@ -20,17 +20,17 @@ final isNeedToCompleteProfile = Provider.autoDispose<bool>((ref) {
   return [
     profile?.name,
     profile?.phone,
-    profile?.birthday,
-    profile?.address,
-    profile?.imageIdBack,
-    profile?.imageIdFront,
+    profile?.email,
+    profile?.profilePhotoUrl,
+    // profile?.imageIdBack,
+    // profile?.imageIdFront,
   ].contains(null);
 });
 final isInReviewProvider = Provider.autoDispose<bool>((ref) {
   if (ref.watch(isNeedToCompleteProfile)) {
     return false;
   } else {
-    return ref.watch(userProvider)?.isVerified != 1;
+    return ref.watch(userProvider)?.emailVerifiedAt != null;
   }
 });
 final canSubmitOrder = Provider.autoDispose<bool>((ref) {

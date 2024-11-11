@@ -8,14 +8,14 @@ import '../entity/comment_entity.dart';
 import '../repo/company_repo.dart';
 
 class FetchUserCompanyUseCase
-    extends UseCaseParam<List<UserCompanyModel>, Map<String, dynamic>> {
+    extends UseCaseParam<List<UserCompanyModel>, String> {
   final UserCompanyRepo companyRepo;
 
   FetchUserCompanyUseCase({required this.companyRepo});
 
   @override
   Future<Either<Failure, List<UserCompanyModel>>> call(
-      Map<String, dynamic> param) async {
+      String param) async {
     final res = await companyRepo.getCompanies();
     return res;
   }

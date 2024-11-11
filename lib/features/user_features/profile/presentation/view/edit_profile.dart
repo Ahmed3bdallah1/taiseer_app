@@ -13,6 +13,7 @@ import 'package:learning/ui/shared_widgets/container_button.dart';
 import 'package:learning/ui/shared_widgets/custom_app_bar.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../config/app_font.dart';
+import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../../../../helper/map_not_equals_validator.dart';
 import '../../../../../ui/shared_widgets/custom_logo_app_bar.dart';
 import '../../../../../ui/shared_widgets/image_or_svg.dart';
@@ -38,8 +39,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen>
       'last_name': FormControl(
           validators: [Validators.required],
           value: ref.read(userProvider)?.name),
-      'avtar': FormControl<String>(
-          validators: [], value: ref.read(userProvider)?.avtar),
+      'image': FormControl<String>(
+          validators: [], value: ref.read(userProvider)?.profilePhotoUrl),
       'phone': FormControl(validators: [
         Validators.minLength(8),
         Validators.maxLength(8),
@@ -82,7 +83,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen>
           child: ContainerButton(
             icon: Icons.logout,
             iconColor: AppColor.danger,
-            onTap: () => Get.offAll(() => LoginPage()),
+            onTap: () {
+              localeService.dataManager.removeLoggedUser();
+              Get.offAll(() => const LoginPage());
+            },
           ),
         ),
       ),
@@ -128,10 +132,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen>
                                       .read(
                                           isLoadingProvider("setImage").notifier)
                                       .state = true;
-              
+
                                   final uploaded = await newImageProvider
                                       .uploadFile(File(image.path));
-                                  formGroup.control('avtar').value = uploaded;
+                                  formGroup.control('image').value = uploaded;
                                 } finally {
                                   ref
                                       .read(

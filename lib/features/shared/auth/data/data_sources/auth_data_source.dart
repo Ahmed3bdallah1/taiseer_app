@@ -29,7 +29,7 @@ class AuthDataSourceImpl extends AuthDataSource {
   @override
   Future<UserAuthResponseModel> register(Map<String, dynamic> data) async {
     final res = await apiService.post(
-        url: ApiPath.register, requestBody: data, returnDataOnly: false);
+        url: ApiPath.userRegister, requestBody: data, returnDataOnly: false);
     return UserAuthResponseModel(
         token: res['token'], user: UserModel.fromJson(res['data']));
   }

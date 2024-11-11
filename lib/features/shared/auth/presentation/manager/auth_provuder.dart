@@ -24,6 +24,7 @@ class AuthNotifier extends StateNotifier<bool> {
   Future login(Map<String, dynamic> data) async {
     state = true;
     try {
+      print(data);
       final res = await getIt<LoginUserUseCase>()(data);
       res.fold((l) {
         throw l;
@@ -55,7 +56,7 @@ class AuthNotifier extends StateNotifier<bool> {
       await dataManager.setToken(user.token!);
     }
     ref.read(userProvider.notifier).state = user.user;
-    if (checkIsVerified && user.user?.isVerified == 0) {
+    if (checkIsVerified && user.user?.emailVerifiedAt == null) {
       return Get.offAll(() => VerifyView(
               repo: getIt<VerificationRepo>(
             param1: user.user?.email,

@@ -34,8 +34,8 @@ final isUpdateAvailableProvider = StateProvider.autoDispose<bool>((ref) {
 });
 
 final splashProvider = FutureProvider.autoDispose<SplashNavigate>((ref) async {
-  final hasUser = await ref.read(fetchUserProvider.future);
-  if (!hasUser) await Future.delayed(const Duration(seconds: 2));
+  // final hasUser = await ref.read(fetchUserProvider.future);
+  // if (!hasUser) await Future.delayed(const Duration(seconds: 2));
   final res = ref.read(splashNavigateProvider);
   if (res == SplashNavigate.home) {
     if (dataManager.getFingerprintEnabled() == true) {

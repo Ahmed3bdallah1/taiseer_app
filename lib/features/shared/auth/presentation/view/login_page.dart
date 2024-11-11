@@ -50,24 +50,29 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
 
     formGroup = FormGroup({
-      'password': FormControl(validators: [Validators.required], value: null),
-      'country': FormControl<int>(),
+      'email': FormControl<String>(validators: [Validators.email],value: null),
+      'password': FormControl(validators: [Validators.required], value: "12341234"),
     });
-    formGroup.addAll({
-      'phone': FormControl(validators: [
-        Validators.compose([
-          Validators.required,
-          Validators.delegate((controls) {
-            final res = formGroup.control('country').value is int;
-            if (res) {
-              return null;
-            } else {
-              return {'please select country'.tr: 'please select country'};
-            }
-          })
-        ])
-      ], value: "98758256"),
-    });
+
+    // formGroup = FormGroup({
+    //   'password': FormControl(validators: [Validators.required], value: null),
+    //   'country': FormControl<int>(),
+    // });
+    // formGroup.addAll({
+    //   'phone': FormControl(validators: [
+    //     Validators.compose([
+    //       Validators.required,
+    //       Validators.delegate((controls) {
+    //         final res = formGroup.control('country').value is int;
+    //         if (res) {
+    //           return null;
+    //         } else {
+    //           return {'please select country'.tr: 'please select country'};
+    //         }
+    //       })
+    //     ])
+    //   ], value: "98758256"),
+    // });
 
     super.initState();
   }
@@ -81,12 +86,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(fetchCountryProvider);
-    ref.listen(fetchCountryProvider, (ds, next) {
-      if (next.hasValue && next.value?.isNotEmpty == true) {
-        formGroup.control('country').value = next.value?.first.id;
-      }
-    });
+    // final provider = ref.watch(fetchCountryProvider);
+    // ref.listen(fetchCountryProvider, (ds, next) {
+    //   if (next.hasValue && next.value?.isNotEmpty == true) {
+    //     formGroup.control('country').value = next.value?.first.id;
+    //   }
+    // });
     return Scaffold(
       appBar: CustomLogoAppbar(
         customTitleWidget: ImageOrSvg(
@@ -102,188 +107,183 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
       body: ReactiveForm(
-        formGroup: formGroup,
-        child: provider.customWhen(
-            ref: ref,
-            refreshable: fetchCountryProvider.future,
-            data: (country) {
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          formGroup: formGroup,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Gap(24.h),
+                  Row(
                     children: [
-                      Gap(24.h),
-                      Row(
-                        children: [
-                          Text(
-                            "Login".tr,
-                            style: AppFont.font20W700Black,
-                          ),
-                        ],
+                      Text(
+                        "Login".tr,
+                        style: AppFont.font20W700Black,
                       ),
-                      Gap(32.h),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ReactiveFormConsumer(
-                                builder: (context, form, _) {
-                              final max = country
-                                      .firstWhereOrNull((e) =>
-                                          e.id == form.control('country').value)
-                                      ?.numberLength ??
-                                  5;
-                              return CustomTextField(
-                                iconButton: SizedBox(
-                                  width: 110.w,
-                                  height: 55,
-                                  child: ReactiveDropdownField(
-                                    onChanged: (_) {},
-                                    decoration: const InputDecoration(
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                    ),
-                                    iconEnabledColor: AppColor.primary,
-                                    iconDisabledColor: AppColor.disabled,
-                                    itemHeight: kMinInteractiveDimension,
-                                    isDense: false,
-                                    style: AppFont.textFiled,
-                                    formControlName: "country",
-                                    items: country.map((e) {
-                                      return DropdownMenuItem(
-                                        value: e.id,
-                                        child: Row(
-                                          children: [
-                                            ImageOrSvg(
-                                              e.countryImage,
-                                              isLocal: true,
-                                              height: 30,
-                                            ),
-                                            Gap(8.w),
-                                            Text(
-                                              e.iso ?? "",
-                                              style: AppFont.font14W600Primary,
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                                formControlName: "phone",
-                                hintText: "000 000 000",
-                                labelText: "Phone number".tr,
-                                inputType: TextInputType.number,
-                                inputFormatter: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                  LengthLimitingTextInputFormatter(max)
-                                ],
-                              );
-                            }),
-                          ),
-                        ],
-                      ),
-                      Gap(24.h),
-                      Consumer(builder: (context, ref, _) {
-                        return CustomTextField(
-                          formControlName: "password",
-                          labelText: "Password".tr,
-                          hintText: "**********",
-                          iconButton: ToggleShowPasswordButton(
-                            onTap: () {
-                              ref
-                                      .read(securePasswordProvider("password")
-                                          .notifier)
-                                      .state =
-                                  !ref.read(securePasswordProvider("password"));
-                            },
-                            showPass:
-                                ref.watch(securePasswordProvider("password")),
-                          ),
-                          obscure:
-                              ref.watch(securePasswordProvider("password")),
-                        );
-                      }),
-                      Gap(8.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () => Get.to(const ForgetPasswordView()),
-                            child: Text(
-                              "Forget Password".tr,
-                              style: AppFont.font10w400Primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Gap(24.h),
-                      CustomReactiveFormValidationConsumer(
-                          formGroup: formGroup,
-                          builder: (context, _, child) {
-                            return Consumer(builder: (context, ref, child) {
-                              final isLoading = ref.watch(authNotifierProvider);
-                              return CustomFilledButton(
-                                isLoading: isLoading,
-                                isValid: formGroup.valid,
-                                text: "Login".tr,
-                                onPressed: () async {
-                                  if (formGroup.valid) {
-                                    try {
-                                      await ref
-                                          .read(authNotifierProvider.notifier)
-                                          .login(formGroup.value);
-                                    } catch (e) {
-                                      UIHelper.showAlert(e.toString(),
-                                          type: DialogType.error);
-                                    }
-                                  } else {
-                                    formGroup.markAllAsTouched();
-                                  }
-                                },
-                              );
-                            });
-                          }),
-                      Gap(16.h),
-                      if (dataManager.getFingerprintEnabled() &&
-                          ref.watch(userProvider)?.id != null) ...[
-                        Row(
-                          children: [
-                            const Expanded(
-                                child: Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                            )),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                "Or Login with fingerprint".tr,
-                                style: AppFont.font10w400Black,
-                              ),
-                            ),
-                            const Expanded(
-                                child: Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                            )),
-                          ],
-                        ),
-                        Gap(24.h),
-                        InkWell(
-                          onTap: _localAuth,
-                          child: Center(
-                              child: SvgPicture.asset(
-                            Assets.base.fingerScan,
-                          )),
-                        ),
-                      ],
                     ],
                   ),
-                ),
-              );
-            }),
-      ),
+                  Gap(32.h),
+                  CustomTextField(
+                    formControlName: "email",
+                    labelText: "Email".tr,
+                    hintText: "ahmed@gmail.com",
+                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: ReactiveFormConsumer(
+                  //           builder: (context, form, _) {
+                  //             final max = country
+                  //                 .firstWhereOrNull((e) =>
+                  //             e.id == form.control('country').value)
+                  //                 ?.numberLength ??
+                  //                 5;
+                  //             return CustomTextField(
+                  //               iconButton: SizedBox(
+                  //                 width: 110.w,
+                  //                 height: 55,
+                  //                 child: ReactiveDropdownField(
+                  //                   onChanged: (_) {},
+                  //                   decoration: const InputDecoration(
+                  //                     focusedBorder: InputBorder.none,
+                  //                     enabledBorder: InputBorder.none,
+                  //                   ),
+                  //                   iconEnabledColor: AppColor.primary,
+                  //                   iconDisabledColor: AppColor.disabled,
+                  //                   itemHeight: kMinInteractiveDimension,
+                  //                   isDense: false,
+                  //                   style: AppFont.textFiled,
+                  //                   formControlName: "country",
+                  //                   items: country.map((e) {
+                  //                     return DropdownMenuItem(
+                  //                       value: e.id,
+                  //                       child: Row(
+                  //                         children: [
+                  //                           ImageOrSvg(
+                  //                             e.countryImage,
+                  //                             isLocal: true,
+                  //                             height: 30,
+                  //                           ),
+                  //                           Gap(8.w),
+                  //                           Text(
+                  //                             e.iso ?? "",
+                  //                             style: AppFont.font14W600Primary,
+                  //                           )
+                  //                         ],
+                  //                       ),
+                  //                     );
+                  //                   }).toList(),
+                  //                 ),
+                  //               ),
+                  //               formControlName: "phone",
+                  //               hintText: "000 000 000",
+                  //               labelText: "Phone number".tr,
+                  //               inputType: TextInputType.number,
+                  //               inputFormatter: [
+                  //                 FilteringTextInputFormatter.digitsOnly,
+                  //                 LengthLimitingTextInputFormatter(max)
+                  //               ],
+                  //             );
+                  //           }),
+                  //     ),
+                  //   ],
+                  // ),
+                  Gap(24.h),
+                  Consumer(builder: (context, ref, _) {
+                    return CustomTextField(
+                      formControlName: "password",
+                      labelText: "Password".tr,
+                      hintText: "**********",
+                      iconButton: ToggleShowPasswordButton(
+                        onTap: () {
+                          ref
+                                  .read(securePasswordProvider("password").notifier)
+                                  .state =
+                              !ref.read(securePasswordProvider("password"));
+                        },
+                        showPass: ref.watch(securePasswordProvider("password")),
+                      ),
+                      obscure: ref.watch(securePasswordProvider("password")),
+                    );
+                  }),
+                  Gap(8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () => Get.to(const ForgetPasswordView()),
+                        child: Text(
+                          "Forget Password".tr,
+                          style: AppFont.font10w400Primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Gap(24.h),
+                  CustomReactiveFormValidationConsumer(
+                      formGroup: formGroup,
+                      builder: (context, _, child) {
+                        return Consumer(builder: (context, ref, child) {
+                          final isLoading = ref.watch(authNotifierProvider);
+                          return CustomFilledButton(
+                            isLoading: isLoading,
+                            isValid: formGroup.valid,
+                            text: "Login".tr,
+                            onPressed: () async {
+                              if (formGroup.valid) {
+                                try {
+                                  await ref
+                                      .read(authNotifierProvider.notifier)
+                                      .login(formGroup.value);
+                                } catch (e) {
+                                  UIHelper.showAlert(e.toString(),
+                                      type: DialogType.error);
+                                }
+                              } else {
+                                formGroup.markAllAsTouched();
+                              }
+                            },
+                          );
+                        });
+                      }),
+                  Gap(16.h),
+                  if (dataManager.getFingerprintEnabled() &&
+                      ref.watch(userProvider)?.id != null) ...[
+                    Row(
+                      children: [
+                        const Expanded(
+                            child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            "Or Login with fingerprint".tr,
+                            style: AppFont.font10w400Black,
+                          ),
+                        ),
+                        const Expanded(
+                            child: Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        )),
+                      ],
+                    ),
+                    Gap(24.h),
+                    InkWell(
+                      onTap: _localAuth,
+                      child: Center(
+                          child: SvgPicture.asset(
+                        Assets.base.fingerScan,
+                      )),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          )),
       bottomSheet: Padding(
         padding: const EdgeInsets.only(bottom: 30),
         child: Row(
@@ -305,3 +305,187 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 }
+
+// body: ReactiveForm(
+//         formGroup: formGroup,
+//         child: provider.customWhen(
+//             ref: ref,
+//             refreshable: fetchCountryProvider.future,
+//             data: (country) {
+//               return SingleChildScrollView(
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(horizontal: 24),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Gap(24.h),
+//                       Row(
+//                         children: [
+//                           Text(
+//                             "Login".tr,
+//                             style: AppFont.font20W700Black,
+//                           ),
+//                         ],
+//                       ),
+//                       Gap(32.h),
+//                       Row(
+//                         children: [
+//                           Expanded(
+//                             child: ReactiveFormConsumer(
+//                                 builder: (context, form, _) {
+//                               final max = country
+//                                       .firstWhereOrNull((e) =>
+//                                           e.id == form.control('country').value)
+//                                       ?.numberLength ??
+//                                   5;
+//                               return CustomTextField(
+//                                 iconButton: SizedBox(
+//                                   width: 110.w,
+//                                   height: 55,
+//                                   child: ReactiveDropdownField(
+//                                     onChanged: (_) {},
+//                                     decoration: const InputDecoration(
+//                                       focusedBorder: InputBorder.none,
+//                                       enabledBorder: InputBorder.none,
+//                                     ),
+//                                     iconEnabledColor: AppColor.primary,
+//                                     iconDisabledColor: AppColor.disabled,
+//                                     itemHeight: kMinInteractiveDimension,
+//                                     isDense: false,
+//                                     style: AppFont.textFiled,
+//                                     formControlName: "country",
+//                                     items: country.map((e) {
+//                                       return DropdownMenuItem(
+//                                         value: e.id,
+//                                         child: Row(
+//                                           children: [
+//                                             ImageOrSvg(
+//                                               e.countryImage,
+//                                               isLocal: true,
+//                                               height: 30,
+//                                             ),
+//                                             Gap(8.w),
+//                                             Text(
+//                                               e.iso ?? "",
+//                                               style: AppFont.font14W600Primary,
+//                                             )
+//                                           ],
+//                                         ),
+//                                       );
+//                                     }).toList(),
+//                                   ),
+//                                 ),
+//                                 formControlName: "phone",
+//                                 hintText: "000 000 000",
+//                                 labelText: "Phone number".tr,
+//                                 inputType: TextInputType.number,
+//                                 inputFormatter: [
+//                                   FilteringTextInputFormatter.digitsOnly,
+//                                   LengthLimitingTextInputFormatter(max)
+//                                 ],
+//                               );
+//                             }),
+//                           ),
+//                         ],
+//                       ),
+//                       Gap(24.h),
+//                       Consumer(builder: (context, ref, _) {
+//                         return CustomTextField(
+//                           formControlName: "password",
+//                           labelText: "Password".tr,
+//                           hintText: "**********",
+//                           iconButton: ToggleShowPasswordButton(
+//                             onTap: () {
+//                               ref
+//                                       .read(securePasswordProvider("password")
+//                                           .notifier)
+//                                       .state =
+//                                   !ref.read(securePasswordProvider("password"));
+//                             },
+//                             showPass:
+//                                 ref.watch(securePasswordProvider("password")),
+//                           ),
+//                           obscure:
+//                               ref.watch(securePasswordProvider("password")),
+//                         );
+//                       }),
+//                       Gap(8.h),
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.end,
+//                         children: [
+//                           InkWell(
+//                             onTap: () => Get.to(const ForgetPasswordView()),
+//                             child: Text(
+//                               "Forget Password".tr,
+//                               style: AppFont.font10w400Primary,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                       Gap(24.h),
+//                       CustomReactiveFormValidationConsumer(
+//                           formGroup: formGroup,
+//                           builder: (context, _, child) {
+//                             return Consumer(builder: (context, ref, child) {
+//                               final isLoading = ref.watch(authNotifierProvider);
+//                               return CustomFilledButton(
+//                                 isLoading: isLoading,
+//                                 isValid: formGroup.valid,
+//                                 text: "Login".tr,
+//                                 onPressed: () async {
+//                                   if (formGroup.valid) {
+//                                     try {
+//                                       await ref
+//                                           .read(authNotifierProvider.notifier)
+//                                           .login(formGroup.value);
+//                                     } catch (e) {
+//                                       UIHelper.showAlert(e.toString(),
+//                                           type: DialogType.error);
+//                                     }
+//                                   } else {
+//                                     formGroup.markAllAsTouched();
+//                                   }
+//                                 },
+//                               );
+//                             });
+//                           }),
+//                       Gap(16.h),
+//                       if (dataManager.getFingerprintEnabled() &&
+//                           ref.watch(userProvider)?.id != null) ...[
+//                         Row(
+//                           children: [
+//                             const Expanded(
+//                                 child: Divider(
+//                               thickness: 1,
+//                               color: Colors.grey,
+//                             )),
+//                             Padding(
+//                               padding:
+//                                   const EdgeInsets.symmetric(horizontal: 8),
+//                               child: Text(
+//                                 "Or Login with fingerprint".tr,
+//                                 style: AppFont.font10w400Black,
+//                               ),
+//                             ),
+//                             const Expanded(
+//                                 child: Divider(
+//                               thickness: 1,
+//                               color: Colors.grey,
+//                             )),
+//                           ],
+//                         ),
+//                         Gap(24.h),
+//                         InkWell(
+//                           onTap: _localAuth,
+//                           child: Center(
+//                               child: SvgPicture.asset(
+//                             Assets.base.fingerScan,
+//                           )),
+//                         ),
+//                       ],
+//                     ],
+//                   ),
+//                 ),
+//               );
+//             }),
+//       ),

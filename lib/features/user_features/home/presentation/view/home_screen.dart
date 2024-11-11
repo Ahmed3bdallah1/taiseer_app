@@ -49,9 +49,9 @@ class HomeScreen extends ConsumerWidget {
                           },
                           child: CircleAvatar(
                             radius: 30,
-                            backgroundImage: ExtendedNetworkImageProvider(
-                                cache: true,
-                                "${ApiPath.uploadPath}${ref.watch(userProvider)?.avtar}"),
+                            backgroundImage: ref.watch(userProvider)?.profilePhotoUrl == null
+                                ? const ExtendedAssetImageProvider("assets/base/personal.png")
+                                : ExtendedNetworkImageProvider(cache: true, "${ApiPath.uploadPath}${ref.watch(userProvider)?.profilePhotoUrl}") as ImageProvider<Object>,
                           ),
                         ),
                         const Gap(10),
@@ -68,62 +68,66 @@ class HomeScreen extends ConsumerWidget {
                             ])
                       ],
                     ),
-                    Consumer(builder: (context, ref, _) {
-                      final notificationsList =
-                          ref.watch(fetchNotificationsProvider);
-                      return notificationsList.customWhen(
-                          ref: ref,
-                          refreshable: fetchNotificationsProvider.future,
-                          data: (notes) {
-                            final hasUnSeen =
-                                notes.firstWhereOrNull((e) => e.seen == 0);
-                            if (hasUnSeen == null) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: ContainerButton(
-                                  color: Colors.transparent,
-                                  iconColor: AppColor.primary,
-                                  icon: Icons.notifications_active,
-                                  onTap: () =>
-                                      Get.to(() => const NotificationsScreen()),
-                                ),
-                              );
-                            } else {
-                              return Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: ContainerButton(
-                                      color: Colors.transparent,
-                                      iconColor: AppColor.primary,
-                                      icon: Icons.notifications_active,
-                                      onTap: () => Get.to(
-                                          () => const NotificationsScreen()),
-                                    ),
-                                  ),
-                                  const Positioned(
-                                      top: 2,
-                                      right: 2,
-                                      child: CircleAvatar(
-                                          backgroundColor: Colors.red,
-                                          radius: 7))
-                                ],
-                              );
-                            }
-                          },
-                          loading: () {
-                            return Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: ContainerButton(
-                                color: Colors.transparent,
-                                iconColor: AppColor.primary,
-                                icon: Icons.notifications_active,
-                                onTap: () =>
-                                    Get.to(() => const NotificationsScreen()),
-                              ),
-                            );
-                          });
-                    })
+                    // SizedBox(
+                    //   height: 50,
+                    //   width: 50,
+                    //   child: Consumer(builder: (context, ref, _) {
+                    //     final notificationsList =
+                    //         ref.watch(fetchNotificationsProvider);
+                    //     return notificationsList.customWhen(
+                    //         ref: ref,
+                    //         refreshable: fetchNotificationsProvider.future,
+                    //         data: (notes) {
+                    //           final hasUnSeen =
+                    //               notes.firstWhereOrNull((e) => e.seen == 0);
+                    //           if (hasUnSeen == null) {
+                    //             return Padding(
+                    //               padding: const EdgeInsets.all(5),
+                    //               child: ContainerButton(
+                    //                 color: Colors.transparent,
+                    //                 iconColor: AppColor.primary,
+                    //                 icon: Icons.notifications_active,
+                    //                 onTap: () =>
+                    //                     Get.to(() => const NotificationsScreen()),
+                    //               ),
+                    //             );
+                    //           } else {
+                    //             return Stack(
+                    //               children: [
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.all(5),
+                    //                   child: ContainerButton(
+                    //                     color: Colors.transparent,
+                    //                     iconColor: AppColor.primary,
+                    //                     icon: Icons.notifications_active,
+                    //                     onTap: () => Get.to(
+                    //                         () => const NotificationsScreen()),
+                    //                   ),
+                    //                 ),
+                    //                 const Positioned(
+                    //                     top: 2,
+                    //                     right: 2,
+                    //                     child: CircleAvatar(
+                    //                         backgroundColor: Colors.red,
+                    //                         radius: 7))
+                    //               ],
+                    //             );
+                    //           }
+                    //         },
+                    //         loading: () {
+                    //           return Padding(
+                    //             padding: const EdgeInsets.all(5),
+                    //             child: ContainerButton(
+                    //               color: Colors.transparent,
+                    //               iconColor: AppColor.primary,
+                    //               icon: Icons.notifications_active,
+                    //               onTap: () =>
+                    //                   Get.to(() => const NotificationsScreen()),
+                    //             ),
+                    //           );
+                    //         });
+                    //   }),
+                    // )
                   ],
                 ),
                 Gap(20.h),

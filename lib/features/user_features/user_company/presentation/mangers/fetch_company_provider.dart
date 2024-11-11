@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learning/features/user_features/home/presentation/view/widgets/company_home_view.dart';
 import 'package:learning/features/user_features/user_company/presentation/mangers/search_filter_provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:tuple/tuple.dart';
@@ -11,8 +12,9 @@ import '../../domain/use_case/company_use_case.dart';
 
 final fetchUserCompaniesViewProvider =
     FutureProvider.autoDispose<List<UserCompanyModel>>((ref) async {
-  final attribute = ref.watch(companyFilterProvider);
-  final companies = await getIt<FetchUserCompanyUseCase>().call(attribute);
+  final attribute = ref.watch(filterProvider);
+  print(attribute?.name??"top");
+  final companies = await getIt<FetchUserCompanyUseCase>().call(attribute?.name??"");
 
   return companies.fold((l) {
     throw l;

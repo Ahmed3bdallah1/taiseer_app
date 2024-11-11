@@ -12,7 +12,7 @@ final uploadFileNotifierProvider =
   return UploadFileNotifier(
     uploadFileUseCase: getIt<UploadFileUseCase>(),
     imagePickerCropper: getIt<ImagePickerService>(),
-    currentImage: ref.read(userProvider)?.avtar,
+    currentImage: ref.read(userProvider)?.profilePhotoUrl,
   );
 });
 final uploadFileNotifierProvider2 = StateNotifierProvider.autoDispose

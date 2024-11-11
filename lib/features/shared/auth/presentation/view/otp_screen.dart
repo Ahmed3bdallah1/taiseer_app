@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:learning/features/shared/auth/presentation/view/login_page.dart';
 import 'package:learning/features/shared/auth/presentation/view/register_page.dart';
 import 'package:learning/features/shared/verify/data/repositories/forget_verify_repo_impl.dart';
 
@@ -165,12 +166,11 @@ class OtpScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don't have an account? ".tr,
+                        Text("Already have an account? ".tr,
                             style: AppFont.font10w400Black),
                         InkWell(
-                          onTap: () => Get.to(const RegisterPage()),
-                          child: Text("Create account".tr,
-                              style: AppFont.font10w400Primary),
+                          onTap: () => Get.offAll(const LoginPage()),
+                          child: Text("Login".tr, style: AppFont.font10w400Primary),
                         ),
                       ],
                     ),

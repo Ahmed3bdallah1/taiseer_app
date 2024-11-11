@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>تيسير</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>تيسير</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>whatsapp</string>
+		<string>sms</string>
+		<string>tel</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>We need bluetooth to print with bluetooth printer</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We need bluetooth to print with bluetooth printer</string>
+	<key>NSCameraUsageDescription</key>
+	<string>scan QR codes and to allow user to take photo and video for his ads and upload it to server</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>for fastly login and Ensure that the authenticated user is the one initiating the app session</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Always When in use description</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location when in the background.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>When in use description</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>to allow user to take video with voice for more info and add it to his ads and upload it to server</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Motion usage description</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>vchatsdk would like to save photos from the app chat to your gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>to allow user to select photo for his ads and upload it to server</string>
+	<key>NSTouchIDUsageDescription</key>
+	<string>for fastly login and Ensure that the authenticated user is the one initiating the app session</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+</dict>
+</plist>

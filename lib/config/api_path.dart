@@ -1,0 +1,31 @@
+abstract class ApiPath {
+  static const baseurl = 'https://loan.salfny-kw.com/api/';
+  // static const baseurl = 'http://loan.test/api/';
+  static const uploadPath = 'https://loan.salfny-kw.com/';
+  static const changePassword = 'forget/password/change/password';
+  static const forgetPassword = 'forget/password';
+  static const notifications = 'notafication/all/';
+  static const seen = 'seen/';
+  static const loans = 'programs';
+  static const upload = 'upload/file';
+  static const interest = 'interest_calc';
+  static const updateProfile = 'user/update';
+  static const installment = 'order/installments';
+  static const loan = 'program/details';
+  static const validateOTPForgetPassword = 'forget/password/verifyOtp';
+  static const login = 'login';
+  static const register = 'register';
+  static const user = 'user';
+  static const countries = 'countries';
+  static const sendOTP = 'resend-otp';
+  static const banks = 'banks';
+  static const verifyOTP = 'verify-otp';
+  static const verifyForRegister = 'verifyOtp/For/Register';
+  static const storeOrder = 'store/order';
+  static const contract = 'contract';
+  static const lastOrder = 'all/orders/last';
+  static const allOrders = 'all/orders';
+  static const deleteOrder = 'remove/order';
+  static const filter = 'filter';
+  static const checkPhone = 'check/phone';
+}

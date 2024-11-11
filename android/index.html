@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disable Friday and Saturday in Datepicker</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #datepicker {
+            width: 250px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui-datepicker {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui-datepicker-header {
+            background: #f7f7f7;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .ui-datepicker-title {
+            font-weight: bold;
+        }
+
+        .ui-datepicker .ui-datepicker-prev,
+        .ui-datepicker .ui-datepicker-next {
+            top: 1px;
+        }
+
+        .ui-state-disabled {
+            color: #ccc !important;
+            pointer-events: none;
+        }
+
+        .ui-widget-content .ui-state-disabled {
+            background: #f7f7f7 !important;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="datepicker">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker").datepicker({
+                beforeShowDay: function(date) {
+                    let day = date.getDay();
+                    // Disable Friday (5) and Saturday (6)
+                    return [(day != 5 ), ''];
+                }
+            });
+        });
+    </script>
+</body>
+</html>

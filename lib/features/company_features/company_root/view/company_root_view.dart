@@ -67,7 +67,7 @@ class _CompanyRootViewState extends ConsumerState<CompanyRootView> {
                             return Row(
                               children: [
                                 ImageOrSvg(
-                                  data[0].image ?? "",
+                                  data[0].logo ?? "",
                                   isLocal: true,
                                 ),
                                 Gap(10.w),
@@ -75,7 +75,7 @@ class _CompanyRootViewState extends ConsumerState<CompanyRootView> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(data[0].title ?? '',
+                                    Text(data[0].nameAr ?? '',
                                         style: AppFont.font14W700Black),
                                     Gap(4.h),
                                     Text('Admin',

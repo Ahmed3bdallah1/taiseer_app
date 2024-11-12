@@ -207,7 +207,7 @@ class Translation extends Translations {
           Language.arabic.name: "العربية",
           Language.english.name: "English",
           FilterTypes.top.name: "الاعلى تقييما",
-          FilterTypes.less.name: "الاقل تقييما",
+          FilterTypes.bottom.name: "الاقل تقييما",
           'Press again to exit':"اضفط مجددا للخروج",
           "No Notifications right now.!": "لا يوجد تنبيهات فى الوقت الحالى",
           "No orders right now.!": "لا يوجد طلبات فى الوقت الحالى",

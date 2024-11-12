@@ -15,7 +15,7 @@ import '../../../../search/presentation/view/search_view.dart';
 import '../../../../user_company/presentation/mangers/fetch_company_provider.dart';
 import '../../../../user_company/presentation/view/widgets/company_container.dart';
 
-enum FilterTypes { top, less }
+enum FilterTypes { top, bottom }
 
 final filterProvider = StateProvider<FilterTypes>((ref) => FilterTypes.top);
 

@@ -2,7 +2,10 @@ abstract class ApiPath {
   static const baseurl = 'https://taisser.onclick-eg.com/api/v1/';
   static const taiseerBaseurl = 'https://taisser.onclick-eg.com/api/v1/';
   // static const baseurl = 'http://loan.test/api/';
-  static const uploadPath = 'https://loan.salfny-kw.com/';
+  static const uploadPath = 'https://taisser.onclick-eg.com/';
+  static const uploadPath2 = 'https://loan.salfny-kw.com/';
+  static const filteredCompanies = 'getCompanies';
+  static const support = 'website/contacts';
   static const changePassword = 'forget/password/change/password';
   static const forgetPassword = 'forget/password';
   static const notifications = 'notafication/all/';

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/core/service/localization_service/localization_service.dart';
 import 'package:taiseer/features/user_features/home/domain/entities/loan_details_entity.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/details_screen.dart';
 import 'package:taiseer/ui/shared_widgets/container_button.dart';
@@ -13,7 +14,7 @@ import '../../../data/model/company_model.dart';
 class CompanyContainer extends StatelessWidget {
   final bool? isDisabled;
   final bool? hideButton;
-  final UserCompanyModel companyModel;
+  final UserCompanyModel2 companyModel;
 
   const CompanyContainer(
       {super.key,
@@ -27,9 +28,9 @@ class CompanyContainer extends StatelessWidget {
       onTap: hideButton == true
           ? () {}
           : () {
-              Get.to(
-                DetailsScreen(companyModel: companyModel),
-              );
+              // Get.to(
+              //   DetailsScreen(companyModel: companyModel),
+              // );
             },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -42,8 +43,7 @@ class CompanyContainer extends StatelessWidget {
           child: Row(
             children: [
               ImageOrSvg(
-                companyModel.image,
-                isLocal: true,
+                companyModel.logo ?? "",
                 height: 40.h,
               ),
               Gap(10.w),
@@ -54,20 +54,20 @@ class CompanyContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          companyModel.title ?? "",
+                          companyModel.nameAr,
                           style: AppFont.font16W600Black,
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(12)
-                          ),
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(12)),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 3),
                             child: Row(
                               children: [
                                 Text(
-                                  companyModel.rating.toString(),
+                                  companyModel.averageRating.toString(),
                                   style: AppFont.font12W600White,
                                 ),
                                 Gap(4.w),
@@ -86,7 +86,7 @@ class CompanyContainer extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ...companyModel.attributes!.map(
+                        ...companyModel.typeActivityCompanies.map(
                           (e) => Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.r),
@@ -95,7 +95,9 @@ class CompanyContainer extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 2),
                               child: Text(
-                                e.name,
+                                localeService.isArabic
+                                    ? e.typeActivities?.nameAr ?? ""
+                                    : e.typeActivities?.nameEn ?? "",
                                 style: AppFont.font10w400Black,
                               ),
                             ),

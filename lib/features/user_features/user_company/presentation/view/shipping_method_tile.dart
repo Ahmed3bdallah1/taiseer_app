@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import '../../domain/entity/shipping_methods_entity.dart';
 
 class ShippingMethodTile extends StatelessWidget {
@@ -31,20 +32,25 @@ class ShippingMethodTile extends StatelessWidget {
               width: 80,
               decoration: BoxDecoration(
                 color: color,
-                image: DecorationImage(
-                    image:
-                        AssetImage(shippingMethodsEntity.backgroundImage ?? ""),
-                    fit: BoxFit.fill,
-                    opacity: .6),
+                // image: DecorationImage(
+                //     image:
+                //         AssetImage(shippingMethodsEntity.backgroundImage ?? ""),
+                //     fit: BoxFit.fill,
+                //     opacity: .6),
                 borderRadius: BorderRadius.circular(radius ?? 12.r),
               ),
               child: Stack(
                 children: [
+                  Positioned.fill(
+                      child: ImageOrSvg(
+                    shippingMethodsEntity.typeActivities?.imageBack ?? "",
+                    fit: BoxFit.fill,
+                  )),
                   Positioned(
                     top: 10,
                     right: 10,
-                    child: Icon(
-                      shippingMethodsEntity.icon,
+                    child: ImageOrSvg(
+                      shippingMethodsEntity.typeActivities?.imageFront??"",
                       color: AppColor.white,
                     ),
                   ),
@@ -52,7 +58,7 @@ class ShippingMethodTile extends StatelessWidget {
                     bottom: 10,
                     right: 10,
                     child: Text(
-                      shippingMethodsEntity.name ?? "",
+                      shippingMethodsEntity.typeActivities?.nameAr ?? "",
                       style: AppFont.font12W600White,
                     ),
                   ),
@@ -66,11 +72,11 @@ class ShippingMethodTile extends StatelessWidget {
                 width: 80,
                 decoration: BoxDecoration(
                     color: color,
-                    image: DecorationImage(
-                        image: AssetImage(
-                            shippingMethodsEntity.backgroundImage ?? ""),
-                        fit: BoxFit.fill,
-                        opacity: .6),
+                    // image: DecorationImage(
+                    //     image: AssetImage(
+                    //         shippingMethodsEntity.backgroundImage ?? ""),
+                    //     fit: BoxFit.fill,
+                    //     opacity: .6),
                     borderRadius: BorderRadius.circular(radius ?? 12.r),
                     boxShadow: [
                       isSelected == true
@@ -83,11 +89,16 @@ class ShippingMethodTile extends StatelessWidget {
                     ]),
                 child: Stack(
                   children: [
+                    Positioned.fill(
+                        child: ImageOrSvg(
+                          shippingMethodsEntity.typeActivities?.imageBack ?? "",
+                          fit: BoxFit.fill,
+                        )),
                     Positioned(
                       top: 10,
                       right: 10,
-                      child: Icon(
-                        shippingMethodsEntity.icon,
+                      child: ImageOrSvg(
+                        shippingMethodsEntity.typeActivities?.imageFront??"",
                         color: AppColor.white,
                       ),
                     ),
@@ -95,7 +106,7 @@ class ShippingMethodTile extends StatelessWidget {
                       bottom: 10,
                       right: 10,
                       child: Text(
-                        shippingMethodsEntity.name ?? "",
+                        shippingMethodsEntity.typeActivities?.nameAr ?? "",
                         style: AppFont.font12W600White,
                       ),
                     ),
@@ -165,17 +176,17 @@ class FastShippingMethodTile extends StatelessWidget {
               Positioned(
                 top: 10,
                 right: 10,
-                child: Icon(
-                  shippingMethodsEntity.icon,
-                  color: AppColor.black,
+                child: ImageOrSvg(
+                  shippingMethodsEntity.typeActivities?.imageFront??"",
+                  color: AppColor.white,
                 ),
               ),
               Positioned(
                 bottom: 10,
                 right: 10,
                 child: Text(
-                  shippingMethodsEntity.name ?? "",
-                  style: AppFont.font12w400Black,
+                  shippingMethodsEntity.typeActivities?.nameAr ?? "",
+                  style: AppFont.font12W600White,
                 ),
               ),
               Positioned(

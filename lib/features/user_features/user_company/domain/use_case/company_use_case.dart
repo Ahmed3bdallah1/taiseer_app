@@ -8,29 +8,14 @@ import '../entity/comment_entity.dart';
 import '../repo/company_repo.dart';
 
 class FetchUserCompanyUseCase
-    extends UseCaseParam<List<UserCompanyModel>, String> {
+    extends UseCaseParam<List<UserCompanyModel2>, String> {
   final UserCompanyRepo companyRepo;
 
   FetchUserCompanyUseCase({required this.companyRepo});
 
   @override
-  Future<Either<Failure, List<UserCompanyModel>>> call(
-      String param) async {
-    final res = await companyRepo.getCompanies();
-    return res;
-  }
-}
-
-class FetchSearchCompanyUseCase
-    extends UseCaseParam<Tuple3<List<UserCompanyModel>, List<CommentsEntity>, List<OrderEntity>>, String?> {
-  final UserCompanyRepo companyRepo;
-
-  FetchSearchCompanyUseCase({required this.companyRepo});
-
-  @override
-  Future<Either<Failure, Tuple3<List<UserCompanyModel>, List<CommentsEntity>, List<OrderEntity>>>> call(param) async {
-    final res = await companyRepo.searchCompanies(search: param);
-    print(res);
+  Future<Either<Failure, List<UserCompanyModel2>>> call(String param) async {
+    final res = await companyRepo.getCompanies(param: param);
     return res;
   }
 }
@@ -46,3 +31,16 @@ class FetchSearchUseCase extends UseCaseParam<List<dynamic>, String?> {
     return res;
   }
 }
+// class FetchSearchCompanyUseCase
+//     extends UseCaseParam<Tuple3<List<UserCompanyModel2>, List<CommentsEntity>, List<OrderEntity>>, String?> {
+//   final UserCompanyRepo companyRepo;
+//
+//   FetchSearchCompanyUseCase({required this.companyRepo});
+//
+//   @override
+//   Future<Either<Failure, Tuple3<List<UserCompanyModel2>, List<CommentsEntity>, List<OrderEntity>>>> call(param) async {
+//     final res = await companyRepo.searchCompanies(search: param);
+//     print(res);
+//     return res;
+//   }
+// }

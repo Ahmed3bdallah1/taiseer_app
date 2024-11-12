@@ -11,10 +11,9 @@ import '../../domain/entity/comment_entity.dart';
 import '../../domain/use_case/company_use_case.dart';
 
 final fetchUserCompaniesViewProvider =
-    FutureProvider.autoDispose<List<UserCompanyModel>>((ref) async {
+    FutureProvider.autoDispose<List<UserCompanyModel2>>((ref) async {
   final attribute = ref.watch(filterProvider);
-  print(attribute?.name??"top");
-  final companies = await getIt<FetchUserCompanyUseCase>().call(attribute?.name??"");
+  final companies = await getIt<FetchUserCompanyUseCase>().call(attribute.name);
 
   return companies.fold((l) {
     throw l;

@@ -14,23 +14,11 @@ class UserCompanyRepoImp extends UserCompanyRepo {
   UserCompanyRepoImp({required this.companyDataSource});
 
   @override
-  Future<Either<Failure, List<UserCompanyModel>>> getCompanies({Map? map}) async {
+  Future<Either<Failure, List<UserCompanyModel2>>> getCompanies({String? param}) async {
     try {
-      final res = await companyDataSource.getCompanies(map: map);
-      return Right(res);
-    } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDioError(e));
-      } else {
-        return Left(GeneralError(e));
-      }
-    }
-  }
-  @override
-  Future<Either<Failure, Tuple3<List<UserCompanyModel>, List<CommentsEntity>, List<OrderEntity>>>> searchCompanies({String? search}) async {
-    try {
-      final res = await companyDataSource.searchCompanies(search: search);
-      return Right(res);
+      final res = await companyDataSource.getCompanies(param: param);
+      final list = res.data;
+      return Right(list);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
@@ -52,4 +40,17 @@ class UserCompanyRepoImp extends UserCompanyRepo {
       }
     }
   }
+// @override
+// Future<Either<Failure, Tuple3<List<UserCompanyModel>, List<CommentsEntity>, List<OrderEntity>>>> searchCompanies({String? search}) async {
+//   try {
+//     final res = await companyDataSource.searchCompanies(search: search);
+//     return Right(res);
+//   } catch (e) {
+//     if (e is DioException) {
+//       return Left(ServerFailure.fromDioError(e));
+//     } else {
+//       return Left(GeneralError(e));
+//     }
+//   }
+// }
 }

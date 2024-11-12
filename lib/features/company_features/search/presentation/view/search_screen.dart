@@ -46,7 +46,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(fetchSearchUserCompanyProvider(
+    final provider = ref.watch(fetchUserSearchProvider(
         formGroup.control('search') as FormControl));
     return Scaffold(
       body: ReactiveForm(
@@ -70,7 +70,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       onChanged: (x) {
                         _debouncer.run(() {
                           formGroup.control("type").valid
-                              ? ref.invalidate(fetchSearchUserCompanyProvider(
+                              ? ref.invalidate(fetchUserSearchProvider(
                                   formGroup.control('search') as FormControl))
                               : formGroup.markAllAsTouched();
                         });
@@ -109,20 +109,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   builder: (context, ref, _) {
                     return provider.customWhen(
                         ref: ref,
-                        refreshable: fetchSearchUserCompanyProvider(
+                        refreshable: fetchUserSearchProvider(
                                 form.control('search') as FormControl)
                             .future,
                         data: (companies) {
                           return Expanded(
                             child: ListView.builder(
-                              itemCount: companies.item1.length,
+                              itemCount: companies.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 12),
-                                  child: CompanyContainer(
-                                    companyModel: companies.item1[index],
-                                  ),
-                                );
+                                return SizedBox();
+                                // return Padding(
+                                //   padding: const EdgeInsets.only(bottom: 12),
+                                //   child: CompanyContainer(
+                                //     companyModel: companies.item1[index],
+                                //   ),
+                                // );
                               },
                             ),
                           );

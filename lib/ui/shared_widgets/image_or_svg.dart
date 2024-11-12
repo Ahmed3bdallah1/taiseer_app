@@ -21,6 +21,7 @@ class ImageOrSvg extends StatefulWidget {
   final bool isLoading;
   final bool isCircleLoading;
   final bool pickImageOnNull;
+  final String? assetImageOnNull;
 
   ImageOrSvg(
     this.url, {
@@ -34,6 +35,7 @@ class ImageOrSvg extends StatefulWidget {
     this.isLocal = false,
     this.isCircleLoading = true,
     this.pickImageOnNull = false,
+    this.assetImageOnNull,
   }) : super(key: ValueKey(url));
 
   @override
@@ -53,8 +55,7 @@ class _ImageOrSvgState extends State<ImageOrSvg>
         height: widget.height,
         decoration: BoxDecoration(
             color: AppColor.grey_3,
-            shape:
-                widget.isCircleLoading ? BoxShape.circle : BoxShape.rectangle),
+            shape: widget.isCircleLoading ? BoxShape.circle : BoxShape.rectangle),
         child: const Center(child: LoadingWidget()),
       );
     } else if (widget.pickImageOnNull) {
@@ -65,12 +66,15 @@ class _ImageOrSvgState extends State<ImageOrSvg>
             color: AppColor.grey_3,
             shape:
                 widget.isCircleLoading ? BoxShape.circle : BoxShape.rectangle),
-        child: const Center(
-            child: Icon(
-          Icons.add_photo_alternate_outlined,
-          color: AppColor.primary,
-          size: 50,
-        )),
+        child: Center(
+            child: SvgPicture.asset(
+              widget.assetImageOnNull ?? Assets.onboard.vector,
+              key: widget.key,
+              width: widget.width!-20,
+              color: widget.color,
+              height: widget.height!-20,
+              fit: widget.fit,
+            )),
       );
     }
     final fullPath = widget.isLocal

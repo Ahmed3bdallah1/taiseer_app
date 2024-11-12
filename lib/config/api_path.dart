@@ -5,6 +5,7 @@ abstract class ApiPath {
   static const uploadPath = 'https://taisser.onclick-eg.com/';
   static const uploadPath2 = 'https://loan.salfny-kw.com/';
   static const filteredCompanies = 'getCompanies';
+  static const companyDetails = 'getCompaniesDetails';
   static const support = 'website/contacts';
   static const changePassword = 'forget/password/change/password';
   static const forgetPassword = 'forget/password';

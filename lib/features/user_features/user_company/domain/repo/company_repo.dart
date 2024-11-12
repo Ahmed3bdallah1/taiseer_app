@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:tuple/tuple.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../order/domain/entity/order_entity.dart';
@@ -7,6 +8,8 @@ import '../entity/comment_entity.dart';
 
 abstract class UserCompanyRepo {
   Future<Either<Failure, List<UserCompanyModel2>>> getCompanies({String? param});
+
+  Future<Either<Failure, CompanyDetailsModel>> getCompanyDetails({required int id});
 
   Future<Either<Failure, List<dynamic>>> searchCompanies2({String? search});
 

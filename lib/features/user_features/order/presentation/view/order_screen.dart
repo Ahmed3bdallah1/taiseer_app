@@ -10,6 +10,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/shared/auth/presentation/manager/auth_provuder.dart';
 import 'package:taiseer/features/user_features/order/presentation/view/widgets/selectable_tile.dart';
+import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_text_field.dart';
 import 'package:taiseer/ui/ui.dart';
@@ -24,9 +25,13 @@ import '../../../user_company/presentation/view/widgets/company_container.dart';
 import '../../../user_company/presentation/view/shipping_method_tile.dart';
 
 class OrderScreen extends ConsumerStatefulWidget {
-  final UserCompanyModel companyModel;
+  final CompanyDetailsModel companyDetailsModel;
+  final UserCompanyModel2 companyModel;
 
-  const OrderScreen({super.key, required this.companyModel});
+  const OrderScreen(
+      {super.key,
+      required this.companyDetailsModel,
+      required this.companyModel});
 
   @override
   ConsumerState<OrderScreen> createState() => _OrderScreenState();
@@ -39,7 +44,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
   @override
   void initState() {
     formGroup = FormGroup({
-      'company_id': FormControl(value: widget.companyModel.id),
+      'company_id': FormControl(value: widget.companyDetailsModel.id),
       'shipping_id': FormControl<int>(validators: [Validators.required]),
       'is_fast_shipping':
           FormControl<bool>(validators: [Validators.required], value: false),
@@ -148,10 +153,11 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 2),
-                          child: Text(widget.companyModel.shippingMethods!
+                          child: Text(widget.companyModel.typeActivityCompanies!
                                   .firstWhereOrNull((e) =>
                                       e.id == form.control("shipping_id").value)
-                                  ?.name ??
+                                  ?.typeActivities
+                                  ?.nameAr ??
                               ''),
                         ),
                       );
@@ -170,9 +176,12 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              final method =
-                                  widget.companyModel.shippingMethods![index];
-                              if (index < widget.companyModel.shippingMethods!.length - 1) {
+                              final method = widget.companyDetailsModel
+                                  .typeActivityCompanies[index];
+                              if (index <
+                                  widget.companyDetailsModel
+                                          .typeActivityCompanies.length -
+                                      1) {
                                 return ReactiveFormConsumer(
                                   builder: (context, form, _) {
                                     final isSelected =
@@ -185,7 +194,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                       isSelected: isSelected,
                                       onTap: () => form
                                           .control("shipping_id")
-                                          .value = method.id!,
+                                          .value = method.id,
                                     );
                                   },
                                 );
@@ -200,7 +209,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                       color: Colors.white,
                                       isSelected: isSelected,
                                       onTap: () {
-                                        form.control("is_fast_shipping").value = !isSelected;
+                                        form.control("is_fast_shipping").value =
+                                            !isSelected;
                                       },
                                       shippingMethodsEntity: method,
                                     );
@@ -211,7 +221,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                             separatorBuilder: (context, index) {
                               return Gap(10.w);
                             },
-                            itemCount: widget.companyModel.shippingMethods?.length ?? 0,
+                            itemCount: widget.companyDetailsModel
+                                .typeActivityCompanies.length,
                           ),
                         ),
                       ],

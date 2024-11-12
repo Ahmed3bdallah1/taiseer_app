@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:tuple/tuple.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/use_cases/use_case.dart';
@@ -16,6 +17,18 @@ class FetchUserCompanyUseCase
   @override
   Future<Either<Failure, List<UserCompanyModel2>>> call(String param) async {
     final res = await companyRepo.getCompanies(param: param);
+    return res;
+  }
+}
+
+class FetchUserCompanyDetailsUseCase extends UseCaseParam<CompanyDetailsModel, int> {
+  final UserCompanyRepo companyRepo;
+
+  FetchUserCompanyDetailsUseCase({required this.companyRepo});
+
+  @override
+  Future<Either<Failure, CompanyDetailsModel>> call(int param) async {
+    final res = await companyRepo.getCompanyDetails(id: param);
     return res;
   }
 }

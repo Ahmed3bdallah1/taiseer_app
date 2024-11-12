@@ -1,9 +1,12 @@
 import 'package:taiseer/config/api_path.dart';
+import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_pagination_model.dart';
 import '../../../../../core/service/webservice/dio_helper.dart';
 
 abstract class UserCompanyDataSource {
   Future<CompanyPaginationModel> getCompanies({String? param});
+
+  Future<CompanyDetailsModel> getCompanyDetails({required int id});
 
   // Future<
   //     Tuple3<List<UserCompanyModel>, List<CommentsEntity>,
@@ -92,5 +95,13 @@ class UserCompanyDataSourceImp extends UserCompanyDataSource {
       // comments[0],
       // companies[1],
     ];
+  }
+
+  @override
+  Future<CompanyDetailsModel> getCompanyDetails({required int id}) async {
+    final res = await apiService.get(
+        url: "${ApiPath.companyDetails}/$id", returnDataOnly: true);
+    CompanyDetailsModel companies = CompanyDetailsModel.fromJson(res);
+    return companies;
   }
 }

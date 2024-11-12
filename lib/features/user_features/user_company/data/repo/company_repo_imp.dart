@@ -6,6 +6,7 @@ import '../../../order/domain/entity/order_entity.dart';
 import '../../domain/entity/comment_entity.dart';
 import '../../domain/repo/company_repo.dart';
 import '../data_source/company_data_source.dart';
+import '../model/company_details_model.dart';
 import '../model/company_model.dart';
 
 class UserCompanyRepoImp extends UserCompanyRepo {
@@ -27,6 +28,21 @@ class UserCompanyRepoImp extends UserCompanyRepo {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, CompanyDetailsModel>> getCompanyDetails({required int id}) async {
+    try {
+      final res = await companyDataSource.getCompanyDetails(id: id);
+      return Right(res);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(GeneralError(e));
+      }
+    }
+  }
+
   @override
   Future<Either<Failure, List<dynamic>>> searchCompanies2({String? search}) async {
     try {

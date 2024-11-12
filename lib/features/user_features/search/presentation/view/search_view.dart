@@ -67,7 +67,7 @@ class _SearchViewState extends ConsumerState<SearchUserView> {
                               child: Column(
                                 children: [
                                   ...companies.map((e) {
-                                    if (e is UserCompanyModel) {
+                                    if (e is UserCompanyModel2) {
                                       return CompanyContainer(companyModel: e);
                                     } else if (e is CommentsEntity) {
                                       return CommentContainer(

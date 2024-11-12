@@ -148,8 +148,10 @@ Future setupLocator() async {
       UserCompanyRepoImp(companyDataSource: getIt<UserCompanyDataSource>()));
   getIt.registerLazySingleton<FetchUserCompanyUseCase>(
       () => FetchUserCompanyUseCase(companyRepo: getIt<UserCompanyRepo>()));
-  getIt.registerLazySingleton<FetchSearchCompanyUseCase>(
-      () => FetchSearchCompanyUseCase(companyRepo: getIt<UserCompanyRepo>()));
+  getIt.registerLazySingleton<FetchUserCompanyDetailsUseCase>(
+      () => FetchUserCompanyDetailsUseCase(companyRepo: getIt<UserCompanyRepo>()));
+  // getIt.registerLazySingleton<FetchSearchCompanyUseCase>(
+  //     () => FetchSearchCompanyUseCase(companyRepo: getIt<UserCompanyRepo>()));
   getIt.registerLazySingleton<FetchSearchUseCase>(
       () => FetchSearchUseCase(companyRepo: getIt<UserCompanyRepo>()));
 

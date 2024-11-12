@@ -30,94 +30,98 @@ class CommentContainer extends StatelessWidget {
               children: [
                 ImageOrSvg(
                   commentsEntity.user.profilePhotoUrl??"",
+                  height: 60,
                   width: 60,
                 ),
                 Gap(10.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              commentsEntity.user.name ?? "",
-                              style: AppFont.font16W600Black,
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColor.gold,
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    commentsEntity.rate.toString(),
-                                    style: AppFont.font14W500Black,
-                                  ),
-                                  Icon(
-                                    CupertinoIcons.star,
-                                    color: AppColor.black,
-                                    size: 18,
-                                  )
-                                ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                commentsEntity.user.name ?? "",
+                                style: AppFont.font16W600Black,
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColor.gold,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      commentsEntity.rate.toString(),
+                                      style: AppFont.font14W500Black,
+                                    ),
+                                    Icon(
+                                      CupertinoIcons.star,
+                                      color: AppColor.black,
+                                      size: 18,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
+                          )
+                        ],
+                      ),
+                      Gap(10.h),
+                      // Row(
+                      //   children: [
+                      //       ...commentsEntity.attributes!.map(
+                      //         (e) => Row(
+                      //           children: [
+                      //             Container(
+                      //               decoration: BoxDecoration(
+                      //                   color: AppColor.grey1,
+                      //                   borderRadius:
+                      //                       BorderRadius.circular(12.r)),
+                      //               child: Padding(
+                      //                 padding: EdgeInsets.symmetric(
+                      //                   horizontal: 12,
+                      //                   vertical: 2,
+                      //                 ),
+                      //                 child: Text(
+                      //                   e.name,
+                      //                   style: AppFont.font10w400Black,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //             Gap(2)
+                      //           ],
+                      //         ),
+                      //       ),
+                      //   ],
+                      // ),
+                      Gap(6.h),
+                      Divider(
+                        color: AppColor.grey1,
+                        indent: 20,
+                        endIndent: 20,
+                      ),
+                      Gap(6),
+                      Row(
+                        children: [
+                          Text(
+                            commentsEntity.comment ?? "",
+                            style: AppFont.font12w500Grey2,
                           ),
-                        )
-                      ],
-                    ),
-                    Gap(10.h),
-                    // Row(
-                    //   children: [
-                    //       ...commentsEntity.attributes!.map(
-                    //         (e) => Row(
-                    //           children: [
-                    //             Container(
-                    //               decoration: BoxDecoration(
-                    //                   color: AppColor.grey1,
-                    //                   borderRadius:
-                    //                       BorderRadius.circular(12.r)),
-                    //               child: Padding(
-                    //                 padding: EdgeInsets.symmetric(
-                    //                   horizontal: 12,
-                    //                   vertical: 2,
-                    //                 ),
-                    //                 child: Text(
-                    //                   e.name,
-                    //                   style: AppFont.font10w400Black,
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //             Gap(2)
-                    //           ],
-                    //         ),
-                    //       ),
-                    //   ],
-                    // ),
-                    Gap(6.h),
-                    Divider(
-                      color: AppColor.grey1,
-                      indent: 20,
-                      endIndent: 20,
-                    ),
-                    Gap(6),
-                    Row(
-                      children: [
-                        Text(
-                          commentsEntity.comment ?? "",
-                          style: AppFont.font12w500Grey2,
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

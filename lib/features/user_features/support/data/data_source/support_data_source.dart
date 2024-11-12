@@ -1,3 +1,4 @@
+import 'package:taiseer/config/api_path.dart';
 import 'package:taiseer/core/service/webservice/dio_helper.dart';
 
 import '../../domain/entites/support_entity.dart';
@@ -12,7 +13,9 @@ class SupportDataSourceImp extends SupportDataSource {
   SupportDataSourceImp({required this.apiService});
   @override
   Future<SupportEntity> getSupport() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return support;
+    final res = await apiService.get(
+        url: ApiPath.support, returnDataOnly: false);
+    SupportEntity supportEntity = SupportEntity.fromJson(res["details"]);
+    return supportEntity;
   }
 }

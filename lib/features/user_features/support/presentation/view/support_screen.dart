@@ -53,7 +53,7 @@ class SupportScreen extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Center(
                             child: Text(
-                              support.phoneNumber,
+                              support.phone,
                               textDirection: TextDirection.ltr,
                               style: AppFont.font16W500Black,
                             ),

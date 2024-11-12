@@ -1,64 +1,49 @@
-import 'attributes_entity.dart';
+import '../../../../../models/user_model.dart';
 
 class CommentsEntity {
-  final int? id;
-  final String? userName;
-  final String? userImage;
-  final String? comment;
-  final int? userId;
-  final double? rating;
-  final List<AttributesEntity>? attributes;
+  final int id;
+  final int userId;
+  final int companyId;
+  final int shipmentId;
+  final int rate;
+  final String comment;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final UserModel user;
 
   CommentsEntity({
     required this.id,
-    required this.userName,
-    required this.userImage,
-    required this.comment,
     required this.userId,
-    required this.rating,
-    required this.attributes,
+    required this.companyId,
+    required this.shipmentId,
+    required this.rate,
+    required this.comment,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.user,
   });
 
-  factory CommentsEntity.fromJson(Map<String, dynamic> json) {
-    return CommentsEntity(
-      id: json['id'],
-      userName: json['user_name'],
-      userImage: json['user_image'],
-      comment: json['comment'],
-      userId: json['user_id'],
-      rating: json["rating"],
-      attributes: json["attributes"],
-    );
-  }
+  factory CommentsEntity.fromJson(Map<String, dynamic> json) => CommentsEntity(
+    id: json["id"],
+    userId: json["user_id"],
+    companyId: json["company_id"],
+    shipmentId: json["shipment_id"],
+    rate: json["rate"],
+    comment: json["comment"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    user: UserModel.fromJson(json["user"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      'user_name': userName,
-      'comment': comment,
-      'rating': rating,
-      'user_id': userId,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "user_id": userId,
+    "company_id": companyId,
+    "shipment_id": shipmentId,
+    "rate": rate,
+    "comment": comment,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "user": user.toJson(),
+  };
 }
-
-final comments = [
-  CommentsEntity(
-    id: 1,
-    userName: "محمد سعيد",
-    userImage: "assets/base/personal.png",
-    comment: "Great product!",
-    userId: 101,
-    rating: 4.5,
-    attributes: attributes,
-  ),
-  CommentsEntity(
-    id: 2,
-    userName: "حبشى",
-    userImage: "assets/base/personal.png",
-    comment: "Not satisfied with the service.",
-    userId: 102,
-    rating: 2.0,
-    attributes: attributes,
-  ),
-];

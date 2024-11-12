@@ -61,7 +61,7 @@ class LastOrderContainer extends StatelessWidget {
             CustomStepperWidget(status: orderEntity.status.id),
 
             /// add company container
-            CompanyContainer(companyModel: orderEntity.companyModel)
+            // CompanyContainer(companyModel: orderEntity.companyModel)
             // if (orderEntity.status.id == 2)
             //   InkWell(
             //     // onTap: () => Get.to(),

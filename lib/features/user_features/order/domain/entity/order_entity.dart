@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:taiseer/features/user_features/user_company/domain/entity/shipping_methods_entity.dart';
 import 'package:taiseer/models/program_model.dart';
 import 'package:flutter_color/flutter_color.dart' as color;
 import '../../../user_company/data/model/company_model.dart';
@@ -31,7 +32,7 @@ class OrderEntity {
   final String from;
   final String to;
   final String orderDescription;
-  final UserCompanyModel companyModel;
+  final UserCompanyModel2 companyModel;
 
   OrderEntity({
     required this.programId,
@@ -66,7 +67,7 @@ class OrderEntity {
       total: orderModel.total!.toStringAsFixed(2),
       subTotal: orderModel.subtotal!.toStringAsFixed(2),
       fundType: orderModel.programType!.title!,
-      companyModel: companies[0],
+      companyModel: UserCompanyModel2(id: 1, nameAr: "nameAr", nameEn: "nameEn", typeActivityCompanies: [ShippingMethodsEntity(id: 1, companyId: 1)]),
     );
   }
 }

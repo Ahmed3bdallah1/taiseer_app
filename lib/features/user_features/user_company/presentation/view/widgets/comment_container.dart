@@ -26,21 +26,25 @@ class CommentContainer extends StatelessWidget {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 ImageOrSvg(
-                  commentsEntity.userImage??"",
-                  isLocal: true,
+                  commentsEntity.user.profilePhotoUrl??"",
                   width: 60,
                 ),
-                Gap(10),
+                Gap(10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Text(
-                          commentsEntity.userName ?? "",
-                          style: AppFont.font16W600Black,
+                        Column(
+                          children: [
+                            Text(
+                              commentsEntity.user.name ?? "",
+                              style: AppFont.font16W600Black,
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(6),
@@ -55,7 +59,7 @@ class CommentContainer extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    commentsEntity.rating.toString(),
+                                    commentsEntity.rate.toString(),
                                     style: AppFont.font14W500Black,
                                   ),
                                   Icon(

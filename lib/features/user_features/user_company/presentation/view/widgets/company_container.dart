@@ -28,9 +28,9 @@ class CompanyContainer extends StatelessWidget {
       onTap: hideButton == true
           ? () {}
           : () {
-              // Get.to(
-              //   DetailsScreen(companyModel: companyModel),
-              // );
+              Get.to(
+                DetailsScreen(userCompanyModel2: companyModel),
+              );
             },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -44,7 +44,8 @@ class CompanyContainer extends StatelessWidget {
             children: [
               ImageOrSvg(
                 companyModel.logo ?? "",
-                height: 40.h,
+                height: 60.h,
+                width: 60.h,
               ),
               Gap(10.w),
               Expanded(
@@ -84,7 +85,7 @@ class CompanyContainer extends StatelessWidget {
                     ),
                     Gap(10.h),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         ...companyModel.typeActivityCompanies.map(
                           (e) => Container(

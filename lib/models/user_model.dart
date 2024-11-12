@@ -18,8 +18,8 @@ class UserModel {
   final dynamic provider;
   final int? providerId;
   final String? accessToken;
-  final DateTime? createdBy;
-  final DateTime? updatedBy;
+  final int? createdBy;
+  final int? updatedBy;
   final int? currentTeamId;
   final String? profilePhotoPath;
   final DateTime? createdAt;

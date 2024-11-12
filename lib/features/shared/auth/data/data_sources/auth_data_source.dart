@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:learning/core/service/local_data_manager.dart';
+
 import '../../../../../config/api_path.dart';
 import '../../../../../core/service/webservice/dio_helper.dart';
 import '../../../../../models/user_model.dart';
@@ -9,7 +11,9 @@ abstract class AuthDataSource {
   Future<UserAuthResponseModel> login(Map<String, dynamic> data);
 
   Future<UserAuthResponseModel> register(Map<String, dynamic> data);
+
   Future<UserModel> getMyProfile();
+
   Future<List<CountryEntity>> getCountries();
 }
 
@@ -36,7 +40,8 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<UserModel> getMyProfile() async {
-    final res = await apiService.get(url: ApiPath.user);
+    final user = dataManager.getUser();
+    final res = await apiService.get(url: "${ApiPath.user}${user?.id ?? 0}");
     return UserModel.fromJson(res);
   }
 

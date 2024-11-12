@@ -52,7 +52,8 @@ class AuthNotifier extends StateNotifier<bool> {
 
   handleUser(UserAuthResponseModel user, Map<String, dynamic> data,
       {bool checkIsVerified = false}) async {
-    if (user.token != null) {
+    if (user.token != null && user.user != null) {
+      await dataManager.setUser(user.user!);
       await dataManager.setToken(user.token!);
     }
     ref.read(userProvider.notifier).state = user.user;
@@ -72,8 +73,7 @@ final fingerprintControllerProvider = StateProvider.autoDispose<bool>((ref) {
   return dataManager.getFingerprintEnabled();
 });
 
-final fetchCountryProvider =
-FutureProvider<List<CountryEntity>>((ref) async {
+final fetchCountryProvider = FutureProvider<List<CountryEntity>>((ref) async {
   final countries = await getIt<FetchCountriesUseCase>().call();
   return countries.fold((l) {
     throw l;

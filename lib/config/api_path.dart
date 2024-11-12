@@ -16,7 +16,7 @@ abstract class ApiPath {
   static const validateOTPForgetPassword = 'forget/password/verifyOtp';
   static const login = 'login';
   static const userRegister = 'register';
-  static const user = 'user';
+  static const user = 'userProfile/';
   static const countries = 'countries';
   static const sendOTP = 'resend-otp';
   static const banks = 'banks';

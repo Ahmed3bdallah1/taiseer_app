@@ -26,8 +26,7 @@ class EditProfileScreen extends ConsumerStatefulWidget {
   ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends ConsumerState<EditProfileScreen>
-    with TickerProviderStateMixin {
+class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late final FormGroup formGroup;
 
   @override

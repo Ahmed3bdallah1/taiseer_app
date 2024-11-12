@@ -1,6 +1,7 @@
 abstract class LocalDataManagerKeys {
   static const String appLanguage = "applanguage";
   static const String token = "token";
+  static const String user = "user";
   static const String fingerprint = "fingerprint";
   static const String fcmToken = "fcm_token";
   static const String secondTime = "_firstTime";

@@ -4,6 +4,7 @@ import 'package:learning/config/api_path.dart';
 import 'package:learning/core/enum/language.dart';
 import 'package:learning/core/service/auth_service.dart';
 import 'package:learning/main.dart';
+import 'package:learning/models/user_model.dart';
 
 import '../../../../config/local_data_manager_key.dart';
 
@@ -28,9 +29,15 @@ abstract class LocalDataManager {
 
   Future<void> deleteToken();
 
+  Future<void> deleteUser();
+
   String? getToken();
 
+  UserModel? getUser();
+
   Future<void> setToken(String userToken);
+
+  Future<void> setUser(UserModel userModel);
 
   bool getFingerprintEnabled();
 
@@ -111,6 +118,7 @@ class GetStorageManagerImpl extends GetStorageManager {
   Future<bool> removeLoggedUser() async {
     await Future.wait([
       deleteToken(),
+      deleteUser(),
       deleteFingerprint(),
     ]);
     providerContainer.read(userProvider.notifier).state = null;
@@ -136,13 +144,29 @@ class GetStorageManagerImpl extends GetStorageManager {
   }
 
   @override
+  Future<void> deleteUser() {
+    return deleteValue(LocalDataManagerKeys.user);
+  }
+
+  @override
   String? getToken() {
     return getValue<String>(LocalDataManagerKeys.token);
   }
 
   @override
+  UserModel? getUser() {
+    final res= getValue(LocalDataManagerKeys.user);
+    return UserModel.fromJson(res);
+  }
+
+  @override
   Future<void> setToken(String userToken) {
     return setValue(LocalDataManagerKeys.token, userToken);
+  }
+
+  @override
+  Future<void> setUser(UserModel userModel) {
+    return setValue(LocalDataManagerKeys.user, userModel.toJson());
   }
 
   @override

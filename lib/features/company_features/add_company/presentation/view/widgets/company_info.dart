@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/features/company_features/add_company/data/model/add_company_model.dart';
-import 'package:learning/ui/shared_widgets/custom_text_field.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/company_features/add_company/data/model/add_company_model.dart';
+import 'package:taiseer/ui/shared_widgets/custom_text_field.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../../../ui/shared_widgets/image_or_svg.dart';

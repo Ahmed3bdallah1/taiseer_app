@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/features/user_features/home/domain/entities/loan_details_entity.dart';
-import 'package:learning/features/user_features/home/presentation/view/details_screen.dart';
-import 'package:learning/ui/shared_widgets/container_button.dart';
-import 'package:learning/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/loan_details_entity.dart';
+import 'package:taiseer/features/user_features/home/presentation/view/details_screen.dart';
+import 'package:taiseer/ui/shared_widgets/container_button.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import '../../../../../../gen/assets.gen.dart';
 import '../../../data/model/company_model.dart';
 

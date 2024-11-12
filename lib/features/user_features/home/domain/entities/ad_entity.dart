@@ -1,4 +1,4 @@
-import 'package:learning/gen/assets.gen.dart';
+import 'package:taiseer/gen/assets.gen.dart';
 
 class AdEntity {
   final String photo;

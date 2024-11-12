@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:learning/core/service/local_data_manager.dart';
+import 'package:taiseer/core/service/local_data_manager.dart';
 
 import '../../../../../config/api_path.dart';
 import '../../../../../core/service/webservice/dio_helper.dart';

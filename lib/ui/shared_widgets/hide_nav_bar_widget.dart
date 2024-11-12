@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learning/config/app_color.dart';
+import 'package:taiseer/config/app_color.dart';
 
 import '../../features/user_features/root/view/root_view.dart';
 

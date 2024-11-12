@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_color.dart';
-import 'package:learning/features/company_features/track_orders/presentation/view/order_dialog_widget.dart';
-import 'package:learning/features/user_features/order/presentation/managers/fetch_last_order_provider.dart';
-import 'package:learning/features/user_features/order/presentation/view/widgets/last_order_container.dart';
+import 'package:taiseer/config/app_color.dart';
+import 'package:taiseer/features/company_features/track_orders/presentation/view/order_dialog_widget.dart';
+import 'package:taiseer/features/user_features/order/presentation/managers/fetch_last_order_provider.dart';
+import 'package:taiseer/features/user_features/order/presentation/view/widgets/last_order_container.dart';
 import '../../../../../ui/shared_widgets/custom_app_bar.dart';
 
 class TrackOrderScreen extends ConsumerWidget {

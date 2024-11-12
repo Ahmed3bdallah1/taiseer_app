@@ -1,12 +1,12 @@
 import 'package:animated_size_and_fade/animated_size_and_fade.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_color.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/core/service/localization_service/localization_service.dart';
-import 'package:learning/features/company_features/calender/presentation/widgets/calender_header.dart';
-import 'package:learning/ui/shared_widgets/hide_nav_bar_widget.dart';
-import 'package:learning/ui/shared_widgets/not_found_widget.dart';
+import 'package:taiseer/config/app_color.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/core/service/localization_service/localization_service.dart';
+import 'package:taiseer/features/company_features/calender/presentation/widgets/calender_header.dart';
+import 'package:taiseer/ui/shared_widgets/hide_nav_bar_widget.dart';
+import 'package:taiseer/ui/shared_widgets/not_found_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;

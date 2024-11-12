@@ -1,4 +1,4 @@
-import 'package:learning/config/api_path.dart';
+import 'package:taiseer/config/api_path.dart';
 
 import '../../../../../core/service/webservice/dio_helper.dart';
 

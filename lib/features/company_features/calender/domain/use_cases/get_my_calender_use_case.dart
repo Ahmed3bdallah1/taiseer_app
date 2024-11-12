@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/core/errors/failure.dart';
-import 'package:learning/core/use_cases/use_case.dart';
+import 'package:taiseer/core/errors/failure.dart';
+import 'package:taiseer/core/use_cases/use_case.dart';
 import '../entities/calender_day_entity.dart';
 import '../repositories/calender_repo.dart';
 

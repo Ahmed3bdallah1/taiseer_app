@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/features/shared/offline/widgets/reload_button.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/shared/offline/widgets/reload_button.dart';
 import 'package:lottie/lottie.dart';
 
 import '../splash/controllers/splash_controller.dart';

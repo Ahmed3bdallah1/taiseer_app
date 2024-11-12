@@ -1,4 +1,4 @@
-import 'package:learning/features/company_features/add_company/data/model/add_company_model.dart';
+import 'package:taiseer/features/company_features/add_company/data/model/add_company_model.dart';
 
 import '../../../../../core/service/webservice/dio_helper.dart';
 

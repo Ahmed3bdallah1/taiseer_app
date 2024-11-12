@@ -1,4 +1,4 @@
-import 'package:learning/features/user_features/home/domain/entities/requirements_entity.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/requirements_entity.dart';
 import '../../../../../models/program_model.dart';
 
 class LoanDetailsEntity {

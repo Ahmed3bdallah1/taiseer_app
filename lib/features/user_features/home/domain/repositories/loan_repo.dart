@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/features/user_features/home/domain/entities/loan_details_entity.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/loan_details_entity.dart';
 
 import '../../../../../core/errors/failure.dart';
 

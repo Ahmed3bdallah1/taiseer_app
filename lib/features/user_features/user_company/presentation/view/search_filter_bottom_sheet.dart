@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/features/user_features/user_company/presentation/mangers/search_filter_provider.dart';
+import 'package:taiseer/features/user_features/user_company/presentation/mangers/search_filter_provider.dart';
 import '../../../../../config/app_font.dart';
 import '../../../../../config/app_translation.dart';
 import '../../../../../ui/shared_widgets/custom_app_bar.dart';

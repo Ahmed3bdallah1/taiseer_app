@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/config/app_color.dart';
+import 'package:taiseer/config/app_color.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoadingWidget extends StatelessWidget {

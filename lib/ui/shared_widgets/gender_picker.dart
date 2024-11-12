@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_color.dart';
+import 'package:taiseer/config/app_color.dart';
 
 class GenderPicker extends StatelessWidget {
   const GenderPicker({

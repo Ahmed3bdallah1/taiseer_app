@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_color.dart';
+import 'package:taiseer/config/app_color.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../../config/app_font.dart';
 import '../../../../../../core/service/image_picker_cropper.dart';

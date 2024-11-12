@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/core/errors/failure.dart';
-import 'package:learning/features/user_features/support/domain/repo/support_repo.dart';
+import 'package:taiseer/core/errors/failure.dart';
+import 'package:taiseer/features/user_features/support/domain/repo/support_repo.dart';
 import '../../domain/entites/support_entity.dart';
 import '../data_source/support_data_source.dart';
 

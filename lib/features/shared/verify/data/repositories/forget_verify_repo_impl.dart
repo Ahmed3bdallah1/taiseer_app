@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:get/get.dart';
-import 'package:learning/core/errors/failure.dart';
-import 'package:learning/features/shared/verify/data/data_sources/verification_data_source.dart';
-import 'package:learning/features/shared/verify/domain/repositories/verification_repo.dart';
+import 'package:taiseer/core/errors/failure.dart';
+import 'package:taiseer/features/shared/verify/data/data_sources/verification_data_source.dart';
+import 'package:taiseer/features/shared/verify/domain/repositories/verification_repo.dart';
 
 class ForgetVerificationRepo extends VerificationRepo {
   final VerificationDataSource dataSource;

@@ -5,15 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_color.dart';
-import 'package:learning/core/service/local_data_manager.dart';
-import 'package:learning/features/shared/onboarding/controller/onboarding_controller.dart';
-import 'package:learning/features/shared/onboarding/view/get_started_screen.dart';
+import 'package:taiseer/config/app_color.dart';
+import 'package:taiseer/core/service/local_data_manager.dart';
+import 'package:taiseer/features/shared/onboarding/controller/onboarding_controller.dart';
+import 'package:taiseer/features/shared/onboarding/view/get_started_screen.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
-import 'package:learning/ui/shared_widgets/custom_filled_button.dart';
-import 'package:learning/ui/shared_widgets/custom_outlined_button.dart';
-import 'package:learning/ui/shared_widgets/fade_in_animation.dart';
-import 'package:learning/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
+import 'package:taiseer/ui/shared_widgets/custom_outlined_button.dart';
+import 'package:taiseer/ui/shared_widgets/fade_in_animation.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
 import '../../auth/presentation/view/login_page.dart';
 

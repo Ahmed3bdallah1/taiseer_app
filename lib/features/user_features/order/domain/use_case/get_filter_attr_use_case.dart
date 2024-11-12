@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/models/program_model.dart';
+import 'package:taiseer/models/program_model.dart';
 
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/use_cases/use_case.dart';

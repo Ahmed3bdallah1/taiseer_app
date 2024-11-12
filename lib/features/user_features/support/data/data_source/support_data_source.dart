@@ -1,4 +1,4 @@
-import 'package:learning/core/service/webservice/dio_helper.dart';
+import 'package:taiseer/core/service/webservice/dio_helper.dart';
 
 import '../../domain/entites/support_entity.dart';
 

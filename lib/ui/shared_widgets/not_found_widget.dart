@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:learning/config/app_color.dart';
-import 'package:learning/config/app_font.dart';
+import 'package:taiseer/config/app_color.dart';
+import 'package:taiseer/config/app_font.dart';
 
 import '../../features/shared/offline/widgets/reload_button.dart';
 

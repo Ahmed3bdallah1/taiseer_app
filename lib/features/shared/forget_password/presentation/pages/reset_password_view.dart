@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/features/shared/auth/presentation/view/login_page.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../../config/app_font.dart';

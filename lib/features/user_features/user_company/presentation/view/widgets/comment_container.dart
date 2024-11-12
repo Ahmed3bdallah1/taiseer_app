@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:learning/config/app_font.dart';
+import 'package:taiseer/config/app_font.dart';
 import '../../../domain/entity/comment_entity.dart';
-import 'package:learning/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
 class CommentContainer extends StatelessWidget {
   final CommentsEntity commentsEntity;

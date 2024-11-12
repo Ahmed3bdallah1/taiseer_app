@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/features/shared/auth/presentation/view/login_page.dart';
-import 'package:learning/features/shared/auth/presentation/view/register_page.dart';
-import 'package:learning/features/shared/onboarding/view/onboard_screen.dart';
-import 'package:learning/ui/shared_widgets/custom_filled_button.dart';
-import 'package:learning/ui/shared_widgets/custom_outlined_button.dart';
-import 'package:learning/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/register_page.dart';
+import 'package:taiseer/features/shared/onboarding/view/onboard_screen.dart';
+import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
+import 'package:taiseer/ui/shared_widgets/custom_outlined_button.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
 import '../../../../core/enum/language.dart';
 import '../../../../core/service/localization_service/localization_service.dart';

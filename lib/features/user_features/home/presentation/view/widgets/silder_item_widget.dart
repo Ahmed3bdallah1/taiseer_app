@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/config/app_color.dart';
+import 'package:taiseer/config/app_color.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../ui/shared_widgets/image_or_svg.dart';
 import '../../../domain/entities/ad_entity.dart';

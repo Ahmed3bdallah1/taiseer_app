@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/features/company_features/add_company/data/model/add_company_model.dart';
+import 'package:taiseer/features/company_features/add_company/data/model/add_company_model.dart';
 
 import '../../../../../core/errors/failure.dart';
 import '../../domain/repo/add_company_repo.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/core/enum/field_type.dart';
+import 'package:taiseer/core/enum/field_type.dart';
 
 import '../ui/ui.dart';
 

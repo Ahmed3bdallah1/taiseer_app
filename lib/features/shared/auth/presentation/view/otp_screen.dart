@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/features/shared/auth/presentation/view/login_page.dart';
-import 'package:learning/features/shared/auth/presentation/view/register_page.dart';
-import 'package:learning/features/shared/verify/data/repositories/forget_verify_repo_impl.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/register_page.dart';
+import 'package:taiseer/features/shared/verify/data/repositories/forget_verify_repo_impl.dart';
 
 import '../../../../../config/app_font.dart';
 import '../../../../../gen/assets.gen.dart';

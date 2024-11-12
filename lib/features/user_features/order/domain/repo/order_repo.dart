@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/features/user_features/order/domain/entity/order_entity.dart';
-import 'package:learning/models/program_model.dart';
+import 'package:taiseer/features/user_features/order/domain/entity/order_entity.dart';
+import 'package:taiseer/models/program_model.dart';
 import '../../../../../core/errors/failure.dart';
 
 abstract class OrderRepo {

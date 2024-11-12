@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/core/errors/failure.dart';
-import 'package:learning/features/user_features/home/domain/entities/loan_details_entity.dart';
-import 'package:learning/features/user_features/home/domain/repositories/loan_details_repo.dart';
+import 'package:taiseer/core/errors/failure.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/loan_details_entity.dart';
+import 'package:taiseer/features/user_features/home/domain/repositories/loan_details_repo.dart';
 
 import '../../../../../core/use_cases/use_case.dart';
 

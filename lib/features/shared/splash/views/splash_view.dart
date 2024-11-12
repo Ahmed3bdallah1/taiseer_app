@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/features/shared/auth/presentation/view/login_page.dart';
-import 'package:learning/features/shared/onboarding/view/onboard_screen.dart';
-import 'package:learning/ui/shared_widgets/error_widget.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
+import 'package:taiseer/features/shared/onboarding/view/onboard_screen.dart';
+import 'package:taiseer/ui/shared_widgets/error_widget.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../../../ui/shared_widgets/logo_widget.dart';

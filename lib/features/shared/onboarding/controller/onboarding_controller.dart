@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learning/features/shared/onboarding/data/onboard_list.dart';
+import 'package:taiseer/features/shared/onboarding/data/onboard_list.dart';
 import '../data/onboarding_model.dart';
 
 final onboardListProvider =

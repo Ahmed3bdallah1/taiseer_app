@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/features/shared/notifications/domain/repos/notification_repo.dart';
+import 'package:taiseer/features/shared/notifications/domain/repos/notification_repo.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/use_cases/use_case.dart';
 import '../entities/notification_entity.dart';

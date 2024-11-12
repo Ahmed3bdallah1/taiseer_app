@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/core/service/localization_service/localization_service.dart';
-
-import '../../config/app_color.dart';
+import 'package:taiseer/core/service/localization_service/localization_service.dart';
 import '../../config/app_font.dart';
 import '../../features/user_features/profile/presentation/view/widgets/select_language_dialog.dart';
 

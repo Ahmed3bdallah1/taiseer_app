@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_translation.dart';
+import 'package:taiseer/config/app_translation.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../config/app_font.dart';
 import '../../../../../shared/notifications/presentation/managers/notifications_filter.dart';

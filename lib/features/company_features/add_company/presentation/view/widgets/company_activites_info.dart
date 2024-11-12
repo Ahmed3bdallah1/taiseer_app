@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/features/company_features/add_company/data/model/add_company_model.dart';
-import 'package:learning/features/shared/auth/domain/entities/auth_entity.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/company_features/add_company/data/model/add_company_model.dart';
+import 'package:taiseer/features/shared/auth/domain/entities/auth_entity.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 

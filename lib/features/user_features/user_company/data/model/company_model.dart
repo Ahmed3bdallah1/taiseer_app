@@ -1,5 +1,5 @@
-import 'package:learning/features/user_features/home/domain/entities/ad_entity.dart';
-import 'package:learning/gen/assets.gen.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/ad_entity.dart';
+import 'package:taiseer/gen/assets.gen.dart';
 import '../../domain/entity/attributes_entity.dart';
 import '../../domain/entity/comment_entity.dart';
 import '../../domain/entity/shipping_methods_entity.dart';

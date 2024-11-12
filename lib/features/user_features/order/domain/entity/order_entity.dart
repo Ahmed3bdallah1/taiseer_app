@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:learning/models/program_model.dart';
+import 'package:taiseer/models/program_model.dart';
 import 'package:flutter_color/flutter_color.dart' as color;
 import '../../../user_company/data/model/company_model.dart';
 

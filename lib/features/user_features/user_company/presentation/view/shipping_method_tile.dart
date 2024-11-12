@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learning/config/app_font.dart';
+import 'package:taiseer/config/app_font.dart';
 import '../../domain/entity/shipping_methods_entity.dart';
 
 class ShippingMethodTile extends StatelessWidget {

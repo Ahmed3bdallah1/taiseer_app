@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:learning/config/app_color.dart';
+import 'package:taiseer/config/app_color.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
-import 'package:learning/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
 final sliderIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;

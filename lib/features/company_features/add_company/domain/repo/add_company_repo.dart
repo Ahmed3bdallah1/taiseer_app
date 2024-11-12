@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/features/company_features/add_company/data/model/add_company_model.dart';
+import 'package:taiseer/features/company_features/add_company/data/model/add_company_model.dart';
 import '../../../../../core/errors/failure.dart';
 
 abstract class AddCompanyRepo {

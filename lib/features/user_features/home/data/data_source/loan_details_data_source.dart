@@ -1,5 +1,5 @@
-import 'package:learning/core/service/webservice/dio_helper.dart';
-import 'package:learning/models/program_model.dart';
+import 'package:taiseer/core/service/webservice/dio_helper.dart';
+import 'package:taiseer/models/program_model.dart';
 
 import '../../../../../config/api_path.dart';
 

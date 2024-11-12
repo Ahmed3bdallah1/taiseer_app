@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as gg;
-import 'package:learning/core/service/webservice/dio_helper.dart';
-import 'package:learning/features/shared/auth/presentation/view/login_page.dart';
-
+import '../../features/shared/auth/presentation/view/login_page.dart';
 import '../../features/shared/splash/controllers/splash_controller.dart';
 import '../../main.dart';
 import '../service/local_data_manager.dart';
+import '../service/webservice/dio_helper.dart';
 
 class GeneralError extends Failure {
   GeneralError(e, [String? text])

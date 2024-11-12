@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learning/gen/assets.gen.dart';
+import 'package:taiseer/gen/assets.gen.dart';
 
 class ShippingMethodsEntity {
   final int? id;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:learning/config/app_font.dart';
+import 'package:taiseer/config/app_font.dart';
 
 class BirthdayPicker extends StatelessWidget {
   const BirthdayPicker({

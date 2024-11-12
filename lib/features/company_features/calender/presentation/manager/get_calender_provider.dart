@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learning/main.dart';
+import 'package:taiseer/main.dart';
 import '../../data/models/calender_history_model.dart';
 import '../../domain/entities/calender_day_entity.dart';
 import '../../domain/use_cases/get_calender_history_use_case.dart';

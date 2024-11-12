@@ -8,7 +8,7 @@
 // import 'package:get/get.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
-// import 'package:learning/ui/shared_widgets/loading_widget.dart';
+// import 'package:taiseer/ui/shared_widgets/loading_widget.dart';
 //
 // import '../../../config/app_font.dart';
 // import '../../../config/app_string.dart';

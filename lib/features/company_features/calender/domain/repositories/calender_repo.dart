@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/core/errors/failure.dart';
+import 'package:taiseer/core/errors/failure.dart';
 import '../../data/models/calender_history_model.dart';
 import '../entities/calender_day_entity.dart';
 

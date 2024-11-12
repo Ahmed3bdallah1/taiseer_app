@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learning/features/shared/auth/domain/repositories/auth_repo.dart';
-import 'package:learning/models/user_model.dart';
+import 'package:taiseer/features/shared/auth/domain/repositories/auth_repo.dart';
+import 'package:taiseer/models/user_model.dart';
 
 import '../../../../../../core/service/auth_service.dart';
 import '../../../../../../main.dart';

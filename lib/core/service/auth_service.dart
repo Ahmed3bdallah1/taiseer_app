@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learning/features/shared/auth/domain/repositories/auth_repo.dart';
-
+import '../../features/shared/auth/domain/repositories/auth_repo.dart';
 import '../../features/shared/auth/domain/use_cases/login_user_use_case.dart';
 import '../../features/shared/auth/domain/use_cases/register_user_use_case.dart';
 import '../../main.dart';

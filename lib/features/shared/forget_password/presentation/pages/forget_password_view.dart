@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:learning/ui/shared_widgets/container_button.dart';
+import 'package:taiseer/ui/shared_widgets/container_button.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../config/app_font.dart';
 import '../../../../../gen/assets.gen.dart';

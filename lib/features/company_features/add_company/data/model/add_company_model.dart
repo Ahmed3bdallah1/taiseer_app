@@ -1,4 +1,4 @@
-import 'package:learning/features/shared/auth/domain/entities/auth_entity.dart';
+import 'package:taiseer/features/shared/auth/domain/entities/auth_entity.dart';
 import '../../../../user_features/user_company/domain/entity/attributes_entity.dart';
 
 

@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/core/errors/failure.dart';
-import 'package:learning/features/user_features/home/data/data_source/ads_data_source.dart';
-import 'package:learning/features/user_features/home/domain/entities/ad_entity.dart';
-import 'package:learning/features/user_features/home/domain/repositories/ads_repo.dart';
+import 'package:taiseer/core/errors/failure.dart';
+import 'package:taiseer/features/user_features/home/data/data_source/ads_data_source.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/ad_entity.dart';
+import 'package:taiseer/features/user_features/home/domain/repositories/ads_repo.dart';
 
 class AdsRepoImp extends AdsRepo{
   final AdsDataSource adsDataSource;

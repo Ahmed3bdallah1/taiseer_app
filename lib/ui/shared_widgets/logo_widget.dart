@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
 import '../../config/app_color.dart';
 import '../../gen/assets.gen.dart';

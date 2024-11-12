@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:learning/config/api_path.dart';
-import 'package:learning/core/enum/language.dart';
-import 'package:learning/core/service/auth_service.dart';
-import 'package:learning/main.dart';
-import 'package:learning/models/user_model.dart';
-
 import '../../../../config/local_data_manager_key.dart';
+import '../../config/api_path.dart';
+import '../../main.dart';
+import '../../models/user_model.dart';
+import '../enum/language.dart';
+import 'auth_service.dart';
 
 LocalDataManager dataManager = getIt<LocalDataManager>();
 

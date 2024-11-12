@@ -1,4 +1,4 @@
-import 'package:learning/core/service/webservice/dio_helper.dart';
+import 'package:taiseer/core/service/webservice/dio_helper.dart';
 import '../../../../../config/api_path.dart';
 import '../../domain/entities/calender_day_entity.dart';
 import '../models/calender_history_model.dart';

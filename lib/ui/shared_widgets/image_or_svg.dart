@@ -2,9 +2,9 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/api_path.dart';
-import 'package:learning/gen/assets.gen.dart';
-import 'package:learning/ui/shared_widgets/loading_widget.dart';
+import 'package:taiseer/config/api_path.dart';
+import 'package:taiseer/gen/assets.gen.dart';
+import 'package:taiseer/ui/shared_widgets/loading_widget.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../../config/app_color.dart';

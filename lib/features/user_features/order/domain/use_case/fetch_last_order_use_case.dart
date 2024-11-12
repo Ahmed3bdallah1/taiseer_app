@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/core/use_cases/use_case.dart';
-import 'package:learning/features/user_features/order/domain/entity/order_entity.dart';
+import 'package:taiseer/core/use_cases/use_case.dart';
+import 'package:taiseer/features/user_features/order/domain/entity/order_entity.dart';
 import '../../../../../core/errors/failure.dart';
 import '../repo/order_repo.dart';
 

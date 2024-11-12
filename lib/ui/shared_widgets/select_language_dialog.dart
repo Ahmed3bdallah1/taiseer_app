@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:learning/config/app_font.dart';
-import 'package:learning/core/enum/language.dart';
-import 'package:learning/core/service/localization_service/localization_service.dart';
+import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/core/enum/language.dart';
+import 'package:taiseer/core/service/localization_service/localization_service.dart';
 
 final selectLanguageProvider = StateProvider.autoDispose<Language>((ref) {
   return localeService.getLocale();

@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/features/user_features/home/domain/entities/ad_entity.dart';
-import 'package:learning/features/user_features/home/domain/repositories/ads_repo.dart';
+import 'package:taiseer/features/user_features/home/domain/entities/ad_entity.dart';
+import 'package:taiseer/features/user_features/home/domain/repositories/ads_repo.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/use_cases/use_case.dart';
 

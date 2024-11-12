@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:learning/config/constants.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../config/api_path.dart';
+import '../../../config/constants.dart';
 import '../../../features/shared/splash/controllers/splash_controller.dart';
 import '../../../main.dart';
 import '../../errors/failure.dart';

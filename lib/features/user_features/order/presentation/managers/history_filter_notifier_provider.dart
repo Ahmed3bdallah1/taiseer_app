@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:learning/config/app_translation.dart';
+import 'package:taiseer/config/app_translation.dart';
 
 final historyProvider = StateNotifierProvider.autoDispose<HistoryFilterNotifier,
     Map<String, dynamic>>((ref) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-export 'package:learning/helper/responsive.dart';
-export 'package:learning/helper/riverpod.dart';
+export 'package:taiseer/helper/responsive.dart';
+export 'package:taiseer/helper/riverpod.dart';
 
 abstract class AppColor {
   static Color get white => Get.isDarkMode ? Colors.black : Colors.white;

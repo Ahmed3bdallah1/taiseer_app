@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:learning/features/company_features/company_root/view/company_root_view.dart';
-import 'package:learning/models/user_model.dart';
+import 'package:taiseer/features/company_features/company_root/view/company_root_view.dart';
+import 'package:taiseer/models/user_model.dart';
 import '../../../../../core/service/auth_service.dart';
 import '../../../../../core/service/local_data_manager.dart';
 import '../../../../../main.dart';

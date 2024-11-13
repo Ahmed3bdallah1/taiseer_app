@@ -6,7 +6,14 @@ abstract class ApiPath {
   static const uploadPath2 = 'https://loan.salfny-kw.com/';
   static const filteredCompanies = 'getCompanies';
   static const companyDetails = 'getCompaniesDetails';
+  static const followedCompany = 'storeFollower';
   static const support = 'website/contacts';
+  static const checkPhone = 'otpCreate';
+  static const sendOTP = 'resendOtp';
+  static const login = 'login';
+  static const userRegister = 'register';
+
+
   static const changePassword = 'forget/password/change/password';
   static const forgetPassword = 'forget/password';
   static const notifications = 'notafication/all/';
@@ -18,11 +25,8 @@ abstract class ApiPath {
   static const installment = 'order/installments';
   static const loan = 'program/details';
   static const validateOTPForgetPassword = 'forget/password/verifyOtp';
-  static const login = 'login';
-  static const userRegister = 'register';
   static const user = 'userProfile/';
   static const countries = 'countries';
-  static const sendOTP = 'resend-otp';
   static const banks = 'banks';
   static const verifyOTP = 'verify-otp';
   static const verifyForRegister = 'verifyOtp/For/Register';
@@ -32,5 +36,4 @@ abstract class ApiPath {
   static const allOrders = 'all/orders';
   static const deleteOrder = 'remove/order';
   static const filter = 'filter';
-  static const checkPhone = 'otpCreate';
 }

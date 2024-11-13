@@ -271,7 +271,7 @@ abstract class UIHelper {
         messageText: text != null
             ? Text(
                 text,
-                style: const TextStyle(),
+                style: AppFont.font14W500White,
               )
             : null,
         titleText: title != null

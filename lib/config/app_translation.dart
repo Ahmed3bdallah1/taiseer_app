@@ -208,8 +208,12 @@ class Translation extends Translations {
           Language.english.name: "English",
           FilterTypes.top.name: "الاعلى تقييما",
           FilterTypes.bottom.name: "الاقل تقييما",
-          "Shipping Options":"خدمات الشحن",
-          'Press again to exit':"اضفط مجددا للخروج",
+          "You have followed the company successfully":
+              "لقد تابعت هذى الشركة بنجاح",
+          "You have un followed the company successfully":
+              "لقد الفيت متابعة هذى الشركة بنجاح",
+          "Shipping Options": "خدمات الشحن",
+          'Press again to exit': "اضفط مجددا للخروج",
           "No Notifications right now.!": "لا يوجد تنبيهات فى الوقت الحالى",
           "No orders right now.!": "لا يوجد طلبات فى الوقت الحالى",
           "are you sure you want to cancel order?":

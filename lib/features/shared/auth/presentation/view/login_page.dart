@@ -43,6 +43,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.watch(fetchCountryProvider);
       if (dataManager.getFingerprintEnabled() &&
           ref.read(userProvider)?.id != null) {
         _localAuth();
@@ -86,7 +87,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final provider = ref.watch(fetchCountryProvider);
     // ref.listen(fetchCountryProvider, (ds, next) {
     //   if (next.hasValue && next.value?.isNotEmpty == true) {
     //     formGroup.control('country').value = next.value?.first.id;

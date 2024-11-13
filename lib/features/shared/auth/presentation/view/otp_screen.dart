@@ -1,20 +1,20 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
-import 'package:taiseer/features/shared/auth/presentation/view/register_page.dart';
 import 'package:taiseer/features/shared/verify/data/repositories/forget_verify_repo_impl.dart';
 
 import '../../../../../config/app_font.dart';
 import '../../../../../gen/assets.gen.dart';
-import '../../../../../ui/shared_widgets/custom_app_bar.dart';
 import '../../../../../ui/shared_widgets/custom_filled_button.dart';
+import '../../../../../ui/shared_widgets/custom_logo_app_bar.dart';
 import '../../../../../ui/shared_widgets/custom_otp.dart';
 import '../../../../../ui/shared_widgets/custom_outlined_button.dart';
+import '../../../../../ui/shared_widgets/image_or_svg.dart';
 import '../../../../../ui/shared_widgets/loading_widget.dart';
+import '../../../../../ui/shared_widgets/select_language_tile.dart';
 import '../../../../../ui/ui.dart';
 import '../../../verify/domain/repositories/verification_repo.dart';
 import '../../../verify/presentation/manager/verify_provider.dart';
@@ -53,11 +53,17 @@ class OtpScreen extends ConsumerWidget {
       }
     });
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "",
-        customTitleWidget: SvgPicture.asset(
-          Assets.base.logo.path,
-          width: 250.h,
+      appBar: CustomLogoAppbar(
+        customTitleWidget: ImageOrSvg(
+          Assets.base.tayseerLogo.path,
+          isLocal: true,
+          height: 65.h,
+        ),
+        isCenterTitle: false,
+        hideBackButton: true,
+        buttonWidget: const Padding(
+          padding: EdgeInsets.only(bottom: 18, top: 2),
+          child: SelectLanguageTile(),
         ),
       ),
       body: stateProvider is LoadingState && stateProvider.key == "all" ||
@@ -114,17 +120,16 @@ class OtpScreen extends ConsumerWidget {
                                     stateProvider.key == "verify"),
                             ignorePressOnNotValid: true,
                             onPressed: () async {
-                              if (await notifier
-                                      .verify(ref.read(numberProvider)!)
-                                  is RegisterComplete) {
-                                try {
-                                  await ref
-                                      .read(authNotifierProvider.notifier)
-                                      .register((repo as CheckPhoneRepo).data);
-                                } catch (e) {
-                                  UIHelper.showAlert(e.toString(),
-                                      type: DialogType.error);
-                                }
+                              try {
+                                await ref
+                                    .read(authNotifierProvider.notifier)
+                                    .register({
+                                  ...((repo as CheckPhoneRepo).data),
+                                  "otp": ref.read(numberProvider.notifier).state
+                                });
+                              } catch (e) {
+                                UIHelper.showAlert(e.toString(),
+                                    type: DialogType.error);
                               }
                             },
                             isValid: ref.watch(numberProvider)?.length == 4,
@@ -170,7 +175,8 @@ class OtpScreen extends ConsumerWidget {
                             style: AppFont.font10w400Black),
                         InkWell(
                           onTap: () => Get.offAll(const LoginPage()),
-                          child: Text("Login".tr, style: AppFont.font10w400Primary),
+                          child: Text("Login".tr,
+                              style: AppFont.font10w400Primary),
                         ),
                       ],
                     ),

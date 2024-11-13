@@ -37,14 +37,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     formGroup = FormGroup({
       'first_name': FormControl(validators: [Validators.required]),
       'last_name': FormControl(validators: [Validators.required]),
-      'password': FormControl<String>(validators: [Validators.required]),
-      'password_confirm':
-          FormControl<String>(validators: [Validators.required]),
+      'password': FormControl(validators: [Validators.required,Validators.minLength(8)]),
+      'password_confirmation': FormControl(validators: [Validators.required,Validators.minLength(8)]),
       'email': FormControl(validators: [Validators.required, Validators.email]),
       'country': FormControl<int>(),
       'phone': FormControl(validators: [Validators.required]),
     }, validators: [
-      Validators.mustMatch('password', 'password_confirm'),
+      Validators.mustMatch('password', 'password_confirmation'),
     ]);
 
     formGroup.control('phone').setValidators([
@@ -211,22 +210,22 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 Consumer(builder: (context, ref, _) {
                   return CustomTextField(
                     labelText: "confirm password".tr,
-                    formControlName: "password_confirm",
+                    formControlName: "password_confirmation",
                     hintText: "**********",
                     iconButton: ToggleShowPasswordButton(
                       onTap: () {
                         ref
-                                .read(securePasswordProvider("password_confirm")
+                                .read(securePasswordProvider("password_confirmation")
                                     .notifier)
                                 .state =
                             !ref.read(
-                                securePasswordProvider("password_confirm"));
+                                securePasswordProvider("password_confirmation"));
                       },
                       showPass:
-                          ref.watch(securePasswordProvider("password_confirm")),
+                          ref.watch(securePasswordProvider("password_confirmation")),
                     ),
                     obscure:
-                        ref.watch(securePasswordProvider("password_confirm")),
+                        ref.watch(securePasswordProvider("password_confirmation")),
                   );
                 }),
                 Gap(24.h),

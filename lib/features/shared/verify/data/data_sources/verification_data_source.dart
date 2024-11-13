@@ -77,13 +77,15 @@ class CheckPhoneDataSourceImpl implements VerificationDataSource {
 
   @override
   Future<bool> resend({String? emailOrPhone}) async {
-    return send(emailOrPhone: emailOrPhone);
+    final res = await apiService
+        .post(url: ApiPath.sendOTP, requestBody: {'phone': emailOrPhone},returnDataOnly: false);
+    return res["success"] as bool;
   }
 
   @override
   Future<bool> send({String? emailOrPhone, Map<String, dynamic>? data}) async {
     final res = await apiService
-        .post(url: ApiPath.checkPhone, requestBody: {'phone': emailOrPhone});
-    return res;
+        .post(url: ApiPath.checkPhone, requestBody: {'phone': emailOrPhone},returnDataOnly: false);
+    return res["success"] as bool;
   }
 }

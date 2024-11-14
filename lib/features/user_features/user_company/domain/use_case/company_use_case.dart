@@ -44,6 +44,19 @@ class FetchSearchUseCase extends UseCaseParam<List<dynamic>, String?> {
     return res;
   }
 }
+
+class FollowCompanyUseCase extends UseCaseParam<String, int> {
+  final UserCompanyRepo companyRepo;
+
+  FollowCompanyUseCase({required this.companyRepo});
+
+  @override
+  Future<Either<Failure, String>> call(int param) async {
+    final res = await companyRepo.followCompany(companyId: param);
+    return res;
+  }
+}
+
 // class FetchSearchCompanyUseCase
 //     extends UseCaseParam<Tuple3<List<UserCompanyModel2>, List<CommentsEntity>, List<OrderEntity>>, String?> {
 //   final UserCompanyRepo companyRepo;

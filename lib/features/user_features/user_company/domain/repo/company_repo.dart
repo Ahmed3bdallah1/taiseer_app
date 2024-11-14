@@ -11,6 +11,8 @@ abstract class UserCompanyRepo {
 
   Future<Either<Failure, CompanyDetailsModel>> getCompanyDetails({required int id});
 
+  Future<Either<Failure, String>> followCompany({required int companyId});
+
   Future<Either<Failure, List<dynamic>>> searchCompanies2({String? search});
 
 // Future<Either<Failure, Tuple3<List<UserCompanyModel2>, List<CommentsEntity>, List<OrderEntity>>>> searchCompanies({String? search});

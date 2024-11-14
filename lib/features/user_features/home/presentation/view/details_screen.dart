@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,19 +9,16 @@ import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/silder_item_widget.dart';
 import 'package:taiseer/features/user_features/order/presentation/view/order_screen.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
-import 'package:taiseer/features/user_features/user_company/domain/entity/shipping_methods_entity.dart';
 import 'package:taiseer/features/user_features/user_company/presentation/mangers/fetch_company_provider.dart';
-import 'package:taiseer/gen/assets.gen.dart';
+import 'package:taiseer/main.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_outlined_button.dart';
-import 'package:taiseer/ui/shared_widgets/custom_slider.dart';
 import 'package:taiseer/ui/shared_widgets/custom_logo_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import 'package:taiseer/ui/ui.dart';
 import '../../../../../ui/shared_widgets/container_button.dart';
-import '../../../../shared/notifications/presentation/view/notifications_screen.dart';
 import '../../../user_company/data/model/company_model.dart';
-import '../../../user_company/domain/entity/attributes_entity.dart';
+import '../../../user_company/domain/use_case/company_use_case.dart';
 import '../../../user_company/presentation/view/shipping_method_tile.dart';
 import '../../../user_company/presentation/view/widgets/comment_container.dart';
 
@@ -121,7 +117,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                           child: Row(
                                             children: [
                                               ImageOrSvg(
-                                                companyModel.logo,height: 65.h,width: 65.h,
+                                                companyModel.logo, height: 65.h,
+                                                width: 65.h,
                                                 // assetImageOnNull: Assets.onboard.vector,
                                                 pickImageOnNull: true,
                                               ),
@@ -138,18 +135,24 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                                   ),
                                                   Gap(14.h),
                                                   Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       ...companyModel.typeActivityCompanies.map(
-                                                        (e) => Row(
+                                                        (e) => Wrap(
+                                                          spacing: 6.w,
                                                           children: [
                                                             Container(
                                                               decoration: BoxDecoration(
-                                                                  color: AppColor.grey1,
+                                                                  color: AppColor.primary.withOpacity(.2),
+                                                                  border: Border.all(color: AppColor.primary),
                                                                   borderRadius: BorderRadius.circular(12.r)),
-                                                              child: Padding(padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 2.h,),
+                                                              child: Padding(
+                                                                padding: EdgeInsets.symmetric(
+                                                                  horizontal:12.w,
+                                                                  vertical: 2.h,
+                                                                ),
                                                                 child: Text(e.typeActivities?.infoAr ?? "",
-                                                                  style: AppFont.font10w400Black,
+                                                                  style: AppFont.font10w400Primary,
                                                                 ),
                                                               ),
                                                             ),
@@ -167,15 +170,22 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                       ),
                                       Gap(10.h),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(12.r),
-                                              border: Border.all(color: AppColor.grey1),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.r),
+                                              border: Border.all(
+                                                  color: AppColor.grey1),
                                             ),
-                                            child: Padding(padding: const EdgeInsets.all(8.0),
-                                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -185,15 +195,19 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                                       ),
                                                       Gap(30.w),
                                                       Text(
-                                                        companyModel.averageRating.toString(),
-                                                        style: AppFont.font20W600Black,
+                                                        companyModel
+                                                            .averageRating
+                                                            .toString(),
+                                                        style: AppFont
+                                                            .font20W600Black,
                                                       )
                                                     ],
                                                   ),
                                                   Gap(10.h),
                                                   Text(
                                                     "Ratings".tr,
-                                                    style: AppFont.font14W600Black,
+                                                    style:
+                                                        AppFont.font14W600Black,
                                                   )
                                                 ],
                                               ),
@@ -216,12 +230,15 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                                   Row(
                                                     children: [
                                                       const Icon(
-                                                        CupertinoIcons.hand_thumbsup,
+                                                        CupertinoIcons
+                                                            .hand_thumbsup,
                                                         color: AppColor.green,
                                                       ),
                                                       Gap(30.w),
                                                       Text(
-                                                        companyModel.followersCount.toString(),
+                                                        companyModel
+                                                            .followersCount
+                                                            .toString(),
                                                         style: AppFont
                                                             .font20W600Black,
                                                       )
@@ -240,15 +257,16 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                           Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(12.r),
-                                              border:
-                                              Border.all(color: AppColor.grey1),
+                                                  BorderRadius.circular(12.r),
+                                              border: Border.all(
+                                                  color: AppColor.grey1),
                                             ),
                                             child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -258,15 +276,21 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                                       ),
                                                       Gap(30.w),
                                                       Text(
-                                                        companyModel.typeActivityCompanies[0].companyId.toString(),
-                                                        style: AppFont.font20W600Black,
+                                                        companyModel
+                                                            .typeActivityCompanies[
+                                                                0]
+                                                            .companyId
+                                                            .toString(),
+                                                        style: AppFont
+                                                            .font20W600Black,
                                                       )
                                                     ],
                                                   ),
                                                   Gap(10.h),
                                                   Text(
                                                     "Shipments".tr,
-                                                    style: AppFont.font14W600Black,
+                                                    style:
+                                                        AppFont.font14W600Black,
                                                   )
                                                 ],
                                               ),
@@ -394,6 +418,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   },
                                   itemBuilder: (context, index) {
                                     return CommentContainer(
+                                        shippingMethods:
+                                            companyModel.typeActivityCompanies,
                                         commentsEntity:
                                             companyModel.rating[index]);
                                   }),
@@ -418,7 +444,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   onPressed: () {
                     companyDetailsModel == null
                         ? null
-                        : Get.to(() => OrderScreen(companyDetailsModel: companyDetailsModel!, companyModel: widget.userCompanyModel2,));
+                        : Get.to(() => OrderScreen(
+                              companyDetailsModel: companyDetailsModel!,
+                              companyModel: widget.userCompanyModel2,
+                            ));
                   }),
             ),
             const Gap(10),
@@ -430,6 +459,15 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   color: AppColor.primary,
                 ),
                 text: "Follow".tr,
+                onPressed: () async {
+                  final res = await getIt<FollowCompanyUseCase>().call(companyDetailsModel?.id ?? 0);
+                  res.fold((l){
+                    UIHelper.showGlobalSnackBar(text: l.message.tr,color: AppColor.danger);
+                  }, (r){
+                    UIHelper.showGlobalSnackBar(text: r.tr,color: AppColor.green);
+                    ref.invalidate(fetchUserCompanyDetailsViewProvider);
+                  });
+                },
               ),
             ),
           ],

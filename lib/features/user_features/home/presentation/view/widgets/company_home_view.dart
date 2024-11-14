@@ -168,6 +168,7 @@ class UserHomeCompanyView extends StatelessWidget {
                           fadeOffset: 40,
                           delay: index.toDouble() + 1,
                           child: CompanyContainer(
+                            hideButton: true,
                             companyModel: companyModelList[index],
                           ),
                         );

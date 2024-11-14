@@ -8,6 +8,8 @@ abstract class UserCompanyDataSource {
 
   Future<CompanyDetailsModel> getCompanyDetails({required int id});
 
+  Future<String> followCompany({required int id});
+
   // Future<
   //     Tuple3<List<UserCompanyModel>, List<CommentsEntity>,
   //         List<OrderEntity>>> searchCompanies({String? search});
@@ -23,7 +25,8 @@ class UserCompanyDataSourceImp extends UserCompanyDataSource {
   @override
   Future<CompanyPaginationModel> getCompanies({String? param}) async {
     final res = await apiService.post(
-        url: "${ApiPath.filteredCompanies}?filter=$param", returnDataOnly: true);
+        url: "${ApiPath.filteredCompanies}?filter=$param",
+        returnDataOnly: true);
     CompanyPaginationModel companies = CompanyPaginationModel.fromJson(res);
     return companies;
   }
@@ -95,6 +98,16 @@ class UserCompanyDataSourceImp extends UserCompanyDataSource {
       // comments[0],
       // companies[1],
     ];
+  }
+
+  @override
+  Future<String> followCompany({required int id}) async {
+    final res = await apiService.post(
+      url: ApiPath.followedCompany,
+      returnDataOnly: false,
+      requestBody: {"company_id": id},
+    );
+    return res["message"];
   }
 
   @override

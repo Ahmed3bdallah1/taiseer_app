@@ -25,7 +25,7 @@ class CompanyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: hideButton == true
+      onTap: isDisabled == true
           ? () {}
           : () {
               Get.to(
@@ -90,16 +90,17 @@ class CompanyContainer extends StatelessWidget {
                         ...companyModel.typeActivityCompanies.map(
                           (e) => Container(
                             decoration: BoxDecoration(
+                                color: AppColor.primary.withOpacity(.15),
                                 borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(color: AppColor.grey1)),
+                                border: Border.all(color: AppColor.primary)),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 2),
                               child: Text(
                                 localeService.isArabic
-                                    ? e.typeActivities?.nameAr ?? ""
-                                    : e.typeActivities?.nameEn ?? "",
-                                style: AppFont.font10w400Black,
+                                    ? e.typeActivities?.infoAr ?? ""
+                                    : e.typeActivities?.infoEn ?? "",
+                                style: AppFont.font10w400Primary,
                               ),
                             ),
                           ),
@@ -109,9 +110,10 @@ class CompanyContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              if (isDisabled == true) Gap(10.w),
-              if (isDisabled == true)
+              if (hideButton == true) Gap(10.w),
+              if (hideButton == true)
                 ContainerButton(
+                  size: 55.h,
                   icon: Icons.arrow_forward_ios,
                   color: AppColor.grey1.withOpacity(.3),
                 )

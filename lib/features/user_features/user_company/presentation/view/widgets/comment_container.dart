@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/user_features/user_company/domain/entity/shipping_methods_entity.dart';
 import '../../../domain/entity/comment_entity.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
 class CommentContainer extends StatelessWidget {
+  final List<ShippingMethodsEntity>? shippingMethods;
   final CommentsEntity commentsEntity;
 
-  const CommentContainer({super.key, required this.commentsEntity});
+  const CommentContainer(
+      {super.key, required this.commentsEntity, this.shippingMethods});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class CommentContainer extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 ImageOrSvg(
-                  commentsEntity.user.profilePhotoUrl??"",
+                  commentsEntity.user.profilePhotoUrl ?? "",
                   height: 60,
                   width: 60,
                 ),
@@ -65,6 +68,7 @@ class CommentContainer extends StatelessWidget {
                                       commentsEntity.rate.toString(),
                                       style: AppFont.font14W500Black,
                                     ),
+                                    Gap(2.w),
                                     Icon(
                                       CupertinoIcons.star,
                                       color: AppColor.black,
@@ -77,45 +81,46 @@ class CommentContainer extends StatelessWidget {
                           )
                         ],
                       ),
-                      Gap(10.h),
-                      // Row(
-                      //   children: [
-                      //       ...commentsEntity.attributes!.map(
-                      //         (e) => Row(
-                      //           children: [
-                      //             Container(
-                      //               decoration: BoxDecoration(
-                      //                   color: AppColor.grey1,
-                      //                   borderRadius:
-                      //                       BorderRadius.circular(12.r)),
-                      //               child: Padding(
-                      //                 padding: EdgeInsets.symmetric(
-                      //                   horizontal: 12,
-                      //                   vertical: 2,
-                      //                 ),
-                      //                 child: Text(
-                      //                   e.name,
-                      //                   style: AppFont.font10w400Black,
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //             Gap(2)
-                      //           ],
-                      //         ),
-                      //       ),
-                      //   ],
-                      // ),
+                      Row(
+                        children: [
+                          if (shippingMethods!.isNotEmpty)
+                            ...shippingMethods!.map(
+                              (e) => Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: AppColor.primary.withOpacity(.2),
+                                        border: Border.all(color: AppColor.primary),
+                                        borderRadius:
+                                            BorderRadius.circular(12.r)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 2,
+                                      ),
+                                      child: Text(
+                                        e.typeActivities?.infoAr??"",
+                                        style: AppFont.font10w400Primary,
+                                      ),
+                                    ),
+                                  ),
+                                  const Gap(2)
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
                       Gap(6.h),
                       Divider(
                         color: AppColor.grey1,
                         indent: 20,
                         endIndent: 20,
                       ),
-                      Gap(6),
+                      const Gap(6),
                       Row(
                         children: [
                           Text(
-                            commentsEntity.comment ?? "",
+                            commentsEntity.comment,
                             style: AppFont.font12w500Grey2,
                           ),
                         ],

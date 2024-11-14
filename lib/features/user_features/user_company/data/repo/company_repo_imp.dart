@@ -44,6 +44,20 @@ class UserCompanyRepoImp extends UserCompanyRepo {
   }
 
   @override
+  Future<Either<Failure, String>> followCompany({required int companyId}) async {
+    try {
+      final res = await companyDataSource.followCompany(id: companyId);
+      return Right(res);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(GeneralError(e));
+      }
+    }
+  }
+
+  @override
   Future<Either<Failure, List<dynamic>>> searchCompanies2({String? search}) async {
     try {
       final res = await companyDataSource.searchCompanies2(search: search);

@@ -248,6 +248,9 @@ abstract class AppFont {
   static TextStyle get font12W600White => _style.copyWith(
       fontSize: 12.sp, color: AppColor.white, fontWeight: FontWeight.w600);
 
+  static TextStyle get font12W600Gold => _style.copyWith(
+      fontSize: 12.sp, color: AppColor.orange, fontWeight: FontWeight.w600);
+
   static TextStyle get font12W600NearlyWhite => _style.copyWith(
       fontSize: 12.sp,
       color: AppColor.nearlyWhite,

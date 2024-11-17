@@ -47,11 +47,11 @@ class AuthDataSourceImpl extends AuthDataSource {
 
   @override
   Future<List<CountryEntity>> getCountries() async {
-    await Future.delayed(const Duration(seconds: 2));
-    return countries;
-    // final countries = await apiService.get<List>(url: ApiPath.countries);
-    // return countries.map((e) => CountryEntity.fromJson({...e,
-    //   'number_length':9
-    // })).toList();
+    // await Future.delayed(const Duration(seconds: 2));
+    // return countries;
+    final countries = await apiService.get<List>(url: ApiPath.countries);
+    return countries.map((e) => CountryEntity.fromJson({...e,
+      'number_length':11
+    })).toList();
   }
 }

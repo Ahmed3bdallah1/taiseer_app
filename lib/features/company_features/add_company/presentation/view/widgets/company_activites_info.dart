@@ -57,7 +57,7 @@ class _CompanyActivitiesInfoState extends State<CompanyActivitiesInfo> {
                         selectedItemsTextStyle: AppFont.font12W600Green,
                         items: [
                           ...widget.addCompanyModel.countries!
-                              .map((e) => MultiSelectItem(e, e.title ?? ""))
+                              .map((e) => MultiSelectItem(e, e.nameAr ?? ""))
                         ],
                         initialValue: form.control("countries").value,
                         onConfirm: (value) {
@@ -100,7 +100,7 @@ class _CompanyActivitiesInfoState extends State<CompanyActivitiesInfo> {
                             ...value.map(
                               (e) => MultiSelectItem(
                                 value,
-                                e.title ?? "",
+                                e.nameAr ?? "",
                               ),
                             ),
                           ],

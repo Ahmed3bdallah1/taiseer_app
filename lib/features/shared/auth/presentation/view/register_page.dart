@@ -160,7 +160,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                       ),
                                       Gap(8.w),
                                       Text(
-                                        e.iso ?? "",
+                                        e.nameAr ?? "",
                                         style: AppFont.font14W600Primary,
                                       )
                                     ],

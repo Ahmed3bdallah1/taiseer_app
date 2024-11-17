@@ -24,4 +24,4 @@ class AddCompanyModel {
 }
 
 final addCompanyModel =
-    AddCompanyModel(attributes: attributes, countries: countries);
+    AddCompanyModel(attributes: attributes, countries: []);

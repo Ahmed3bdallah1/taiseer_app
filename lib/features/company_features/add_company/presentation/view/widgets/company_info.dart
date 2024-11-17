@@ -96,7 +96,7 @@ class _CompanyInfoState extends State<CompanyInfo> {
                           ),
                           Gap(8.w),
                           Text(
-                            e.iso ?? "",
+                            e.nameAr ?? "",
                             style: AppFont.font14W600Primary,
                           )
                         ],

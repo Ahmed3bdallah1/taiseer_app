@@ -93,7 +93,7 @@ class EditPersonalInfo extends ConsumerWidget {
                           ),
                           Gap(8.w),
                           Text(
-                            e.iso ?? "",
+                            e.nameAr ?? "",
                             style: AppFont.font14W600Primary,
                           )
                         ],

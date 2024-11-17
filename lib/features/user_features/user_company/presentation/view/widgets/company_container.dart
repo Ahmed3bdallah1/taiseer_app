@@ -44,6 +44,7 @@ class CompanyContainer extends StatelessWidget {
             children: [
               ImageOrSvg(
                 companyModel.logo ?? "",
+                isCompany: true,
                 height: 60.h,
                 width: 60.h,
               ),
@@ -110,8 +111,8 @@ class CompanyContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              if (hideButton == true) Gap(10.w),
-              if (hideButton == true)
+              if (hideButton == false) Gap(10.w),
+              if (hideButton == false)
                 ContainerButton(
                   size: 55.h,
                   icon: Icons.arrow_forward_ios,

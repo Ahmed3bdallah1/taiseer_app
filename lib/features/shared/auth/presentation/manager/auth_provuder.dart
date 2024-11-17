@@ -76,6 +76,7 @@ final fingerprintControllerProvider = StateProvider.autoDispose<bool>((ref) {
 final fetchCountryProvider = FutureProvider<List<CountryEntity>>((ref) async {
   final countries = await getIt<FetchCountriesUseCase>().call();
   return countries.fold((l) {
+    print(l.message);
     throw l;
   }, (r) {
     return r;

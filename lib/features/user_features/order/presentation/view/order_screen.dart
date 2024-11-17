@@ -20,6 +20,7 @@ import '../../../../../ui/shared_widgets/custom_logo_app_bar.dart';
 import '../../../../../ui/shared_widgets/custom_reactive_form_consumer.dart';
 import '../../../../../ui/shared_widgets/image_or_svg.dart';
 import '../../../../company_features/add_company/presentation/manager/image_notifier.dart';
+import '../../../../shared/auth/domain/entities/auth_entity.dart';
 import '../../../user_company/data/model/company_model.dart';
 import '../../../user_company/presentation/view/widgets/company_container.dart';
 import '../../../user_company/presentation/view/shipping_method_tile.dart';
@@ -60,15 +61,15 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
       'delivery_address':
           FormControl<String>(validators: [Validators.required]),
       'delivery_country':
-          FormControl<String>(validators: [Validators.required]),
+          FormControl<int>(validators: [Validators.required]),
       'delivery_government':
-          FormControl<String>(validators: [Validators.required]),
+          FormControl<int>(validators: [Validators.required]),
       'sender_name': FormControl<String>(validators: [Validators.required]),
       'sender_number_country': FormControl<int>(),
       'sender_number': FormControl<String>(validators: [Validators.required]),
-      'sender_country': FormControl<String>(validators: [Validators.required]),
+      'sender_country': FormControl<int>(validators: [Validators.required]),
       'sender_government':
-          FormControl<String>(validators: [Validators.required]),
+          FormControl<int>(validators: [Validators.required]),
       'receiver_name': FormControl<String>(validators: [Validators.required]),
       'receiver_number': FormControl<String>(validators: [Validators.required]),
       'receiver_number_country': FormControl<int>(),
@@ -111,6 +112,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final country = ref.watch(fetchCountryProvider).value;
     return Scaffold(
       backgroundColor: AppColor.primaryWhite,
       appBar: CustomLogoAppbar(
@@ -446,28 +448,64 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                   labelText: "Sender name".tr,
                 ),
                 Gap(16.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Sender country".tr,
-                        formControlName: "sender_country",
-                        hintText: "Egypt".tr,
-                      ),
-                    ),
-                    Gap(10.w),
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Sender government".tr,
-                        formControlName: "sender_government",
-                        hintText: "Cairo".tr,
-                      ),
-                    ),
-                  ],
+                ReactiveFormConsumer(
+                  builder: (context,form,_) {
+                    CountryEntity? cities;
+                    if(form.control('sender_country').value!=null){
+                      cities = country!.where((e)=> e.id==form.control('sender_country').value).firstOrNull;
+                    }                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: CustomTextField<int>(
+                            labelText: "Sender country".tr,
+                            formControlName: "sender_country",
+                            hintText: "Egypt".tr,
+                            type: TextFieldType.selectable,
+                            items: country!.map((e) {
+                              return DropdownMenuItem<int>(
+                                value: e.id,
+                                child: Row(
+                                  children: [
+                                    ImageOrSvg(
+                                      e.countryImage,
+                                      height: 30,
+                                    ),
+                                    Gap(8.w),
+                                    Text(
+                                      e.nameAr ?? "",
+                                      style: AppFont.font14W600Primary,
+                                    )
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        Gap(10.w),
+                        Expanded(
+                          child: CustomTextField(
+                            labelText: "Sender government".tr,
+                            formControlName: "sender_government",
+                            hintText: "Cairo".tr,
+                            type: TextFieldType.selectable,
+                            items: cities==null?[] : cities.cities!.map((e) {
+                              return DropdownMenuItem(
+                                value: e.id,
+                                child: Text(
+                                  e.titleAr ?? "",
+                                  style: AppFont.font14W600Primary,
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
                 ),
                 Gap(16.h),
                 ReactiveFormConsumer(builder: (context, form, _) {
-                  final country = ref.watch(fetchCountryProvider).value;
                   final max = country!
                           .firstWhereOrNull((e) =>
                               e.id ==
@@ -499,12 +537,11 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                               children: [
                                 ImageOrSvg(
                                   e.countryImage,
-                                  isLocal: true,
                                   height: 30,
                                 ),
                                 Gap(8.w),
                                 Text(
-                                  e.iso ?? "",
+                                  e.nameAr ?? "",
                                   style: AppFont.font14W600Primary,
                                 )
                               ],
@@ -551,24 +588,62 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                   ],
                 ),
                 Gap(16.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Delivery country".tr,
-                        formControlName: "delivery_country",
-                        hintText: "Egypt".tr,
-                      ),
-                    ),
-                    Gap(10.w),
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Delivery government".tr,
-                        formControlName: "delivery_government",
-                        hintText: "Cairo".tr,
-                      ),
-                    ),
-                  ],
+                ReactiveFormConsumer(
+                    builder: (context,form,_) {
+                      CountryEntity? cities;
+                      if(form.control('delivery_country').value!=null){
+                        cities = country!.where((e)=> e.id==form.control('delivery_country').value).firstOrNull;
+                      }
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: CustomTextField<int>(
+                              labelText: "Delivery country".tr,
+                              formControlName: "delivery_country",
+                              hintText: "Egypt".tr,
+                              type: TextFieldType.selectable,
+                              items: country!.map((e) {
+                                return DropdownMenuItem<int>(
+                                  value: e.id,
+                                  child: Row(
+                                    children: [
+                                      ImageOrSvg(
+                                        e.countryImage,
+                                        height: 30,
+                                      ),
+                                      Gap(8.w),
+                                      Text(
+                                        e.nameAr ?? "",
+                                        style: AppFont.font14W600Primary,
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          Gap(10.w),
+                          Expanded(
+                            child: CustomTextField(
+                              labelText: "Delivery government".tr,
+                              formControlName: "delivery_government",
+                              hintText: "Cairo".tr,
+                              type: TextFieldType.selectable,
+                              items: cities==null?[] : cities.cities!.map((e) {
+                                return DropdownMenuItem(
+                                  value: e.id,
+                                  child: Text(
+                                    e.titleAr ?? "",
+                                    style: AppFont.font14W600Primary,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
                 ),
                 Gap(16.h),
                 CustomTextField(
@@ -605,7 +680,6 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                 ),
                 Gap(16.h),
                 ReactiveFormConsumer(builder: (context, form, _) {
-                  final country = ref.watch(fetchCountryProvider).value;
                   final max = country!
                           .firstWhereOrNull((e) =>
                               e.id ==
@@ -637,12 +711,11 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                               children: [
                                 ImageOrSvg(
                                   e.countryImage,
-                                  isLocal: true,
                                   height: 30,
                                 ),
                                 Gap(8.w),
                                 Text(
-                                  e.iso ?? "",
+                                  e.nameAr ?? "",
                                   style: AppFont.font14W600Primary,
                                 )
                               ],
@@ -692,6 +765,18 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
     );
   }
 }
+
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
 
 class GlobalOrderScreen extends ConsumerStatefulWidget {
   const GlobalOrderScreen({super.key});
@@ -774,6 +859,8 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final country = ref.watch(fetchCountryProvider).value;
+
     return Scaffold(
       backgroundColor: AppColor.primaryWhite,
       appBar: CustomLogoAppbar(
@@ -1104,12 +1191,32 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 ),
                 Gap(16.h),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: CustomTextField(
                         labelText: "Sender country".tr,
                         formControlName: "sender_country",
                         hintText: "Egypt".tr,
+                        type: TextFieldType.selectable,
+                        items: country!.map((e) {
+                          return DropdownMenuItem(
+                            value: e.id,
+                            child: Row(
+                              children: [
+                                ImageOrSvg(
+                                  e.countryImage,
+                                  height: 30,
+                                ),
+                                Gap(8.w),
+                                Text(
+                                  e.nameAr ?? "",
+                                  style: AppFont.font14W600Primary,
+                                )
+                              ],
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
                     Gap(10.w),
@@ -1118,13 +1225,13 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                         labelText: "Sender government".tr,
                         formControlName: "sender_government",
                         hintText: "Cairo".tr,
+                        items: []
                       ),
                     ),
                   ],
                 ),
                 Gap(16.h),
                 ReactiveFormConsumer(builder: (context, form, _) {
-                  final country = ref.watch(fetchCountryProvider).value;
                   final max = country!
                           .firstWhereOrNull((e) =>
                               e.id ==
@@ -1156,12 +1263,11 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                               children: [
                                 ImageOrSvg(
                                   e.countryImage,
-                                  isLocal: true,
                                   height: 30,
                                 ),
                                 Gap(8.w),
                                 Text(
-                                  e.iso ?? "",
+                                  e.nameAr ?? "",
                                   style: AppFont.font14W600Primary,
                                 )
                               ],
@@ -1294,12 +1400,11 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                               children: [
                                 ImageOrSvg(
                                   e.countryImage,
-                                  isLocal: true,
                                   height: 30,
                                 ),
                                 Gap(8.w),
                                 Text(
-                                  e.iso ?? "",
+                                  e.nameEn ?? "",
                                   style: AppFont.font14W600Primary,
                                 )
                               ],

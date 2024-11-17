@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/core/service/loading_provider.dart';
+import 'package:taiseer/features/user_features/home/presentation/managers/fetch_ads_provider.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/silder_item_widget.dart';
 import 'package:taiseer/features/user_features/order/presentation/view/order_screen.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
@@ -17,6 +18,7 @@ import 'package:taiseer/ui/shared_widgets/custom_logo_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import 'package:taiseer/ui/ui.dart';
 import '../../../../../ui/shared_widgets/container_button.dart';
+import '../../../../../ui/shared_widgets/custom_slider.dart';
 import '../../../user_company/data/model/company_model.dart';
 import '../../../user_company/domain/use_case/company_use_case.dart';
 import '../../../user_company/presentation/view/shipping_method_tile.dart';
@@ -64,8 +66,11 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             SizedBox(
                               height: 160.h,
                               width: MediaQuery.of(context).size.width,
-                              child: ImageOrSvg(companyModel.cover ?? "",
-                                  fit: BoxFit.fitWidth),
+                              child: ImageOrSvg(
+                                companyModel.cover,
+                                isCompany: true,
+                                fit: BoxFit.fitWidth,
+                              ),
                             ),
                             Positioned(
                               top: 0,
@@ -85,8 +90,12 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                     icon: FontAwesomeIcons.thumbsUp,
                                     onTap: () {
                                       // UIHelper.showAlert("success".tr,type: DialogType.success,);
-                                      UIHelper.showGlobalSnackBar(text: "success".tr,);
-                                      ref.invalidate(fetchUserCompanyDetailsViewProvider(widget.userCompanyModel2.id));
+                                      UIHelper.showGlobalSnackBar(
+                                        text: "success".tr,
+                                      );
+                                      ref.invalidate(
+                                          fetchUserCompanyDetailsViewProvider(
+                                              widget.userCompanyModel2.id));
                                     },
                                   ),
                                 ),
@@ -118,6 +127,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                             children: [
                                               ImageOrSvg(
                                                 companyModel.logo, height: 65.h,
+                                                isCompany: true,
                                                 width: 65.h,
                                                 // assetImageOnNull: Assets.onboard.vector,
                                                 pickImageOnNull: true,
@@ -135,24 +145,42 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                                   ),
                                                   Gap(14.h),
                                                   Row(
-                                                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
-                                                      ...companyModel.typeActivityCompanies.map(
+                                                      ...companyModel
+                                                          .typeActivityCompanies
+                                                          .map(
                                                         (e) => Wrap(
                                                           spacing: 6.w,
                                                           children: [
                                                             Container(
                                                               decoration: BoxDecoration(
-                                                                  color: AppColor.primary.withOpacity(.2),
-                                                                  border: Border.all(color: AppColor.primary),
-                                                                  borderRadius: BorderRadius.circular(12.r)),
+                                                                  color: AppColor
+                                                                      .primary
+                                                                      .withOpacity(
+                                                                          .2),
+                                                                  border: Border.all(
+                                                                      color: AppColor
+                                                                          .primary),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12.r)),
                                                               child: Padding(
-                                                                padding: EdgeInsets.symmetric(
-                                                                  horizontal:12.w,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                  horizontal:
+                                                                      12.w,
                                                                   vertical: 2.h,
                                                                 ),
-                                                                child: Text(e.typeActivities?.infoAr ?? "",
-                                                                  style: AppFont.font10w400Primary,
+                                                                child: Text(
+                                                                  e.typeActivities
+                                                                          ?.infoAr ??
+                                                                      "",
+                                                                  style: AppFont
+                                                                      .font10w400Primary,
                                                                 ),
                                                               ),
                                                             ),
@@ -312,34 +340,34 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Row(
-                            //   children: [
-                            //     const Icon(
-                            //       CupertinoIcons
-                            //           .slider_horizontal_below_rectangle,
-                            //       color: AppColor.primary,
-                            //     ),
-                            //     Gap(5.w),
-                            //     Text(
-                            //       "Sponsors ".tr,
-                            //       style: AppFont.font18W700Black,
-                            //     ),
-                            //     Text(
-                            //       companyModel.nameAr ?? "",
-                            //       style: AppFont.font18W700Black,
-                            //     )
-                            //   ],
-                            // ),
-                            // CustomSlider(
-                            //   companyModel.!
-                            //       .map((e) => SliderItem(e))
-                            //       .toList(),
-                            //   // height: 170.h,
-                            //   autoPlay: true,
-                            //   onPageChanged: (index, _) {
-                            //     ref.read(sliderIndexProvider.notifier).state = index;
-                            //   },
-                            // ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  CupertinoIcons
+                                      .slider_horizontal_below_rectangle,
+                                  color: AppColor.primary,
+                                ),
+                                Gap(5.w),
+                                Text(
+                                  "Sponsors ".tr,
+                                  style: AppFont.font18W700Black,
+                                ),
+                                Text(
+                                  companyModel.nameAr ?? "",
+                                  style: AppFont.font18W700Black,
+                                )
+                              ],
+                            ),
+                            CustomSlider(
+                              ref.watch(fetchAdsProvider).value!
+                                  .map((e) => SliderItem(e))
+                                  .toList(),
+                              // height: 170.h,
+                              autoPlay: true,
+                              onPageChanged: (index, _) {
+                                ref.read(sliderIndexProvider.notifier).state = index;
+                              },
+                            ),
                             Gap(20.h),
                             Row(
                               children: [
@@ -460,11 +488,14 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                 ),
                 text: "Follow".tr,
                 onPressed: () async {
-                  final res = await getIt<FollowCompanyUseCase>().call(companyDetailsModel?.id ?? 0);
-                  res.fold((l){
-                    UIHelper.showGlobalSnackBar(text: l.message.tr,color: AppColor.danger);
-                  }, (r){
-                    UIHelper.showGlobalSnackBar(text: r.tr,color: AppColor.green);
+                  final res = await getIt<FollowCompanyUseCase>()
+                      .call(companyDetailsModel?.id ?? 0);
+                  res.fold((l) {
+                    UIHelper.showGlobalSnackBar(
+                        text: l.message.tr, color: AppColor.danger);
+                  }, (r) {
+                    UIHelper.showGlobalSnackBar(
+                        text: r.tr, color: AppColor.green);
                     ref.invalidate(fetchUserCompanyDetailsViewProvider);
                   });
                 },

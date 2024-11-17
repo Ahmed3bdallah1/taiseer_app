@@ -156,37 +156,37 @@ class HomeScreen extends ConsumerWidget {
                       Gap(10.h)
                     ],
                   ),
-                Consumer(builder: (context, ref, _) {
-                  final lastOrder = ref.watch(fetchLastOrderProvider);
-                  return lastOrder.customWhen(
-                      ref: ref,
-                      refreshable: fetchLastOrderProvider.future,
-                      data: (order) {
-                        return FadeInAnimation(
-                            delay: 1.3,
-                            direction: FadeInDirection.topToBottom,
-                            fadeOffset: 40,
-                            child: LastOrderContainer(orderEntity: order));
-                      },
-                      error: (d, ds) => const SizedBox(),
-                      loading: () {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Shimmer.fromColors(
-                            baseColor: Colors.grey[900]!,
-                            highlightColor: Colors.green[100]!,
-                            child: Container(
-                              height: 180,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(.15),
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                            ),
-                          ),
-                        );
-                      });
-                }),
+                // Consumer(builder: (context, ref, _) {
+                //   final lastOrder = ref.watch(fetchLastOrderProvider);
+                //   return lastOrder.customWhen(
+                //       ref: ref,
+                //       refreshable: fetchLastOrderProvider.future,
+                //       data: (order) {
+                //         return FadeInAnimation(
+                //             delay: 1.3,
+                //             direction: FadeInDirection.topToBottom,
+                //             fadeOffset: 40,
+                //             child: LastOrderContainer(orderEntity: order));
+                //       },
+                //       error: (d, ds) => const SizedBox(),
+                //       loading: () {
+                //         return Padding(
+                //           padding: const EdgeInsets.all(8.0),
+                //           child: Shimmer.fromColors(
+                //             baseColor: Colors.grey[900]!,
+                //             highlightColor: Colors.green[100]!,
+                //             child: Container(
+                //               height: 180,
+                //               width: MediaQuery.of(context).size.width,
+                //               decoration: BoxDecoration(
+                //                 color: Colors.grey.withOpacity(.15),
+                //                 borderRadius: BorderRadius.circular(35),
+                //               ),
+                //             ),
+                //           ),
+                //         );
+                //       });
+                // }),
                 Gap(20.h),
                 Consumer(
                   builder: (context, ref, _) {

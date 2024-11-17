@@ -31,7 +31,7 @@ class _RootViewState extends ConsumerState<RootView> {
     responsiveInit(context);
     final selectedIndex = ref.watch(rootIndex);
     final controller = ref.read(rootIndex.notifier);
-    final hasCountries = ref.watch(fetchCountryProvider).value != null;
+    final haveNoCountries = ref.watch(fetchCountryProvider).value == null;
     return FlutterCloseAppPage(
       condition: selectedIndex == 0,
       onCloseFailed: () {
@@ -126,7 +126,7 @@ class _RootViewState extends ConsumerState<RootView> {
                 builder: (context, ref, child) {
                   final selectedIndex = ref.watch(rootIndex);
                   final args = ref.read(rootIndex.notifier).args;
-                  if (hasCountries) {
+                  if (haveNoCountries) {
                     ref.watch(fetchCountryProvider);
                   }
                   return getView(selectedIndex, args: args, ref);

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/api_path.dart';
 import 'package:taiseer/gen/assets.gen.dart';
+import 'package:taiseer/main.dart';
 import 'package:taiseer/ui/shared_widgets/loading_widget.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -18,6 +19,7 @@ class ImageOrSvg extends StatefulWidget {
   final Color? color;
   final bool magnifier;
   final bool isLocal;
+  final bool isCompany;
   final bool isLoading;
   final bool isCircleLoading;
   final bool pickImageOnNull;
@@ -36,6 +38,7 @@ class ImageOrSvg extends StatefulWidget {
     this.isCircleLoading = true,
     this.pickImageOnNull = false,
     this.assetImageOnNull,
+    this.isCompany = false,
   }) : super(key: ValueKey(url));
 
   @override
@@ -55,7 +58,8 @@ class _ImageOrSvgState extends State<ImageOrSvg>
         height: widget.height,
         decoration: BoxDecoration(
             color: AppColor.grey_3,
-            shape: widget.isCircleLoading ? BoxShape.circle : BoxShape.rectangle),
+            shape:
+                widget.isCircleLoading ? BoxShape.circle : BoxShape.rectangle),
         child: const Center(child: LoadingWidget()),
       );
     } else if (widget.pickImageOnNull) {
@@ -68,20 +72,22 @@ class _ImageOrSvgState extends State<ImageOrSvg>
                 widget.isCircleLoading ? BoxShape.circle : BoxShape.rectangle),
         child: Center(
             child: SvgPicture.asset(
-              widget.assetImageOnNull ?? Assets.onboard.vector,
-              key: widget.key,
-              width: widget.width!-20,
-              color: widget.color,
-              height: widget.height!-20,
-              fit: widget.fit,
-            )),
+          widget.assetImageOnNull ?? Assets.onboard.vector,
+          key: widget.key,
+          width: widget.width! - 20,
+          color: widget.color,
+          height: widget.height! - 20,
+          fit: widget.fit,
+        )),
       );
     }
     final fullPath = widget.isLocal
         ? widget.url
         : widget.url!.startsWith("http")
             ? widget.url
-            : "${ApiPath.uploadPath}${widget.url}";
+            : isCompany == true
+                ? "${ApiPath.uploadPath2}${widget.url}"
+                : "${ApiPath.uploadPath}${widget.url}";
     return fullPath!.endsWith(".svg")
         ? widget.isLocal
             ? SvgPicture.asset(

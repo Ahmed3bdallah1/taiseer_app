@@ -2,8 +2,8 @@ abstract class ApiPath {
   static const baseurl = 'https://taisser.onclick-eg.com/api/v1/';
   static const taiseerBaseurl = 'https://taisser.onclick-eg.com/api/v1/';
   // static const baseurl = 'http://loan.test/api/';
-  static const uploadPath = 'https://taisser.onclick-eg.com/';
-  static const uploadPath2 = 'https://loan.salfny-kw.com/';
+  static const uploadPath = 'https://taisser.onclick-eg.com/api/v1/uploads/topics/';
+  static const uploadPath2 = 'https://taisser.onclick-eg.com/api/v1/uploads/companies/';
   static const filteredCompanies = 'getCompanies';
   static const companyDetails = 'getCompaniesDetails';
   static const followedCompany = 'storeFollower';
@@ -26,7 +26,7 @@ abstract class ApiPath {
   static const loan = 'program/details';
   static const validateOTPForgetPassword = 'forget/password/verifyOtp';
   static const user = 'userProfile/';
-  static const countries = 'countries';
+  static const countries = 'getCountryWithCity';
   static const banks = 'banks';
   static const verifyOTP = 'verify-otp';
   static const verifyForRegister = 'verifyOtp/For/Register';

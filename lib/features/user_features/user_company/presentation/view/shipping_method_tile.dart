@@ -185,7 +185,7 @@ class FastShippingMethodTile extends StatelessWidget {
                 bottom: 10,
                 right: 10,
                 child: Text(
-                  shippingMethodsEntity.typeActivities?.nameAr ?? "",
+                  shippingMethodsEntity.typeActivities?.infoAr ?? "",
                   style: AppFont.font12W600White,
                 ),
               ),

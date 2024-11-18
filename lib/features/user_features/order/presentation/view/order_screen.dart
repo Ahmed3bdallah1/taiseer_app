@@ -180,45 +180,30 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                             itemBuilder: (context, index) {
                               final method = widget.companyDetailsModel
                                   .typeActivityCompanies[index];
-                              if (index <
-                                  widget.companyDetailsModel
-                                          .typeActivityCompanies.length -
-                                      1) {
                                 return ReactiveFormConsumer(
                                   builder: (context, form, _) {
                                     final isSelected =
                                         form.control("shipping_id").value ==
                                             method.id;
                                     return ShippingMethodTile(
-                                      color: AppColor.black,
+                                      color: AppColor.black.withOpacity(.3),
                                       shippingMethodsEntity: method,
                                       hideSelectedItem: false,
                                       isSelected: isSelected,
-                                      onTap: () => form
-                                          .control("shipping_id")
-                                          .value = method.id,
-                                    );
-                                  },
-                                );
-                              } else {
-                                return ReactiveFormConsumer(
-                                  builder: (context, form, _) {
-                                    bool isSelected = form
-                                            .control("is_fast_shipping")
-                                            .value ==
-                                        true;
-                                    return FastShippingMethodTile(
-                                      color: Colors.white,
-                                      isSelected: isSelected,
                                       onTap: () {
-                                        form.control("is_fast_shipping").value =
-                                            !isSelected;
-                                      },
-                                      shippingMethodsEntity: method,
+                                        if(isSelected){
+                                          form
+                                              .control("shipping_id")
+                                              .value =  null;
+                                        } else {
+                                          form
+                                              .control("shipping_id")
+                                              .value = method.id;
+                                        }},
                                     );
                                   },
                                 );
-                              }
+
                             },
                             separatorBuilder: (context, index) {
                               return Gap(10.w);

@@ -202,6 +202,8 @@ class Translation extends Translations {
           'desc': 'الاحدث',
           "Months": "شهر",
           "There is no history to show": "لا يوجد تسجيلات للعرض",
+          "receiver area":"منطقة المستقبل",
+          "sender area":"منطقة الراسل",
           "History": "طلبات تم تأكيدها",
           "Pre order": "الطلبات المسبقة",
           Language.arabic.name: "العربية",

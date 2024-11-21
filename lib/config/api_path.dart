@@ -12,6 +12,7 @@ abstract class ApiPath {
   static const sendOTP = 'resendOtp';
   static const login = 'login';
   static const userRegister = 'register';
+  static const updateProfile = 'updateProfile';
 
 
   static const changePassword = 'forget/password/change/password';
@@ -21,7 +22,6 @@ abstract class ApiPath {
   static const loans = 'programs';
   static const upload = 'upload/file';
   static const interest = 'interest_calc';
-  static const updateProfile = 'user/update';
   static const installment = 'order/installments';
   static const loan = 'program/details';
   static const validateOTPForgetPassword = 'forget/password/verifyOtp';

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_common/get_reset.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import '../../domain/entity/shipping_methods_entity.dart';
@@ -138,7 +141,6 @@ class FastShippingMethodTile extends StatelessWidget {
   final void Function()? onTap;
   final Color? color;
   final double? radius;
-  final ShippingMethodsEntity shippingMethodsEntity;
 
   const FastShippingMethodTile({
     super.key,
@@ -146,7 +148,6 @@ class FastShippingMethodTile extends StatelessWidget {
     this.radius,
     this.onTap,
     this.isSelected = false,
-    required this.shippingMethodsEntity,
   });
 
   @override
@@ -176,17 +177,18 @@ class FastShippingMethodTile extends StatelessWidget {
               Positioned(
                 top: 10,
                 right: 10,
-                child: ImageOrSvg(
-                  shippingMethodsEntity.typeActivities?.imageFront??"",
-                  color: AppColor.white,
+                child: Icon(
+                  FontAwesomeIcons.truckFast,
+                  color: AppColor.black,
+                  size: 20,
                 ),
               ),
               Positioned(
                 bottom: 10,
                 right: 10,
                 child: Text(
-                  shippingMethodsEntity.typeActivities?.infoAr ?? "",
-                  style: AppFont.font12W600White,
+                  "Fast Shipping".tr,
+                  style: AppFont.font10w400Black,
                 ),
               ),
               Positioned(

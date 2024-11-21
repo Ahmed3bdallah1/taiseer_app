@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:taiseer/core/service/auth_service.dart';
 import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
 import 'package:taiseer/features/user_features/profile/presentation/view/widgets/edit_personal_info.dart';
+import 'package:taiseer/features/user_features/root/controller/root_controller.dart';
 import 'package:taiseer/gen/assets.gen.dart';
 import 'package:taiseer/ui/shared_widgets/container_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_app_bar.dart';
@@ -15,8 +17,14 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../config/app_font.dart';
 import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../../../../helper/map_not_equals_validator.dart';
+import '../../../../../main.dart';
+import '../../../../../ui/shared_widgets/custom_filled_button.dart';
 import '../../../../../ui/shared_widgets/custom_logo_app_bar.dart';
+import '../../../../../ui/shared_widgets/custom_reactive_form_consumer.dart';
 import '../../../../../ui/shared_widgets/image_or_svg.dart';
+import '../../../../../ui/ui.dart';
+import '../../domain/use_cases/update_profile_use_case.dart';
+import '../manager/update_profile_provider.dart';
 import '../manager/upload_file_notifier.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
@@ -106,11 +114,16 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                           builder: (context, ref, child) {
                             return ImageOrSvg(
                               ref.watch(uploadFileNotifierProvider) ??
-                                  "/assets/img/default.png",
+                                  Assets.base.personal.path,
                               fit: BoxFit.cover,
+                              isLocal:
+                                  ref.watch(uploadFileNotifierProvider) != null
+                                      ? false
+                                      : true,
                               height: 120.h,
                               width: 120.h,
-                              isLoading: ref.watch(isLoadingProvider("setImage")),
+                              isLoading:
+                                  ref.watch(isLoadingProvider("setImage")),
                               magnifier: true,
                             );
                           },
@@ -128,8 +141,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                               if (image != null) {
                                 try {
                                   ref
-                                      .read(
-                                          isLoadingProvider("setImage").notifier)
+                                      .read(isLoadingProvider("setImage")
+                                          .notifier)
                                       .state = true;
 
                                   final uploaded = await newImageProvider
@@ -137,8 +150,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                   formGroup.control('image').value = uploaded;
                                 } finally {
                                   ref
-                                      .read(
-                                          isLoadingProvider("setImage").notifier)
+                                      .read(isLoadingProvider("setImage")
+                                          .notifier)
                                       .state = false;
                                 }
                               }
@@ -213,54 +226,55 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           ),
         ),
       ),
-      // bottomSheet: Padding(
-      //   padding: EdgeInsets.only(
-      //     bottom: MediaQuery.paddingOf(context).bottom,
-      //     left: 12,
-      //     right: 12,
-      //   ),
-      //   child: CustomReactiveFormValidationConsumer(
-      //       formGroup: formGroup,
-      //       builder: (BuildContext context, FormGroup form, Widget? child) {
-      //         return Consumer(
-      //           builder: (BuildContext context, ref, Widget? child) {
-      //             final isLoading =
-      //                 ref.watch(isLoadingProvider("updateProfile"));
-      //             return CustomFilledButton(
-      //               isLoading: isLoading,
-      //               isValid: form.valid,
-      //               onPressed: () async {
-      //                 if (form.valid) {
-      //                   try {
-      //                     ref
-      //                         .read(isLoadingProvider("updateProfile").notifier)
-      //                         .state = true;
-      //                     final res = await getIt<UpdateProfileUseCase>().call(
-      //                       {...form.value}
-      //                         ..removeWhere((key, value) => value == null),
-      //                     );
-      //                     res.fold((l) {
-      //                       UIHelper.showAlert(l.message,
-      //                           type: DialogType.error);
-      //                     }, (r) {
-      //                       UIHelper.showAlert(r);
-      //                       return ref.refresh(refreshProfileProvider.future);
-      //                     });
-      //                   } finally {
-      //                     ref
-      //                         .read(isLoadingProvider("updateProfile").notifier)
-      //                         .state = false;
-      //                   }
-      //                 } else {
-      //                   form.markAllAsTouched();
-      //                 }
-      //               },
-      //               text: "Save".tr,
-      //             );
-      //           },
-      //         );
-      //       }),
-      // ),
+      bottomSheet: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.paddingOf(context).bottom,
+          left: 12,
+          right: 12,
+        ),
+        child: CustomReactiveFormValidationConsumer(
+            formGroup: formGroup,
+            builder: (BuildContext context, FormGroup form, Widget? child) {
+              return Consumer(
+                builder: (BuildContext context, ref, Widget? child) {
+                  final isLoading =
+                      ref.watch(isLoadingProvider("updateProfile"));
+                  return CustomFilledButton(
+                    isLoading: isLoading,
+                    isValid: form.valid,
+                    onPressed: () async {
+                      if (form.valid) {
+                        try {
+                          ref
+                              .read(isLoadingProvider("updateProfile").notifier)
+                              .state = true;
+                          final res = await getIt<UpdateProfileUseCase>().call(
+                            {...form.value}
+                              ..removeWhere((key, value) => value == null),
+                          );
+                          res.fold((l) {
+                            UIHelper.showAlert(l.message,
+                                type: DialogType.error);
+                          }, (r) {
+                            UIHelper.showAlert(r);
+                            ref.read(rootIndex.notifier).setSelectedIndex(0);
+                            return ref.refresh(refreshProfileProvider.future);
+                          });
+                        } finally {
+                          ref
+                              .read(isLoadingProvider("updateProfile").notifier)
+                              .state = false;
+                        }
+                      } else {
+                        form.markAllAsTouched();
+                      }
+                    },
+                    text: "Save".tr,
+                  );
+                },
+              );
+            }),
+      ),
     );
   }
 }

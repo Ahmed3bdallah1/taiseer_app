@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
-import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/user_features/home/presentation/managers/fetch_ads_provider.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/silder_item_widget.dart';
 import 'package:taiseer/features/user_features/order/presentation/view/order_screen.dart';
@@ -67,7 +66,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               height: 160.h,
                               width: MediaQuery.of(context).size.width,
                               child: ImageOrSvg(
-                                companyModel.cover,
+                                companyModel.cover??"",
                                 isCompany: true,
                                 fit: BoxFit.fitWidth,
                               ),
@@ -87,11 +86,11 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                     color: Colors.transparent,
                                     size: 50,
                                     iconColor: AppColor.primary,
-                                    icon: FontAwesomeIcons.thumbsUp,
+                                    icon: FontAwesomeIcons.message,
                                     onTap: () {
                                       // UIHelper.showAlert("success".tr,type: DialogType.success,);
                                       UIHelper.showGlobalSnackBar(
-                                        text: "success".tr,
+                                        text: "Coming soon".tr,
                                       );
                                       ref.invalidate(
                                           fetchUserCompanyDetailsViewProvider(
@@ -138,7 +137,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    companyModel.nameAr,
+                                                    companyModel.nameAr??"",
                                                     style:
                                                         AppFont.font20W600Black,
                                                     textAlign: TextAlign.center,
@@ -384,7 +383,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             ),
                             Gap(10.h),
                             Text(
-                              companyModel.aboutAr,
+                              companyModel.aboutAr??"",
                               style: AppFont.font14W500Grey2,
                               textAlign: TextAlign.start,
                             ),
@@ -422,36 +421,44 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               ),
                             ),
                             Gap(20.h),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.comment,
-                                  color: AppColor.primary,
-                                ),
-                                Gap(5.w),
-                                Text(
-                                  "Users's opinions".tr,
-                                  style: AppFont.font18W700Black,
-                                ),
-                              ],
-                            ),
-                            Gap(10.h),
-                            SizedBox(
-                              height: 150,
-                              child: ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: companyModel.rating.length,
-                                  separatorBuilder: (context, index) {
-                                    return const Gap(10);
-                                  },
-                                  itemBuilder: (context, index) {
-                                    return CommentContainer(
-                                        shippingMethods:
-                                            companyModel.typeActivityCompanies,
-                                        commentsEntity:
-                                            companyModel.rating[index]);
-                                  }),
-                            )
+                            if(companyModel.rating.isNotEmpty)
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.comment,
+                                        color: AppColor.primary,
+                                      ),
+                                      Gap(5.w),
+                                      Text(
+                                        "Users's opinions".tr,
+                                        style: AppFont.font18W700Black,
+                                      ),
+                                    ],
+                                  ),
+                                  Gap(10.h),
+                                  SizedBox(
+                                    height: 150,
+                                    child: ListView.separated(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: companyModel.rating.length,
+                                        separatorBuilder: (context, index) {
+                                          return const Gap(10);
+                                        },
+                                        itemBuilder: (context, index) {
+                                          if(companyModel.rating.isEmpty){
+                                            return Gap(10);
+                                          }
+                                          return CommentContainer(
+                                              shippingMethods:
+                                              companyModel.typeActivityCompanies,
+                                              commentsEntity:
+                                              companyModel.rating[index]);
+                                        }),
+                                  )
+                                ],
+                              )
                           ],
                         ),
                       ),

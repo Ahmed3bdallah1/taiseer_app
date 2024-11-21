@@ -8,13 +8,9 @@ import 'package:taiseer/features/company_features/calender/domain/repositories/c
 import 'package:taiseer/features/shared/forget_password/data/data_sources/forget_password_data_source.dart';
 import 'package:taiseer/features/shared/forget_password/data/repositories/forget_password_repo_impl.dart';
 import 'package:taiseer/features/user_features/home/data/data_source/ads_data_source.dart';
-import 'package:taiseer/features/user_features/home/data/data_source/loan_details_data_source.dart';
 import 'package:taiseer/features/user_features/home/data/repostories/ads_repo_imp.dart';
-import 'package:taiseer/features/user_features/home/data/repostories/loan_details_repo_imp.dart';
 import 'package:taiseer/features/user_features/home/domain/repositories/ads_repo.dart';
-import 'package:taiseer/features/user_features/home/domain/repositories/loan_details_repo.dart';
 import 'package:taiseer/features/user_features/home/domain/use_case/fetch_ads_use_case.dart';
-import 'package:taiseer/features/user_features/home/domain/use_case/fetch_loan_details_use_case.dart';
 import 'package:taiseer/features/shared/notifications/data/data_source/notification_data_source.dart';
 import 'package:taiseer/features/shared/notifications/data/repo/notification_repo_imp.dart';
 import 'package:taiseer/features/shared/notifications/domain/repos/notification_repo.dart';
@@ -49,10 +45,6 @@ import 'features/shared/auth/domain/repositories/auth_repo.dart';
 import 'features/shared/auth/domain/use_cases/login_user_use_case.dart';
 import 'features/shared/auth/domain/use_cases/register_user_use_case.dart';
 import 'features/shared/forget_password/domain/repositories/forget_password_repo.dart';
-import 'features/user_features/home/data/data_source/loan_data_source.dart';
-import 'features/user_features/home/data/repostories/loan_repo_imp.dart';
-import 'features/user_features/home/domain/repositories/loan_repo.dart';
-import 'features/user_features/home/domain/use_case/fetch_loan_use_case.dart';
 import 'features/user_features/order/domain/use_case/submit_order_use_case.dart';
 import 'features/shared/notifications/domain/use_case/fetch_seen_use_case.dart';
 import 'features/user_features/profile/data/data_sources/upload_file_data_source.dart';
@@ -83,14 +75,6 @@ Future setupLocator() async {
 
   getIt.registerLazySingleton<LocalAuthentication>(() => LocalAuthentication());
 
-  // register Loan entity
-  getIt.registerLazySingleton<LoanDataSource>(
-      () => LoanDataSourceImp(getIt<ApiService>()));
-  getIt.registerLazySingleton<LoanRepo>(
-      () => LoanRepoImp(loanDataSource: getIt<LoanDataSource>()));
-  getIt.registerLazySingleton<FetchLoanUseCase>(
-      () => FetchLoanUseCase(loanRepo: getIt<LoanRepo>()));
-
   // register notifications entity
   getIt.registerLazySingleton<NotificationDataSource>(
       () => NotificationDataSourceImp(apiService: getIt<ApiService>()));
@@ -100,14 +84,6 @@ Future setupLocator() async {
       FetchNotificationUseCase(notificationRepo: getIt<NotificationRepo>()));
   getIt.registerLazySingleton<SeenNotificationUseCase>(() =>
       SeenNotificationUseCase(notificationRepo: getIt<NotificationRepo>()));
-
-  // register Loan details entity
-  getIt.registerLazySingleton<LoanDetailsDataSource>(
-      () => LoanDetailsDataSourceImp(getIt<ApiService>()));
-  getIt.registerLazySingleton<LoanDetailsRepo>(() =>
-      LoanDetailsRepoImp(detailsDataSource: getIt<LoanDetailsDataSource>()));
-  getIt.registerLazySingleton<FetchLoanDetailsUseCase>(
-      () => FetchLoanDetailsUseCase(loanDetailsRepo: getIt<LoanDetailsRepo>()));
 
   // register history entity
   getIt.registerLazySingleton<FetchOrderHistoryUseCase>(

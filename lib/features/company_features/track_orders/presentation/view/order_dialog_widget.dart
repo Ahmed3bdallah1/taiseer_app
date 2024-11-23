@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/order/domain/entity/order_entity.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/widgets/custom_stepper_widget.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/custom_stepper_widget.dart';
 import 'package:taiseer/gen/assets.gen.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_outlined_button.dart';

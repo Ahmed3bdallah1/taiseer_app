@@ -13,6 +13,8 @@ abstract class ApiPath {
   static const login = 'login';
   static const userRegister = 'register';
   static const updateProfile = 'updateProfile';
+  static const getShipments = 'getShipments';
+  static const submitShipment = 'storeShipment';
 
 
   static const changePassword = 'forget/password/change/password';

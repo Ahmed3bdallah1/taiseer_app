@@ -67,6 +67,12 @@ abstract class AppFont {
         color: AppColor.green,
       );
 
+  static TextStyle get font10w400Grey2 => _style.copyWith(
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w400,
+        color: AppColor.grey2,
+      );
+
   static TextStyle get font10w400Black => _style.copyWith(
         fontSize: 10.sp,
         fontWeight: FontWeight.w400,

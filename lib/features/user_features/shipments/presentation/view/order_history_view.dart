@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/config/app_translation.dart';
 import 'package:taiseer/features/user_features/order/presentation/managers/fetch_order_history_provider.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/widgets/custom_action_chip.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/widgets/history_container.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/custom_action_chip.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/history_container.dart';
+import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
+import 'package:taiseer/features/user_features/shipments/domain/use_cases/shipment_use_cases.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/managers/fetch_shipment_providers.dart';
 import 'package:taiseer/ui/shared_widgets/custom_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/fade_in_animation.dart';
 import 'package:taiseer/ui/shared_widgets/not_found_widget.dart';
 import 'package:shimmer/shimmer.dart';
-import '../managers/filter_model_provider.dart';
+import '../../../../../main.dart';
+import '../../../order/presentation/managers/filter_model_provider.dart';
 
 class OrderHistoryView extends ConsumerStatefulWidget {
   const OrderHistoryView({super.key});
@@ -21,6 +26,31 @@ class OrderHistoryView extends ConsumerStatefulWidget {
 }
 
 class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
+  final PagingController<int, ShipmentModel> _pagingController =
+  PagingController(firstPageKey: 1);
+
+  Future<void> _fetchPage(int pageKey) async {
+    final response = await getIt<FetchShipmentsUseCase>().call(pageKey);
+    response.fold((l) {
+      _pagingController.error = l;
+    }, (r) {
+      final isLastPage = r.total < 15;
+      if (isLastPage) {
+        _pagingController.appendLastPage(r.data);
+      } else {
+        final nextPageKey = pageKey + 1;
+        _pagingController.appendPage(r.data, nextPageKey);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,12 +107,12 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
           Gap(10.h),
           Expanded(
             child: Consumer(builder: (context, ref, _) {
-              final historyList = ref.watch(fetchOrderHistoryProvider);
+              final historyList = ref.watch(fetchShipmentsProvider(1));
               return historyList.customWhen(
                   ref: ref,
-                  refreshable: fetchOrderHistoryProvider.future,
+                  refreshable: fetchShipmentsProvider(1).future,
                   data: (history) {
-                    if (history.isEmpty) {
+                    if (history.data.isEmpty) {
                       return NotFoundWidget(title: "No orders right now.!".tr);
                     }
                     return Padding(
@@ -94,13 +124,13 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
                               fadeOffset: 40,
                               delay: (index.toDouble() + 1) - (index - 1),
                               child: HistoryContainer(
-                                  historyEntity: history[index]),
+                                  historyEntity: history.data[index]),
                             );
                           },
                           separatorBuilder: (context, index) {
                             return const Gap(10);
                           },
-                          itemCount: history.length),
+                          itemCount: history.data.length),
                     );
                   },
                   loading: () {

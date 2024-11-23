@@ -5,7 +5,7 @@ import 'package:taiseer/config/app_translation.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../config/app_font.dart';
 import '../../../../../shared/notifications/presentation/managers/notifications_filter.dart';
-import '../../managers/history_filter_notifier_provider.dart';
+import '../../../../order/presentation/managers/history_filter_notifier_provider.dart';
 
 class CustomActionChip extends ConsumerWidget {
   const CustomActionChip({

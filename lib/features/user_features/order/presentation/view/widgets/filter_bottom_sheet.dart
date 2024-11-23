@@ -10,7 +10,7 @@ import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 import '../../../../../../config/app_font.dart';
 import '../../../../../../ui/shared_widgets/custom_app_bar.dart';
 import '../../managers/history_filter_notifier_provider.dart';
-import 'custom_action_chip.dart';
+import '../../../../shipments/presentation/view/widgets/custom_action_chip.dart';
 
 enum FilterSheetType { orderHistory, filterCompanies }
 

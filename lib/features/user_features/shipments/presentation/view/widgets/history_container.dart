@@ -1,16 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/order/domain/entity/order_entity.dart';
+import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 
-final changed =
-    StateProvider.family<bool, dynamic>((ref, _) => false);
+final changed = StateProvider.family<bool, dynamic>((ref, _) => false);
 
 class HistoryContainer extends ConsumerWidget {
-  final OrderEntity historyEntity;
+  final ShipmentModel historyEntity;
 
   const HistoryContainer({super.key, required this.historyEntity});
 
@@ -40,34 +41,66 @@ class HistoryContainer extends ConsumerWidget {
             children: [
               Row(
                 children: [
+                  // Container(
+                  //   height: 25.h,
+                  //   width: 25.h,
+                  //   decoration: BoxDecoration(
+                  //       border: Border.all(
+                  //           color: historyEntity.status.id == 0
+                  //               ? AppColor.primary
+                  //               : historyEntity.status.id == 1
+                  //                   ? AppColor.orange
+                  //                   : historyEntity.status.id == 2
+                  //                       ? AppColor.green
+                  //                       : historyEntity.status.id == 3
+                  //                           ? AppColor.danger
+                  //                           : AppColor.primary,
+                  //           width: 2),
+                  //       borderRadius: BorderRadius.circular(8.r)),
+                  //   child: Center(
+                  //     child: Icon(Icons.circle,
+                  //         size: 20,
+                  //         color: historyEntity.status.id == 0
+                  //             ? AppColor.primary
+                  //             : historyEntity.status.id == 1
+                  //                 ? AppColor.orange
+                  //                 : historyEntity.status.id == 2
+                  //                     ? AppColor.green
+                  //                     : historyEntity.status.id == 3
+                  //                         ? AppColor.danger
+                  //                         : AppColor.primary),
+                  //   ),
+                  // ),
                   Container(
                     height: 25.h,
                     width: 25.h,
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: historyEntity.status.id == 0
+                            color: historyEntity.status == "new"
                                 ? AppColor.primary
-                                : historyEntity.status.id == 1
+                                : historyEntity.status == "hold"
                                     ? AppColor.orange
-                                    : historyEntity.status.id == 2
+                                    : historyEntity.status == "accepted"
                                         ? AppColor.green
-                                        : historyEntity.status.id == 3
+                                        : historyEntity.status == "rejected"
                                             ? AppColor.danger
                                             : AppColor.primary,
                             width: 2),
                         borderRadius: BorderRadius.circular(8.r)),
                     child: Center(
-                      child: Icon(Icons.circle,
-                          size: 20,
-                          color: historyEntity.status.id == 0
-                              ? AppColor.primary
-                              : historyEntity.status.id == 1
-                                  ? AppColor.orange
-                                  : historyEntity.status.id == 2
-                                      ? AppColor.green
-                                      : historyEntity.status.id == 3
-                                          ? AppColor.danger
-                                          : AppColor.primary),
+                      child: Icon(
+                        Icons.circle,
+                        size: 20,
+                        color: historyEntity.status == "new"
+                            ? AppColor.primary
+                            : historyEntity.status == "hold"
+                                ? AppColor.orange
+                                : historyEntity.status == "accepted"
+                                    ? AppColor.green
+                                    : historyEntity.status == "rejected"
+                                        ? AppColor.danger
+                                        : AppColor.primary,
+                      ),
                     ),
                   ),
                   Gap(10.w),
@@ -80,26 +113,67 @@ class HistoryContainer extends ConsumerWidget {
                       RichText(
                           text: TextSpan(children: [
                         TextSpan(
-                            text: historyEntity.subTotal,
+                            text: historyEntity.paymentMethod,
                             style: AppFont.font14W600Black),
-                        TextSpan(
-                            text: " ${"SR".tr}",
-                            style: AppFont.font14W600Black),
+                        // TextSpan(
+                        //     text: " ${"SR".tr}",
+                        //     style: AppFont.font14W600Black),
                       ])),
                     ],
                   ),
                 ],
               ),
               Gap(10.h),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: historyEntity.status.id == 0
+              //         ? AppColor.primary.withOpacity(.2)
+              //         : historyEntity.status.id == 1
+              //             ? AppColor.orange.withOpacity(.2)
+              //             : historyEntity.status.id == 2
+              //                 ? AppColor.green.withOpacity(.2)
+              //                 : historyEntity.status.id == 3
+              //                     ? AppColor.danger.withOpacity(.2)
+              //                     : AppColor.primary.withOpacity(.2),
+              //     borderRadius: BorderRadius.circular(8.r),
+              //   ),
+              //   child: Padding(
+              //     padding:
+              //         const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              //     child: Row(
+              //       children: [
+              //         Icon(
+              //           Icons.info_outlined,
+              //           color: historyEntity.status.id == 0
+              //               ? AppColor.primary
+              //               : historyEntity.status.id == 1
+              //                   ? AppColor.orange
+              //                   : historyEntity.status.id == 2
+              //                       ? AppColor.green
+              //                       : historyEntity.status.id == 3
+              //                           ? AppColor.danger
+              //                           : AppColor.primary,
+              //         ),
+              //         Gap(10.w),
+              //         Flexible(
+              //           child: Text(
+              //             historyEntity.status.description,
+              //             style: AppFont.font14W500Black,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Container(
                 decoration: BoxDecoration(
-                  color: historyEntity.status.id == 0
+                  color: historyEntity.status == "new"
                       ? AppColor.primary.withOpacity(.2)
-                      : historyEntity.status.id == 1
+                      : historyEntity.status == "hold"
                           ? AppColor.orange.withOpacity(.2)
-                          : historyEntity.status.id == 2
+                          : historyEntity.status == "accepted"
                               ? AppColor.green.withOpacity(.2)
-                              : historyEntity.status.id == 3
+                              : historyEntity.status == "rejected"
                                   ? AppColor.danger.withOpacity(.2)
                                   : AppColor.primary.withOpacity(.2),
                   borderRadius: BorderRadius.circular(8.r),
@@ -111,20 +185,20 @@ class HistoryContainer extends ConsumerWidget {
                     children: [
                       Icon(
                         Icons.info_outlined,
-                        color: historyEntity.status.id == 0
+                        color: historyEntity.status == "new"
                             ? AppColor.primary
-                            : historyEntity.status.id == 1
+                            : historyEntity.status == "hold"
                                 ? AppColor.orange
-                                : historyEntity.status.id == 2
+                                : historyEntity.status == "accepted"
                                     ? AppColor.green
-                                    : historyEntity.status.id == 3
+                                    : historyEntity.status == "rejected"
                                         ? AppColor.danger
                                         : AppColor.primary,
                       ),
                       Gap(10.w),
                       Flexible(
                         child: Text(
-                          historyEntity.status.description,
+                          historyEntity.status??"",
                           style: AppFont.font14W500Black,
                         ),
                       ),
@@ -142,7 +216,7 @@ class HistoryContainer extends ConsumerWidget {
                   child: Column(
                     children: [
                       Text(
-                        historyEntity.orderDescription,
+                        historyEntity.contentDescription ?? "",
                         maxLines:
                             ref.watch(changed("more${historyEntity.id}")) ==
                                     false
@@ -155,42 +229,75 @@ class HistoryContainer extends ConsumerWidget {
                               children: [
                                 Gap(20.h),
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    // Column(
+                                    //   children: [
+                                    //     // Text("from".tr),
+                                    //     Gap(10.h),
+                                    //     Text("to".tr),
+                                    //   ],
+                                    // ),
                                     Column(
-                                      children: [
-                                        Text("from".tr),
-                                        Gap(10.h),
-                                        Text("to".tr),
-                                      ],
-                                    ),
-                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
+                                            Text("from".tr),
                                             Icon(
                                               Icons.location_on_outlined,
                                               color: AppColor.grey1,
                                             ),
                                             Gap(10.w),
                                             Text(
-                                              historyEntity.from,
+                                              "${historyEntity.addressFrom?.addressLine ?? ""} - ${historyEntity.addressFrom?.area ?? ""}",
                                               style: AppFont.font12w500Grey2,
                                             ),
                                           ],
                                         ),
                                         Row(
                                           children: [
+                                            Text("to".tr),
                                             Icon(
                                               Icons.location_on_outlined,
                                               color: AppColor.grey1,
                                             ),
                                             Gap(10.w),
                                             Text(
-                                              historyEntity.from,
+                                              "${historyEntity.addressTo?.addressLine ?? ""} - ${historyEntity.addressTo?.area ?? ""}",
                                               style: AppFont.font12w500Grey2,
                                             ),
                                           ],
                                         ),
+                                        Row(
+                                          children: [
+                                            Text("to".tr),
+                                            Icon(
+                                              CupertinoIcons.profile_circled,
+                                              color: AppColor.grey1,
+                                            ),
+                                            Gap(10.w),
+                                            Text(
+                                              historyEntity.receiverName??"",
+                                              style: AppFont.font12w500Grey2,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text("to".tr),
+                                            Icon(
+                                              CupertinoIcons.number_circle,
+                                              color: AppColor.grey1,
+                                            ),
+                                            Gap(10.w),
+                                            Text(
+                                              historyEntity.receiverPhone??"",
+                                              style: AppFont.font12w500Grey2,
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     )
                                   ],

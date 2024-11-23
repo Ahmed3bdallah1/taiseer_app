@@ -82,7 +82,7 @@ class _CustomStepperWidgetState extends State<CustomStepperWidget> {
               child: Center(
                   child: Icon(
                 Icons.circle,
-                color: widget.status >= 3 ? AppColor.primary : AppColor.grey2,
+                color: widget.status >= 3 ? AppColor.primary : AppColor.grey2.withOpacity(.3),
                 size: 18,
               )),
             ),

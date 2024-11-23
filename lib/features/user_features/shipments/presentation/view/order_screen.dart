@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/shared/auth/presentation/manager/auth_provuder.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/widgets/selectable_tile.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/selectable_tile.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_text_field.dart';
@@ -168,7 +168,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 2),
-                          child: Text(widget.companyModel.typeActivityCompanies
+                          child: Text(widget.companyModel.typeActivityCompanies!
                                   .firstWhereOrNull((e) =>
                                       e.id ==
                                       form.control("shipment_type").value)
@@ -199,11 +199,14 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                           .typeActivityCompanies.length) {
                                     final isSelected =
                                         form.control("shipment_type").value ==
-                                            widget.companyDetailsModel
-                                                .typeActivityCompanies[index].id;
+                                            widget
+                                                .companyDetailsModel
+                                                .typeActivityCompanies[index]
+                                                .id;
                                     return ShippingMethodTile(
                                       color: AppColor.black.withOpacity(.1),
-                                      shippingMethodsEntity: widget.companyDetailsModel
+                                      shippingMethodsEntity: widget
+                                          .companyDetailsModel
                                           .typeActivityCompanies[index],
                                       hideSelectedItem: false,
                                       isSelected: isSelected,
@@ -213,8 +216,10 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                               null;
                                         } else {
                                           form.control("shipment_type").value =
-                                              widget.companyDetailsModel
-                                                  .typeActivityCompanies[index].id;
+                                              widget
+                                                  .companyDetailsModel
+                                                  .typeActivityCompanies[index]
+                                                  .id;
                                         }
                                       },
                                     );
@@ -223,7 +228,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                       builder: (context, form, _) {
                                         bool isFastSelected = form
                                                 .control("is_fast_shipping")
-                                                .value == true;
+                                                .value ==
+                                            true;
                                         return FastShippingMethodTile(
                                           color: Colors.white,
                                           isSelected: isFastSelected,
@@ -243,7 +249,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                               return Gap(10.w);
                             },
                             itemCount: widget.companyDetailsModel
-                                    .typeActivityCompanies.length + 1,
+                                    .typeActivityCompanies.length +
+                                1,
                           ),
                         ),
                       ],
@@ -833,21 +840,35 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
       "content_description": FormControl(validators: [Validators.required]),
       'expected_delivery_date': FormControl(validators: [Validators.required]),
       'amount': FormControl<String>(validators: [Validators.required]),
-      'shipping_images':
-          FormControl<List<String>>(validators: [Validators.required]),
+      'payment_method':
+          FormControl<String>(validators: [Validators.required], value: "cash"),
+      'from_area': FormControl<String>(validators: [Validators.required]),
+      'from_city_id': FormControl<int>(validators: [Validators.required]),
+      'from_country_id': FormControl<int>(validators: [Validators.required]),
+      'from_latitude': FormControl<double>(
+          validators: [Validators.required], value: 40.712776),
+      'from_longitude': FormControl<double>(
+          validators: [Validators.required], value: -74.005974),
       'from_address_line':
           FormControl<String>(validators: [Validators.required]),
-      'to_address_line': FormControl<String>(validators: [Validators.required]),
-      'to_country_id': FormControl<String>(validators: [Validators.required]),
-      'to_city_id': FormControl<String>(validators: [Validators.required]),
-      'sender_name': FormControl<String>(validators: [Validators.required]),
+      // دى متستقبلهاش
       'sender_number_country': FormControl<int>(),
       'sender_number': FormControl<String>(validators: [Validators.required]),
-      'from_country_id': FormControl<String>(validators: [Validators.required]),
-      'from_city_id': FormControl<String>(validators: [Validators.required]),
+      'to_address_line': FormControl<String>(validators: [Validators.required]),
+      'to_country_id': FormControl<int>(validators: [Validators.required]),
+      'to_city_id': FormControl<int>(validators: [Validators.required]),
+      'to_area': FormControl<int>(validators: [Validators.required]),
+      'to_latitude': FormControl<double>(
+          validators: [Validators.required], value: 40.712776),
+      'to_longitude': FormControl<double>(
+          validators: [Validators.required], value: -74.005974),
       'receiver_name': FormControl<String>(validators: [Validators.required]),
-      'receiver_phone': FormControl<String>(validators: [Validators.required]),
+      // دى متستقبلهاش
       'receiver_phone_country': FormControl<int>(),
+      'receiver_phone': FormControl<String>(validators: [Validators.required]),
+
+      'shipping_images':
+          FormControl<List<String>>(validators: [Validators.required]),
     });
 
     formGroup.control('sender_number').setValidators([
@@ -888,7 +909,6 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
   @override
   Widget build(BuildContext context) {
     final country = ref.watch(fetchCountryProvider).value;
-
     return Scaffold(
       backgroundColor: AppColor.primaryWhite,
       appBar: CustomLogoAppbar(
@@ -931,10 +951,12 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 //         child: Padding(
                 //           padding: const EdgeInsets.symmetric(
                 //               horizontal: 12, vertical: 2),
-                //           child: Text(widget.companyModel.shippingMethods!
+                //           child: Text(widget.companyModel.typeActivityCompanies!
                 //                   .firstWhereOrNull((e) =>
-                //                       e.id == form.control("shipment_type").value)
-                //                   ?.name ??
+                //                       e.id ==
+                //                       form.control("shipment_type").value)
+                //                   ?.typeActivities
+                //                   ?.infoAr ??
                 //               ''),
                 //         ),
                 //       );
@@ -953,48 +975,65 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 //             scrollDirection: Axis.horizontal,
                 //             shrinkWrap: true,
                 //             itemBuilder: (context, index) {
-                //               final method =
-                //                   widget.companyModel.shippingMethods![index];
-                //               if (index < widget.companyModel.shippingMethods!.length - 1) {
-                //                 return ReactiveFormConsumer(
-                //                   builder: (context, form, _) {
+                //               return ReactiveFormConsumer(
+                //                 builder: (context, form, _) {
+                //                   if (index !=
+                //                       widget.companyDetailsModel
+                //                           .typeActivityCompanies.length) {
                 //                     final isSelected =
                 //                         form.control("shipment_type").value ==
-                //                             method.id;
+                //                             widget
+                //                                 .companyDetailsModel
+                //                                 .typeActivityCompanies[index]
+                //                                 .id;
                 //                     return ShippingMethodTile(
-                //                       color: AppColor.black,
-                //                       shippingMethodsEntity: method,
+                //                       color: AppColor.black.withOpacity(.1),
+                //                       shippingMethodsEntity: widget
+                //                           .companyDetailsModel
+                //                           .typeActivityCompanies[index],
                 //                       hideSelectedItem: false,
                 //                       isSelected: isSelected,
-                //                       onTap: () => form
-                //                           .control("shipment_type")
-                //                           .value = method.id!,
-                //                     );
-                //                   },
-                //                 );
-                //               } else {
-                //                 return ReactiveFormConsumer(
-                //                   builder: (context, form, _) {
-                //                     bool isSelected = form
-                //                             .control("is_fast_shipping")
-                //                             .value ==
-                //                         true;
-                //                     return FastShippingMethodTile(
-                //                       color: Colors.white,
-                //                       isSelected: isSelected,
                 //                       onTap: () {
-                //                         form.control("is_fast_shipping").value = !isSelected;
+                //                         if (isSelected) {
+                //                           form.control("shipment_type").value =
+                //                               null;
+                //                         } else {
+                //                           form.control("shipment_type").value =
+                //                               widget
+                //                                   .companyDetailsModel
+                //                                   .typeActivityCompanies[index]
+                //                                   .id;
+                //                         }
                 //                       },
-                //                       shippingMethodsEntity: method,
                 //                     );
-                //                   },
-                //                 );
-                //               }
+                //                   } else {
+                //                     return ReactiveFormConsumer(
+                //                       builder: (context, form, _) {
+                //                         bool isFastSelected = form
+                //                                 .control("is_fast_shipping")
+                //                                 .value ==
+                //                             true;
+                //                         return FastShippingMethodTile(
+                //                           color: Colors.white,
+                //                           isSelected: isFastSelected,
+                //                           onTap: () {
+                //                             form
+                //                                 .control("is_fast_shipping")
+                //                                 .value = !isFastSelected;
+                //                           },
+                //                         );
+                //                       },
+                //                     );
+                //                   }
+                //                 },
+                //               );
                 //             },
                 //             separatorBuilder: (context, index) {
                 //               return Gap(10.w);
                 //             },
-                //             itemCount: widget.companyModel.shippingMethods?.length ?? 0,
+                //             itemCount: widget.companyDetailsModel
+                //                     .typeActivityCompanies.length +
+                //                 1,
                 //           ),
                 //         ),
                 //       ],
@@ -1212,50 +1251,71 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                   },
                 ),
                 Gap(24.h),
-                CustomTextField(
-                  formControlName: "sender_name",
-                  hintText: "User".tr,
-                  labelText: "Sender name".tr,
-                ),
-                Gap(16.h),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Sender country".tr,
-                        formControlName: "from_country_id",
-                        hintText: "Egypt".tr,
-                        type: TextFieldType.selectable,
-                        items: country!.map((e) {
-                          return DropdownMenuItem(
-                            value: e.id,
-                            child: Row(
-                              children: [
-                                ImageOrSvg(
-                                  e.countryImage,
-                                  height: 30,
-                                ),
-                                Gap(8.w),
-                                Text(
-                                  e.nameAr ?? "",
-                                  style: AppFont.font14W600Primary,
-                                )
-                              ],
-                            ),
-                          );
-                        }).toList(),
+                ReactiveFormConsumer(builder: (context, form, _) {
+                  CountryEntity? cities;
+                  if (form.control('from_country_id').value != null) {
+                    cities = country!
+                        .where((e) =>
+                            e.id == form.control('from_country_id').value)
+                        .firstOrNull;
+                  }
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: CustomTextField<int>(
+                          labelText: "Sender country".tr,
+                          formControlName: "from_country_id",
+                          hintText: "Egypt".tr,
+                          type: TextFieldType.selectable,
+                          items: country!.map((e) {
+                            return DropdownMenuItem<int>(
+                              value: e.id,
+                              child: Row(
+                                children: [
+                                  ImageOrSvg(
+                                    e.countryImage,
+                                    height: 30,
+                                  ),
+                                  Gap(8.w),
+                                  Text(
+                                    e.nameAr ?? "",
+                                    style: AppFont.font14W600Primary,
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
-                    ),
-                    Gap(10.w),
-                    Expanded(
-                      child: CustomTextField(
+                      Gap(10.w),
+                      Expanded(
+                        child: CustomTextField(
                           labelText: "Sender government".tr,
                           formControlName: "from_city_id",
                           hintText: "Cairo".tr,
-                          items: []),
-                    ),
-                  ],
+                          type: TextFieldType.selectable,
+                          items: cities == null
+                              ? []
+                              : cities.cities!.map((e) {
+                                  return DropdownMenuItem(
+                                    value: e.id,
+                                    child: Text(
+                                      e.titleAr ?? "",
+                                      style: AppFont.font14W600Primary,
+                                    ),
+                                  );
+                                }).toList(),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+                Gap(24.h),
+                CustomTextField(
+                  formControlName: "from_area",
+                  hintText: "Sender area".tr,
+                  labelText: "Sender area".tr,
                 ),
                 Gap(16.h),
                 ReactiveFormConsumer(builder: (context, form, _) {
@@ -1341,25 +1401,66 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                   ],
                 ),
                 Gap(16.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Delivery country".tr,
-                        formControlName: "to_country_id",
-                        hintText: "Egypt".tr,
+                ReactiveFormConsumer(builder: (context, form, _) {
+                  CountryEntity? cities;
+                  if (form.control('to_country_id').value != null) {
+                    cities = country!
+                        .where(
+                            (e) => e.id == form.control('to_country_id').value)
+                        .firstOrNull;
+                  }
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: CustomTextField<int>(
+                          labelText: "Delivery country".tr,
+                          formControlName: "to_country_id",
+                          hintText: "Egypt".tr,
+                          type: TextFieldType.selectable,
+                          items: country!.map((e) {
+                            return DropdownMenuItem<int>(
+                              value: e.id,
+                              child: Row(
+                                children: [
+                                  ImageOrSvg(
+                                    e.countryImage,
+                                    height: 30,
+                                  ),
+                                  Gap(8.w),
+                                  Text(
+                                    e.nameAr ?? "",
+                                    style: AppFont.font14W600Primary,
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
-                    ),
-                    Gap(10.w),
-                    Expanded(
-                      child: CustomTextField(
-                        labelText: "Delivery government".tr,
-                        formControlName: "to_city_id",
-                        hintText: "Cairo".tr,
+                      Gap(10.w),
+                      Expanded(
+                        child: CustomTextField(
+                          labelText: "Delivery government".tr,
+                          formControlName: "to_city_id",
+                          hintText: "Cairo".tr,
+                          type: TextFieldType.selectable,
+                          items: cities == null
+                              ? []
+                              : cities.cities!.map((e) {
+                                  return DropdownMenuItem(
+                                    value: e.id,
+                                    child: Text(
+                                      e.titleAr ?? "",
+                                      style: AppFont.font14W600Primary,
+                                    ),
+                                  );
+                                }).toList(),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  );
+                }),
                 Gap(16.h),
                 CustomTextField(
                   formControlName: "receiver_name",
@@ -1394,8 +1495,13 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                   ],
                 ),
                 Gap(16.h),
+                CustomTextField(
+                  formControlName: "to_area",
+                  hintText: "receiver area".tr,
+                  labelText: "receiver area".tr,
+                ),
+                Gap(16.h),
                 ReactiveFormConsumer(builder: (context, form, _) {
-                  final country = ref.watch(fetchCountryProvider).value;
                   final max = country!
                           .firstWhereOrNull((e) =>
                               e.id ==
@@ -1431,7 +1537,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                                 ),
                                 Gap(8.w),
                                 Text(
-                                  e.nameEn ?? "",
+                                  e.nameAr ?? "",
                                   style: AppFont.font14W600Primary,
                                 )
                               ],

@@ -6,6 +6,7 @@ import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/core/service/localization_service/localization_service.dart';
 import 'package:taiseer/features/user_features/home/domain/entities/loan_details_entity.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/details_screen.dart';
+import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
 import 'package:taiseer/ui/shared_widgets/container_button.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import '../../../../../../gen/assets.gen.dart';
@@ -15,12 +16,12 @@ class CompanyContainer extends StatelessWidget {
   final bool? isDisabled;
   final bool? hideButton;
   final UserCompanyModel2 companyModel;
+  final ShipmentModel? shipmentModel;
 
-  const CompanyContainer(
-      {super.key,
-      required this.companyModel,
-      this.isDisabled,
-      this.hideButton});
+  const CompanyContainer({super.key,
+    required this.companyModel,
+    this.isDisabled,
+    this.hideButton, this.shipmentModel});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,15 @@ class CompanyContainer extends StatelessWidget {
       onTap: isDisabled == true
           ? () {}
           : () {
-              Get.to(
-                DetailsScreen(userCompanyModel2: companyModel),
-              );
-            },
+        Get.to(
+          DetailsScreen(userCompanyModel2: companyModel),
+        );
+      },
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         decoration: BoxDecoration(
           color: AppColor.whiteOrGrey,
           borderRadius: BorderRadius.circular(12.r),
@@ -44,7 +48,7 @@ class CompanyContainer extends StatelessWidget {
             children: [
               ImageOrSvg(
                 companyModel.logo ?? "",
-                isCompany: true,
+                isCompanyImage: true,
                 height: 60.h,
                 width: 60.h,
               ),
@@ -85,29 +89,67 @@ class CompanyContainer extends StatelessWidget {
                       ],
                     ),
                     Gap(10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ...companyModel.typeActivityCompanies.map(
-                          (e) => Container(
+                    if(shipmentModel != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
                             decoration: BoxDecoration(
                                 color: AppColor.primary.withOpacity(.15),
                                 borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(color: AppColor.primary)),
+                                border: Border.all(
+                                    color: AppColor.primary)),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 2),
-                              child: Text(
-                                localeService.isArabic
-                                    ? e.typeActivities?.infoAr ?? ""
-                                    : e.typeActivities?.infoEn ?? "",
+                              child: Text(shipmentModel?.status ?? "",
                                 style: AppFont.font10w400Primary,
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    )
+                          Gap(10.w),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: AppColor.green.withOpacity(.15),
+                                borderRadius: BorderRadius.circular(12.r),
+                                border: Border.all(
+                                    color: AppColor.green)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 2),
+                              child: Text(shipmentModel?.company?.phone ?? "",
+                                style: AppFont.font10w400Primary.copyWith(color: AppColor.green),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    if (companyModel.typeActivityCompanies!.isNotEmpty)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ...companyModel.typeActivityCompanies!.map(
+                                (e) =>
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColor.primary.withOpacity(.15),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      border: Border.all(
+                                          color: AppColor.primary)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 2),
+                                    child: Text(
+                                      localeService.isArabic
+                                          ? e.typeActivities?.infoAr ?? ""
+                                          : e.typeActivities?.infoEn ?? "",
+                                      style: AppFont.font10w400Primary,
+                                    ),
+                                  ),
+                                ),
+                          )
+                        ],
+                      )
                   ],
                 ),
               ),

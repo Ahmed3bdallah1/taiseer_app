@@ -8,7 +8,7 @@ import '../../../../../config/app_translation.dart';
 import '../../../../../ui/shared_widgets/custom_app_bar.dart';
 import '../../../../../ui/shared_widgets/custom_filled_button.dart';
 import '../../../order/presentation/managers/filter_model_provider.dart';
-import '../../../order/presentation/view/widgets/custom_action_chip.dart';
+import '../../../shipments/presentation/view/widgets/custom_action_chip.dart';
 import 'custom_company_filter_action_chil.dart';
 
 class SearchCompaniesUserFilterBottomSheet extends StatelessWidget {

@@ -23,6 +23,9 @@ import 'package:taiseer/features/user_features/order/domain/use_case/fetch_last_
 import 'package:taiseer/features/user_features/order/domain/use_case/fetch_order_history_use_case.dart';
 import 'package:taiseer/features/user_features/order/domain/use_case/get_filter_attr_use_case.dart';
 import 'package:taiseer/features/user_features/profile/data/data_sources/update_profile_date_source.dart';
+import 'package:taiseer/features/user_features/shipments/data/data_source/shipment_data_source.dart';
+import 'package:taiseer/features/user_features/shipments/data/repo/shipment_repo_imp.dart';
+import 'package:taiseer/features/user_features/shipments/domain/repo/shipment_repo.dart';
 import 'package:taiseer/features/user_features/support/data/data_source/support_data_source.dart';
 import 'package:taiseer/features/user_features/support/domain/repo/support_repo.dart';
 import 'package:taiseer/features/user_features/support/domain/use_case/fetch_support_use_case.dart';
@@ -54,6 +57,7 @@ import 'features/user_features/profile/domain/repositories/update_profile_repo.d
 import 'features/user_features/profile/domain/repositories/upload_file_repo.dart';
 import 'features/user_features/profile/domain/use_cases/update_profile_use_case.dart';
 import 'features/user_features/profile/domain/use_cases/upload_file_use_case.dart';
+import 'features/user_features/shipments/domain/use_cases/shipment_use_cases.dart';
 import 'features/user_features/support/data/repo/support_repo_imp.dart';
 import 'features/user_features/user_company/data/repo/company_repo_imp.dart';
 import 'features/user_features/user_company/domain/use_case/company_use_case.dart';
@@ -101,6 +105,18 @@ Future setupLocator() async {
   getIt.registerLazySingleton<FetchDeleteOrderUseCase>(
       () => FetchDeleteOrderUseCase(orderRepo: getIt<OrderRepo>()));
 
+  // register shipment entity
+  getIt.registerLazySingleton<ShipmentDataSource>(
+      () => ShipmentDataSourceImp(getIt<ApiService>()));
+  getIt.registerLazySingleton<ShipmentRepo>(
+      () => ShipmentRepoImp(shipmentDataSource: getIt<ShipmentDataSource>()));
+  getIt.registerLazySingleton<FetchLastShipmentUseCase>(
+      () => FetchLastShipmentUseCase(shipmentRepo: getIt<ShipmentRepo>()));
+  getIt.registerLazySingleton<FetchShipmentsUseCase>(
+      () => FetchShipmentsUseCase(shipmentRepo: getIt<ShipmentRepo>()));
+  getIt.registerLazySingleton<SubmitShipmentUseCase>(
+      () => SubmitShipmentUseCase(shipmentRepo: getIt<ShipmentRepo>()));
+
   // register support entity
   getIt.registerLazySingleton<SupportDataSource>(
       () => SupportDataSourceImp(apiService: getIt<ApiService>()));
@@ -124,8 +140,8 @@ Future setupLocator() async {
       UserCompanyRepoImp(companyDataSource: getIt<UserCompanyDataSource>()));
   getIt.registerLazySingleton<FetchUserCompanyUseCase>(
       () => FetchUserCompanyUseCase(companyRepo: getIt<UserCompanyRepo>()));
-  getIt.registerLazySingleton<FetchUserCompanyDetailsUseCase>(
-      () => FetchUserCompanyDetailsUseCase(companyRepo: getIt<UserCompanyRepo>()));
+  getIt.registerLazySingleton<FetchUserCompanyDetailsUseCase>(() =>
+      FetchUserCompanyDetailsUseCase(companyRepo: getIt<UserCompanyRepo>()));
   getIt.registerLazySingleton<FollowCompanyUseCase>(
       () => FollowCompanyUseCase(companyRepo: getIt<UserCompanyRepo>()));
   // getIt.registerLazySingleton<FetchSearchCompanyUseCase>(

@@ -35,7 +35,7 @@ class ShipmentDataSourceImp extends ShipmentDataSource {
 
   @override
   Future<bool> submitShipment(Map<String, dynamic> data) async {
-    await apiService.post(url: ApiPath.submitShipment, returnDataOnly: false);
+    await apiService.post(url: ApiPath.submitShipment, returnDataOnly: false,requestBody: data);
     return true;
   }
 }

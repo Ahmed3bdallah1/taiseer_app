@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/home/presentation/managers/fetch_ads_provider.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/silder_item_widget.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/order_screen.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/order_screen.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:taiseer/features/user_features/user_company/presentation/mangers/fetch_company_provider.dart';
 import 'package:taiseer/main.dart';
@@ -67,7 +67,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               width: MediaQuery.of(context).size.width,
                               child: ImageOrSvg(
                                 companyModel.cover??"",
-                                isCompany: true,
+                                isCompanyImage: true,
+                                pickImageOnNull: true,
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -126,7 +127,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                             children: [
                                               ImageOrSvg(
                                                 companyModel.logo, height: 65.h,
-                                                isCompany: true,
+                                                isCompanyImage: true,
                                                 width: 65.h,
                                                 // assetImageOnNull: Assets.onboard.vector,
                                                 pickImageOnNull: true,

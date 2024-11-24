@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:taiseer/core/service/auth_service.dart';
 import 'package:taiseer/features/shared/auth/presentation/manager/auth_provuder.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/home_screen.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/order_history_view.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/order_history_view.dart';
 import 'package:taiseer/features/user_features/profile/presentation/view/edit_profile.dart';
 import 'package:taiseer/features/user_features/support/presentation/view/support_screen.dart';
 import '../../../../config/app_font.dart';

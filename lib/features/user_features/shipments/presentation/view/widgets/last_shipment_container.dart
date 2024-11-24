@@ -62,7 +62,7 @@ class LastShipmentContainer extends StatelessWidget {
               Gap(10.h),
               const CustomStepperWidget(status: 1),
               /// add company container
-              CompanyContainer(companyModel: shipment.company!)
+              CompanyContainer(companyModel: shipment.company!,shipmentModel: shipment,)
             ],
           ),
         ),

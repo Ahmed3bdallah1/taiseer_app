@@ -37,6 +37,7 @@ void showShipmentDialog(BuildContext context,{ShipmentModel? order}) {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(order.user!.name??"",
                                 style: AppFont.font16W600Black),
@@ -107,7 +108,7 @@ void showShipmentDialog(BuildContext context,{ShipmentModel? order}) {
                       height: 50,
                       text: 'Track'.tr,
                       isExpanded: true,
-                      widget: Icon(CupertinoIcons.location),
+                      widget: const Icon(CupertinoIcons.location),
                     ),
                   ),
                   Gap(10.w),
@@ -118,8 +119,8 @@ void showShipmentDialog(BuildContext context,{ShipmentModel? order}) {
                       },
                       height: 50,
                       isExpanded: true,
-                      text: "Details".tr,
-                      widget: Icon(Icons.info_outline),
+                      text: "Ok".tr,
+                      widget: const Icon(Icons.close),
                     ),
                   ),
                 ],

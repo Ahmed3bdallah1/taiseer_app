@@ -24,7 +24,7 @@ class UserCompanyModel2 {
   final int? followersCount;
   final String? ratingAvgRate;
   final double? averageRating;
-  final List<ShippingMethodsEntity> typeActivityCompanies;
+  final List<ShippingMethodsEntity>? typeActivityCompanies;
 
   UserCompanyModel2({
     required this.id,
@@ -69,7 +69,7 @@ class UserCompanyModel2 {
     followersCount: json["followers_count"],
     ratingAvgRate: json["rating_avg_rate"],
     averageRating: (json["average_rating"]?? 0 ).toDouble(),
-    typeActivityCompanies: List<ShippingMethodsEntity>.from(json["type_activity_companies"].map((x) => ShippingMethodsEntity.fromJson(x))),
+    typeActivityCompanies: json["type_activity_companies"]!=null? List<ShippingMethodsEntity>.from(json["type_activity_companies"].map((x) => ShippingMethodsEntity.fromJson(x))):[],
   );
 
   Map<String, dynamic> toJson() => {
@@ -92,6 +92,6 @@ class UserCompanyModel2 {
     "followers_count": followersCount,
     "rating_avg_rate": ratingAvgRate,
     "average_rating": averageRating??0.0,
-    "type_activity_companies": List<dynamic>.from(typeActivityCompanies.map((x) => x.toJson())),
+    "type_activity_companies": List<dynamic>.from(typeActivityCompanies!.map((x) => x.toJson())),
   };
 }

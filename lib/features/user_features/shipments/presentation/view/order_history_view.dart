@@ -27,7 +27,7 @@ class OrderHistoryView extends ConsumerStatefulWidget {
 
 class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
   final PagingController<int, ShipmentModel> _pagingController =
-  PagingController(firstPageKey: 1);
+      PagingController(firstPageKey: 1);
 
   Future<void> _fetchPage(int pageKey) async {
     final response = await getIt<FetchShipmentsUseCase>().call(pageKey);
@@ -51,6 +51,7 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
       _fetchPage(pageKey);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +74,28 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
                       return attr.customWhen(
                         ref: ref,
                         refreshable: fetchFilterModelProvider.future,
+                        error: (e, ei) => const SizedBox.shrink(),
+                        loading: () => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: List.generate(
+                                3,
+                                (_) => Padding(
+                                      padding: const EdgeInsetsDirectional.only(
+                                          end: 8.0),
+                                      child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[900]!,
+                                        highlightColor: Colors.green[100]!,
+                                        child: Container(
+                                          height: 40,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.withOpacity(.15),
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                          ),
+                                        ),
+                                      ),
+                                    ))),
                         data: (data) {
                           return Row(
                             children: [

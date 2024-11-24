@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/shared/auth/presentation/manager/auth_provuder.dart';
+import 'package:taiseer/features/user_features/root/view/root_view.dart';
+import 'package:taiseer/features/user_features/shipments/domain/use_cases/shipment_use_cases.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/selectable_tile.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
@@ -16,6 +19,7 @@ import 'package:taiseer/ui/shared_widgets/custom_text_field.dart';
 import 'package:taiseer/ui/ui.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../config/app_font.dart';
+import '../../../../../main.dart';
 import '../../../../../ui/shared_widgets/custom_logo_app_bar.dart';
 import '../../../../../ui/shared_widgets/custom_reactive_form_consumer.dart';
 import '../../../../../ui/shared_widgets/image_or_svg.dart';
@@ -48,12 +52,15 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
   @override
   void initState() {
     formGroup = FormGroup({
-      'company_id': FormControl(value: widget.companyDetailsModel.id),
-      'shipment_type': FormControl<int>(validators: [Validators.required]),
+      'company_id': FormControl(
+        value: widget.isGlobal ? 0 : widget.companyDetailsModel.id,
+      ),
+      'typeActivity_id':
+          FormControl<List<int>?>(validators: [Validators.required], value: null),
       'is_fast_shipping':
           FormControl<bool>(validators: [Validators.required], value: false),
-      'shipping_type':
-          FormControl<int>(validators: [Validators.required], value: 1),
+      'shipment_type': FormControl<String>(
+          validators: [Validators.required], value: "general"),
       "content_description": FormControl(validators: [Validators.required]),
       'expected_delivery_date': FormControl(validators: [Validators.required]),
       'amount': FormControl<String>(validators: [Validators.required]),
@@ -74,7 +81,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
       'to_address_line': FormControl<String>(validators: [Validators.required]),
       'to_country_id': FormControl<int>(validators: [Validators.required]),
       'to_city_id': FormControl<int>(validators: [Validators.required]),
-      'to_area': FormControl<int>(validators: [Validators.required]),
+      'to_area': FormControl<String>(validators: [Validators.required]),
       'to_latitude': FormControl<double>(
           validators: [Validators.required], value: 40.712776),
       'to_longitude': FormControl<double>(
@@ -84,8 +91,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
       'receiver_phone_country': FormControl<int>(),
       'receiver_phone': FormControl<String>(validators: [Validators.required]),
 
-      'shipping_images':
-          FormControl<List<String>>(validators: [Validators.required]),
+      'shipping_images': FormControl<List<String>>(validators: []),
     });
 
     formGroup.control('sender_number').setValidators([
@@ -158,7 +164,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                     ),
                     Gap(10.w),
                     ReactiveFormConsumer(builder: (context, form, _) {
-                      if (form.control("shipment_type").value == null) {
+                      final value =form.control("typeActivity_id").value as List<int>? ?? [];
+                      if (form.control("typeActivity_id").value == null) {
                         return const SizedBox.shrink();
                       }
                       return Container(
@@ -169,9 +176,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 2),
                           child: Text(widget.companyModel.typeActivityCompanies!
-                                  .firstWhereOrNull((e) =>
-                                      e.id ==
-                                      form.control("shipment_type").value)
+                                  .firstWhereOrNull((e) => value.contains(e.id))
                                   ?.typeActivities
                                   ?.infoAr ??
                               ''),
@@ -194,15 +199,16 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                             itemBuilder: (context, index) {
                               return ReactiveFormConsumer(
                                 builder: (context, form, _) {
+                                  final value = form
+                                      .control("typeActivity_id")
+                                      .value as List<int>? ??[];
                                   if (index !=
                                       widget.companyDetailsModel
                                           .typeActivityCompanies.length) {
-                                    final isSelected =
-                                        form.control("shipment_type").value ==
-                                            widget
-                                                .companyDetailsModel
-                                                .typeActivityCompanies[index]
-                                                .id;
+                                    final isSelected = value.contains(widget
+                                        .companyDetailsModel
+                                        .typeActivityCompanies[index]
+                                        .id);
                                     return ShippingMethodTile(
                                       color: AppColor.black.withOpacity(.1),
                                       shippingMethodsEntity: widget
@@ -212,15 +218,19 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                       isSelected: isSelected,
                                       onTap: () {
                                         if (isSelected) {
-                                          form.control("shipment_type").value =
-                                              null;
-                                        } else {
-                                          form.control("shipment_type").value =
+                                          value.removeWhere((e) =>
+                                              e ==
                                               widget
                                                   .companyDetailsModel
                                                   .typeActivityCompanies[index]
-                                                  .id;
+                                                  .id);
+                                          form.control("typeActivity_id").updateValue(value);
+                                        } else {
+                                          value.add(widget.companyDetailsModel
+                                              .typeActivityCompanies[index].id);
+                                          form.control("typeActivity_id").updateValue(value);
                                         }
+                                        setState(() {});
                                       },
                                     );
                                   } else {
@@ -415,8 +425,11 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                 date: null,
                               ).then((value) {
                                 if (value != null) {
+                                  final elements =intl.DateFormat.yMd('en').format(value).split("/").reversed.toList();
+                                  List value2= [elements[0],elements[2],elements[1]];
+                                  print(value2.join("-"));
                                   form.control("expected_delivery_date").value =
-                                      intl.DateFormat.yMd('en').format(value);
+                                      value2.join("-");
                                 }
                               });
                             },
@@ -441,26 +454,28 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                   ],
                 ),
                 Gap(16.h),
+
+                /// this will be replaced with string
                 ReactiveFormConsumer(
                   builder: (context, form, _) {
-                    final value = form.control("shipping_type").value;
+                    final value = form.control("shipment_type").value;
                     return Row(
                       children: [
                         Expanded(
                           child: SelectableTile(
                             name: "Local shipping".tr,
-                            isSelected: value == 0 ? true : false,
+                            isSelected: value == "general" ? false : true,
                             onTap: () =>
-                                form.control("shipping_type").value = 0,
+                                form.control("shipment_type").value = "",
                           ),
                         ),
                         Gap(10.w),
                         Expanded(
                           child: SelectableTile(
                             name: "Global shipping".tr,
-                            isSelected: value == 1 ? true : false,
+                            isSelected: value == "general" ? true : false,
                             onTap: () =>
-                                form.control("shipping_type").value = 1,
+                                form.control("shipment_type").value = "general",
                           ),
                         ),
                       ],
@@ -789,13 +804,31 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
               return CustomFilledButton(
                 text: "next".tr,
                 onPressed: () async {
-                  if (isValid) {
-                    // await getIt<SubmitOrderUseCase>().call(form.value);
+                  if (form.valid) {
+                    try {
+                      ref.read(isLoadingProvider("submit").notifier).state =
+                          true;
+                      final res = await getIt<SubmitShipmentUseCase>().call(
+                        {...form.value}
+                          ..removeWhere((key, value) => value == null),
+                      );
+                      res.fold((l) {
+                        UIHelper.showAlert(l.message, type: DialogType.error);
+                      }, (r) async {
+                        await UIHelper.showAlert(
+                            "Shipment submitted successfully".tr);
+                        Get.offAll(() => const RootView());
+                      });
+                    } finally {
+                      ref.read(isLoadingProvider("submit").notifier).state =
+                          false;
+                    }
                   } else {
                     form.markAllAsTouched();
                   }
                 },
                 isValid: isValid,
+                isLoading: ref.watch(isLoadingProvider("submit")),
               );
             },
           ),
@@ -832,10 +865,10 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
   void initState() {
     formGroup = FormGroup({
       'company_id': FormControl(value: 0),
-      'shipment_type': FormControl<int>(validators: [Validators.required]),
+      'typeActivity_id[]': FormControl<int>(validators: [Validators.required]),
       'is_fast_shipping':
           FormControl<bool>(validators: [Validators.required], value: false),
-      'shipping_type':
+      'shipment_type':
           FormControl<int>(validators: [Validators.required], value: 1),
       "content_description": FormControl(validators: [Validators.required]),
       'expected_delivery_date': FormControl(validators: [Validators.required]),
@@ -941,7 +974,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 //     ),
                 //     Gap(10.w),
                 //     ReactiveFormConsumer(builder: (context, form, _) {
-                //       if (form.control("shipment_type").value == null) {
+                //       if (form.control("typeActivity_id[]").value == null) {
                 //         return const SizedBox.shrink();
                 //       }
                 //       return Container(
@@ -954,7 +987,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 //           child: Text(widget.companyModel.typeActivityCompanies!
                 //                   .firstWhereOrNull((e) =>
                 //                       e.id ==
-                //                       form.control("shipment_type").value)
+                //                       form.control("typeActivity_id[]").value)
                 //                   ?.typeActivities
                 //                   ?.infoAr ??
                 //               ''),
@@ -981,7 +1014,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 //                       widget.companyDetailsModel
                 //                           .typeActivityCompanies.length) {
                 //                     final isSelected =
-                //                         form.control("shipment_type").value ==
+                //                         form.control("typeActivity_id[]").value ==
                 //                             widget
                 //                                 .companyDetailsModel
                 //                                 .typeActivityCompanies[index]
@@ -995,10 +1028,10 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 //                       isSelected: isSelected,
                 //                       onTap: () {
                 //                         if (isSelected) {
-                //                           form.control("shipment_type").value =
+                //                           form.control("typeActivity_id[]").value =
                 //                               null;
                 //                         } else {
-                //                           form.control("shipment_type").value =
+                //                           form.control("typeActivity_id[]").value =
                 //                               widget
                 //                                   .companyDetailsModel
                 //                                   .typeActivityCompanies[index]
@@ -1226,7 +1259,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                 Gap(16.h),
                 ReactiveFormConsumer(
                   builder: (context, form, _) {
-                    final value = form.control("shipping_type").value;
+                    final value = form.control("shipment_type").value;
                     return Row(
                       children: [
                         Expanded(
@@ -1234,7 +1267,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                             name: "Local shipping".tr,
                             isSelected: value == 0 ? true : false,
                             onTap: () =>
-                                form.control("shipping_type").value = 0,
+                                form.control("shipment_type").value = 0,
                           ),
                         ),
                         Gap(10.w),
@@ -1243,7 +1276,7 @@ class _GlobalOrderScreenState extends ConsumerState<GlobalOrderScreen> {
                             name: "Global shipping".tr,
                             isSelected: value == 1 ? true : false,
                             onTap: () =>
-                                form.control("shipping_type").value = 1,
+                                form.control("shipment_type").value = 1,
                           ),
                         ),
                       ],

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
-import 'package:taiseer/features/user_features/order/presentation/view/order_screen.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/order_screen.dart';
 import 'package:taiseer/features/user_features/user_company/presentation/mangers/fetch_company_provider.dart';
 import 'package:taiseer/features/user_features/user_company/presentation/view/widgets/company_container.dart';
 import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';

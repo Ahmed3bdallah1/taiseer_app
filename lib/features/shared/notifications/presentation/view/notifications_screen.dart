@@ -11,7 +11,7 @@ import 'package:taiseer/ui/shared_widgets/custom_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/hide_nav_bar_widget.dart';
 import 'package:taiseer/ui/shared_widgets/not_found_widget.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../user_features/order/presentation/view/widgets/custom_action_chip.dart';
+import '../../../../user_features/shipments/presentation/view/widgets/custom_action_chip.dart';
 import '../managers/notifications_filter.dart';
 
 class NotificationsScreen extends ConsumerStatefulWidget {

@@ -15,6 +15,8 @@ import '../../../../../ui/shared_widgets/hide_nav_bar_widget.dart';
 import '../../../../../ui/shared_widgets/image_or_svg.dart';
 import '../../../../../ui/shared_widgets/not_found_widget.dart';
 import '../../../../../ui/shared_widgets/select_language_tile.dart';
+import '../../data/model/company_details_model.dart';
+import '../../data/model/company_model.dart';
 
 class AllCompaniesScreen extends ConsumerStatefulWidget {
   const AllCompaniesScreen({super.key});
@@ -26,6 +28,8 @@ class AllCompaniesScreen extends ConsumerStatefulWidget {
 class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
   final ScrollController scrollController = ScrollController();
   late final AutoDisposeStateProvider<bool> hideNavBarProvider2;
+  UserCompanyModel2? companyModel;
+  CompanyDetailsModel? res;
 
   @override
   void initState() {
@@ -35,7 +39,7 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
       return false;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +69,10 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
                     child: Row(
                       children: [
                         Gap(10.w),
-                        Text("Our Sponsored Companies".tr,style: AppFont.font18W700Black,),
+                        Text(
+                          "Our Sponsored Companies".tr,
+                          style: AppFont.font18W700Black,
+                        ),
                       ],
                     )),
                 Gap(10.h),
@@ -74,20 +81,20 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
                     customProvider: hideNavBarProvider2,
                     child: Consumer(builder: (context, ref, _) {
                       final companies = ref.watch(fetchUserCompaniesViewProvider);
+                      res = ref.watch(fetchUserCompanyDetailsViewProvider(companyModel?.id ?? 0)).valueOrNull;
                       return companies.customWhen(
                           ref: ref,
                           refreshable: fetchUserCompaniesViewProvider.future,
                           data: (companiesData) {
                             if (companiesData.isEmpty) {
-                              return NotFoundWidget(
-                                  title: "No Companies right now.!".tr);
+                              return NotFoundWidget(title: "No Companies right now.!".tr);
                             }
+                            companyModel = companiesData.first;
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: ListView.separated(
                                   itemBuilder: (context, index) {
-                                    return CompanyContainer(
-                                        companyModel: companiesData[index]);
+                                    return CompanyContainer(companyModel: companiesData[index]);
                                   },
                                   separatorBuilder: (context, index) {
                                     return const Gap(10);
@@ -138,7 +145,12 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: CustomFilledButton(
-                    onPressed: ()=>Get.to(()=>const GlobalOrderScreen()),
+                    onPressed: () async {
+                      Get.to(() => OrderScreen(
+                          isGlobal: true,
+                          companyDetailsModel: res!,
+                          companyModel: companyModel!));
+                    },
                     text: "Skip".tr,
                     color: Colors.white,
                     fontColor: Colors.black,

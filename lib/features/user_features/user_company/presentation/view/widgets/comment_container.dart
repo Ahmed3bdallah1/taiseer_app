@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/user_company/domain/entity/shipping_methods_entity.dart';
+import '../../../../../../gen/assets.gen.dart';
 import '../../../domain/entity/comment_entity.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 
@@ -33,6 +34,8 @@ class CommentContainer extends StatelessWidget {
               children: [
                 ImageOrSvg(
                   commentsEntity.user.profilePhotoUrl ?? "",
+                  pickImageOnNull: true,
+                  assetImageOnNull: Assets.base.personal.path,
                   height: 60,
                   width: 60,
                 ),

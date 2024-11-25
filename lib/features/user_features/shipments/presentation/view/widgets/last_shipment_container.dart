@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
@@ -8,7 +9,7 @@ import '../../../../../../config/app_font.dart';
 import 'custom_stepper_widget.dart';
 import '../../../../user_company/presentation/view/widgets/company_container.dart';
 
-class LastShipmentContainer extends StatelessWidget {
+class LastShipmentContainer extends ConsumerWidget {
   final ShipmentModel shipment;
 
   const LastShipmentContainer({
@@ -17,10 +18,10 @@ class LastShipmentContainer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return InkWell(
       onTap: (){
-        showShipmentDialog(context,order: shipment);
+        showShipmentDialog(context,order: shipment, ref: ref);
       },
       child: Container(
         decoration: BoxDecoration(

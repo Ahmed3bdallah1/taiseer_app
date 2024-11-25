@@ -93,6 +93,8 @@ dependencies:
   carousel_indicator: ^1.0.6
   multi_select_flutter: ^4.1.3
   animated_size_and_fade: ^4.0.0
+  flutter_chat_ui:
+  flutter_chat_types:
   tuple: ^2.0.2
 dev_dependencies:
   flutter_test:

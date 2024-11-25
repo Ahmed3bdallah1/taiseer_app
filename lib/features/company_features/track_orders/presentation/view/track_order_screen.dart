@@ -25,7 +25,7 @@ class TrackOrderScreen extends ConsumerWidget {
                 data: (orders) {
                   return InkWell(
                       onTap: () {
-                        showShipmentDialog(context,order: orders);
+                        showShipmentDialog(context,order: orders,ref: ref);
                       },
                       child: LastShipmentContainer(shipment: orders));
                 });

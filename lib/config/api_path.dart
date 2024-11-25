@@ -15,6 +15,9 @@ abstract class ApiPath {
   static const updateProfile = 'updateProfile';
   static const getShipments = 'getShipments';
   static const submitShipment = 'storeShipment';
+  static const getChats = 'getChats';
+  static const getMessages = 'getMessages/';
+  static const storeMessage = 'storeMessage';
 
 
   static const changePassword = 'forget/password/change/password';

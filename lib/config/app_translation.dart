@@ -21,6 +21,7 @@ class Translation extends Translations {
           "Less": "اخفاء",
           "Ok": "حسنا",
           'Track': "متابعة",
+          "Chats": "المحادثات",
           'Dates': "التقويم",
           "Follow orders": "تتبع الشحنة",
           "Skip": "تخطى",

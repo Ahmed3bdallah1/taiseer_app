@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
+import '../../config/app_color.dart';
 import '../../features/user_features/root/view/root_view.dart';
+import '../ui.dart';
 import 'container_button.dart';
 
 class CustomLogoAppbar extends ConsumerStatefulWidget
@@ -69,14 +71,22 @@ class _CustomLogoAppbarState extends ConsumerState<CustomLogoAppbar> {
                 actions: widget.hideActions
                     ? []
                     : [
-                        widget.buttonWidget ??
-                            ContainerButton(
-                              size: 60,
-                              color: Colors.transparent,
-                              icon: widget.icon ??
-                                  Icons.notifications_active_outlined,
-                              onTap: widget.onTap,
-                            )
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: widget.buttonWidget ??
+                              ContainerButton(
+                                color: Colors.transparent,
+                                size: 50,
+                                iconColor: AppColor.primary,
+                                icon: Icons.notifications_active_rounded,
+                                onTap: widget.onTap ??
+                                    () {
+                                      UIHelper.showGlobalSnackBar(
+                                        text: "Coming soon".tr,
+                                      );
+                                    },
+                              ),
+                        ),
                       ])),
       ),
     );

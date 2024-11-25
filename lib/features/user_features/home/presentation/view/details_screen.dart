@@ -87,7 +87,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                     color: Colors.transparent,
                                     size: 50,
                                     iconColor: AppColor.primary,
-                                    icon: FontAwesomeIcons.message,
+                                    icon: Icons.notifications_active_rounded,
                                     onTap: () {
                                       // UIHelper.showAlert("success".tr,type: DialogType.success,);
                                       UIHelper.showGlobalSnackBar(

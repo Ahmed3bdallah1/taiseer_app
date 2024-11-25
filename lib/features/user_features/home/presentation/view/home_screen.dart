@@ -33,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColor.primaryWhite,
       body: RefreshIndicator(
-        onRefresh: ()async{
+        onRefresh: () async {
           ref.invalidate(fetchNotificationsProvider);
           ref.invalidate(fetchUserCompaniesViewProvider);
           ref.invalidate(fetchAdsProvider);
@@ -58,9 +58,16 @@ class HomeScreen extends ConsumerWidget {
                             },
                             child: CircleAvatar(
                               radius: 30,
-                              backgroundImage: ref.watch(userProvider)?.profilePhotoUrl == null
-                                  ? const ExtendedAssetImageProvider("assets/base/personal.png")
-                                  : ExtendedNetworkImageProvider(cache: true, "${ApiPath.uploadPath}${ref.watch(userProvider)?.profilePhotoUrl}") as ImageProvider<Object>,
+                              backgroundImage: ref
+                                          .watch(userProvider)
+                                          ?.profilePhotoUrl ==
+                                      null
+                                  ? const ExtendedAssetImageProvider(
+                                      "assets/base/personal.png")
+                                  : ExtendedNetworkImageProvider(
+                                          cache: true,
+                                          "${ApiPath.uploadPath}${ref.watch(userProvider)?.profilePhotoUrl}")
+                                      as ImageProvider<Object>,
                             ),
                           ),
                           const Gap(10),
@@ -84,70 +91,71 @@ class HomeScreen extends ConsumerWidget {
                           final notificationsList =
                               ref.watch(fetchNotificationsProvider);
                           return notificationsList.customWhen(
-                              ref: ref,
-                              refreshable: fetchNotificationsProvider.future,
-                              data: (notes) {
-                                final hasUnSeen =
-                                    notes.firstWhereOrNull((e) => e.seen == 0);
-                                if (hasUnSeen == null) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: ContainerButton(
-                                      color: Colors.transparent,
-                                      iconColor: AppColor.primary,
-                                      icon: Icons.notifications_active,
-                                      onTap: () =>
-                                          Get.to(() => const NotificationsScreen()),
-                                    ),
-                                  );
-                                } else {
-                                  return Stack(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: ContainerButton(
-                                          color: Colors.transparent,
-                                          iconColor: AppColor.primary,
-                                          icon: Icons.notifications_active,
-                                          onTap: () => Get.to(
-                                              () => const NotificationsScreen()),
-                                        ),
+                            ref: ref,
+                            refreshable: fetchNotificationsProvider.future,
+                            data: (notes) {
+                              final hasUnSeen =
+                                  notes.firstWhereOrNull((e) => e.seen == 0);
+                              if (hasUnSeen == null) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: ContainerButton(
+                                    color: Colors.transparent,
+                                    iconColor: AppColor.primary,
+                                    icon: Icons.notifications_active,
+                                    onTap: () => Get.to(
+                                        () => const NotificationsScreen()),
+                                  ),
+                                );
+                              } else {
+                                return Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: ContainerButton(
+                                        color: Colors.transparent,
+                                        iconColor: AppColor.primary,
+                                        icon: Icons.notifications_active,
+                                        onTap: () => Get.to(
+                                            () => const NotificationsScreen()),
                                       ),
-                                      const Positioned(
-                                          top: 2,
-                                          right: 2,
-                                          child: CircleAvatar(
-                                              backgroundColor: Colors.red,
-                                              radius: 7))
-                                    ],
-                                  );
-                                }
-                              },
-                              loading: () {
-                                return Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: ContainerButton(
-                                    color: Colors.transparent,
-                                    iconColor: AppColor.primary,
-                                    icon: Icons.notifications_active,
-                                    onTap: () =>
-                                        Get.to(() => const NotificationsScreen()),
-                                  ),
+                                    ),
+                                    const Positioned(
+                                        top: 2,
+                                        right: 2,
+                                        child: CircleAvatar(
+                                            backgroundColor: Colors.red,
+                                            radius: 7))
+                                  ],
                                 );
-                              },
-                            error: (e,ei) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: ContainerButton(
-                                    color: Colors.transparent,
-                                    iconColor: AppColor.primary,
-                                    icon: Icons.notifications_active,
-                                    onTap: (){
-                                      UIHelper.showGlobalSnackBar(text: "coming soon");
-                                    },
-                                  ),
-                                );
-                              },
+                              }
+                            },
+                            loading: () {
+                              return Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: ContainerButton(
+                                  color: Colors.transparent,
+                                  iconColor: AppColor.primary,
+                                  icon: Icons.notifications_active,
+                                  onTap: () =>
+                                      Get.to(() => const NotificationsScreen()),
+                                ),
+                              );
+                            },
+                            error: (e, ei) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: ContainerButton(
+                                  color: Colors.transparent,
+                                  iconColor: AppColor.primary,
+                                  icon: Icons.notifications_active,
+                                  onTap: () {
+                                    UIHelper.showGlobalSnackBar(
+                                        text: "coming soon");
+                                  },
+                                ),
+                              );
+                            },
                           );
                         }),
                       )
@@ -231,8 +239,9 @@ class HomeScreen extends ConsumerWidget {
                                   height: 170.h,
                                   autoPlay: true,
                                   onPageChanged: (index, _) {
-                                    ref.read(sliderIndexProvider.notifier).state =
-                                        index;
+                                    ref
+                                        .read(sliderIndexProvider.notifier)
+                                        .state = index;
                                   },
                                 )
                               ],
@@ -247,7 +256,8 @@ class HomeScreen extends ConsumerWidget {
                                   highlightColor: Colors.green[100]!,
                                   child: Container(
                                     height: 40.h,
-                                    width: MediaQuery.of(context).size.width * .4,
+                                    width:
+                                        MediaQuery.of(context).size.width * .4,
                                     decoration: BoxDecoration(
                                       color: Colors.grey.withOpacity(.15),
                                       borderRadius: BorderRadius.circular(35),

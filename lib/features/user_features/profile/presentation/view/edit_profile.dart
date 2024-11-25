@@ -42,10 +42,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     formGroup = FormGroup({
       'first_name': FormControl(
           validators: [Validators.required],
-          value: ref.read(userProvider)?.name),
+          value: ref.read(userProvider)?.name?.split(" ").first ?? ""),
       'last_name': FormControl(
           validators: [Validators.required],
-          value: ref.read(userProvider)?.name),
+          value: ref.read(userProvider)?.name?.split(" ").last ?? ""),
       'image': FormControl<String>(
           validators: [], value: ref.read(userProvider)?.profilePhotoUrl),
       'phone': FormControl(validators: [

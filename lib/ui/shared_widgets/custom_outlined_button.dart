@@ -19,7 +19,8 @@ class CustomOutlinedButton extends StatelessWidget {
       this.ignorePressOnNotValid = false,
       this.width,
       this.widget,
-      this.isValid = true});
+      this.isValid = true,
+      this.hideText = false});
 
   final double? height;
   final bool isLoading;
@@ -27,8 +28,8 @@ class CustomOutlinedButton extends StatelessWidget {
   final double? width;
   final Widget? widget;
   final Color? color;
+  final bool hideText;
   final bool isValid;
-
   final String? text;
   final EdgeInsetsGeometry? padding;
   final void Function()? onPressed;
@@ -60,30 +61,32 @@ class CustomOutlinedButton extends StatelessWidget {
           ? LoadingWidget(
               color: AppColor.white,
             )
-          : widget != null && text != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      text!,
-                      style: AppFont.font20W700Primary.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: textSize ?? 20.sp,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    isExpanded ? const Spacer() : Gap(5.w),
-                    widget!
-                  ],
-                )
-              : widget != null
-                  ? widget!
-                  : Text(
-                      text!,
-                      style: AppFont.font20W700Primary.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: textSize ?? 20.sp,
-                          fontWeight: FontWeight.w600),
-                    ),
+          : hideText
+              ? widget
+              : widget != null && text != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          text!,
+                          style: AppFont.font20W700Primary.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: textSize ?? 20.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        isExpanded ? const Spacer() : Gap(5.w),
+                        widget!
+                      ],
+                    )
+                  : widget != null
+                      ? widget!
+                      : Text(
+                          text!,
+                          style: AppFont.font20W700Primary.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: textSize ?? 20.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
     );
   }
 }

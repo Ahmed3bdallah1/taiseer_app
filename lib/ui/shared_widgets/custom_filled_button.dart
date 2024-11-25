@@ -18,6 +18,7 @@ class CustomFilledButton extends StatelessWidget {
     this.width,
     this.widget,
     this.ignorePressOnNotValid = false,
+    this.hideText = false,
     this.isValid = true,
   });
 
@@ -29,6 +30,7 @@ class CustomFilledButton extends StatelessWidget {
   final Widget? widget;
   final void Function()? onPressed;
   final bool isValid;
+  final bool hideText;
   final bool isExpanded;
   final double? height;
   final double? width;
@@ -52,32 +54,34 @@ class CustomFilledButton extends StatelessWidget {
           ? LoadingWidget(
               color: AppColor.white,
             )
-          : widget != null && text != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      text!,
-                      style: AppFont.font20W600White.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                          color: fontColor ?? AppColor.white,
-                          fontSize: textSize ?? 20.sp,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    isExpanded ? const Spacer() : Gap(5.w),
-                    widget!
-                  ],
-                )
-              : widget != null
-                  ? widget!
-                  : Text(
-                      text!,
-                      style: AppFont.font20W600White.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                          color: fontColor ?? AppColor.white,
-                          fontSize: textSize ?? 20.sp,
-                          fontWeight: FontWeight.w600),
-                    ),
+          : hideText
+              ? widget
+              : widget != null && text != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          text!,
+                          style: AppFont.font20W600White.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              color: fontColor ?? AppColor.white,
+                              fontSize: textSize ?? 20.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        isExpanded ? const Spacer() : Gap(5.w),
+                        widget!
+                      ],
+                    )
+                  : widget != null
+                      ? widget!
+                      : Text(
+                          text!,
+                          style: AppFont.font20W600White.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              color: fontColor ?? AppColor.white,
+                              fontSize: textSize ?? 20.sp,
+                              fontWeight: FontWeight.w600),
+                        ),
     );
   }
 }

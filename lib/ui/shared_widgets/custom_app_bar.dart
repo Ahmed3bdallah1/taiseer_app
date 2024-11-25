@@ -89,6 +89,7 @@ class _CustomAppBarState extends ConsumerState<CustomAppBar> {
                     style: const TextStyle(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
+              actions: widget.customWidget,
               leading: widget.hideBackButton || widget.isCenterTitle == false
                   ? null
                   : ContainerButton(

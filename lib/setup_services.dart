@@ -7,6 +7,10 @@ import 'package:taiseer/features/company_features/calender/data/repositories/cal
 import 'package:taiseer/features/company_features/calender/domain/repositories/calender_repo.dart';
 import 'package:taiseer/features/shared/forget_password/data/data_sources/forget_password_data_source.dart';
 import 'package:taiseer/features/shared/forget_password/data/repositories/forget_password_repo_impl.dart';
+import 'package:taiseer/features/user_features/chat/data/data_source/chats_data_source.dart';
+import 'package:taiseer/features/user_features/chat/data/repo/chats_repo_imp.dart';
+import 'package:taiseer/features/user_features/chat/domain/repo/chats_repo.dart';
+import 'package:taiseer/features/user_features/chat/domain/use_case/chats_use_cases.dart';
 import 'package:taiseer/features/user_features/home/data/data_source/ads_data_source.dart';
 import 'package:taiseer/features/user_features/home/data/repostories/ads_repo_imp.dart';
 import 'package:taiseer/features/user_features/home/domain/repositories/ads_repo.dart';
@@ -132,6 +136,19 @@ Future setupLocator() async {
       () => AdsRepoImp(adsDataSource: getIt<AdsDataSource>()));
   getIt.registerLazySingleton<FetchAdsUseCase>(
       () => FetchAdsUseCase(adsRepo: getIt<AdsRepo>()));
+
+
+  // register Chats entity
+  getIt.registerLazySingleton<ChatsDataSource>(
+      () => ChatsDataSourceImpl(getIt<ApiService>()));
+  getIt.registerLazySingleton<ChatsRepo>(
+      () => ChatsRepoImpl(dataSource: getIt<ChatsDataSource>()));
+  getIt.registerLazySingleton<FetchChatsUseCase>(
+      () => FetchChatsUseCase(chatsRepo: getIt<ChatsRepo>()));
+  getIt.registerLazySingleton<FetchMessagesUseCase>(
+      () => FetchMessagesUseCase(chatsRepo: getIt<ChatsRepo>()));
+  getIt.registerLazySingleton<SendMessageUseCase>(
+      () => SendMessageUseCase(chatsRepo: getIt<ChatsRepo>()));
 
   // register company
   getIt.registerLazySingleton<UserCompanyDataSource>(

@@ -12,6 +12,7 @@ import 'package:taiseer/features/user_features/support/presentation/view/support
 import '../../../../config/app_font.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../packages/flutter_close_app.dart';
+import '../../settings/presentation/View/settings_view.dart';
 import '../controller/root_controller.dart';
 
 final hideNavBarProvider = StateProvider.autoDispose<bool>((ref) {
@@ -143,7 +144,7 @@ class _RootViewState extends ConsumerState<RootView> {
       0 => HomeScreen(profileNotCompleted),
       1 => const OrderHistoryView(),
       2 => const SupportScreen(),
-      _ => const EditProfileScreen(),
+      _ => const SettingsView(),
     };
   }
 }

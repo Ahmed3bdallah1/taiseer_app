@@ -165,12 +165,14 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
                               direction: FadeInDirection.rightToLeft,
                               fadeOffset: 40,
                               delay: (index.toDouble() + 1) - (index - 1),
-                              child: InkWell(
-                                onTap: () => showShipmentDialog(context,
-                                    ref: ref,
-                                    order: shipment),
-                                child: HistoryContainer(
-                                    historyEntity: shipment),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 6),
+                                child: InkWell(
+                                  onTap: () => showShipmentDialog(context,
+                                      ref: ref,
+                                      order: shipment),
+                                  child: HistoryContainer(historyEntity: shipment),
+                                ),
                               ),
                             );
                           },

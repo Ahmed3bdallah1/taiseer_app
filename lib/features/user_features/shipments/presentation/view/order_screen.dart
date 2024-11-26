@@ -20,6 +20,7 @@ import 'package:taiseer/ui/shared_widgets/custom_text_field.dart';
 import 'package:taiseer/ui/ui.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../config/app_font.dart';
+import '../../../../../gen/assets.gen.dart';
 import '../../../../../main.dart';
 import '../../../../../ui/shared_widgets/custom_logo_app_bar.dart';
 import '../../../../../ui/shared_widgets/custom_reactive_form_consumer.dart';
@@ -154,7 +155,29 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
             child: Column(
               children: [
                 widget.isGlobal
-                    ? const SizedBox()
+                    ? SizedBox(
+                        height: 70,
+                        child: ListView.separated(
+                          itemCount: 5,
+                          scrollDirection: Axis.horizontal,
+                          separatorBuilder: (context, index) {
+                            return const Gap(2);
+                          },
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: index % 2 == 0
+                                    ? AppColor.grey1.withOpacity(.5)
+                                    : AppColor.grey_3.withOpacity(.5),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: ImageOrSvg(Assets.onboard.vector,
+                                  isLocal: true, width: 60, height: 60),
+                            );
+                          },
+                        ),
+                      )
                     : CompanyContainer(companyModel: widget.companyModel),
                 Gap(24.h),
                 Row(
@@ -209,7 +232,8 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                 builder: (context, form, _) {
                                   final value = form
                                           .control("typeActivity_id")
-                                          .value as List<int>? ?? [];
+                                          .value as List<int>? ??
+                                      [];
                                   if (index !=
                                       widget.companyDetailsModel
                                           .typeActivityCompanies.length) {
@@ -227,15 +251,16 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                                       onTap: () {
                                         if (isSelected) {
                                           value.removeWhere((e) =>
-                                              e == widget.companyDetailsModel
+                                              e ==
+                                              widget
+                                                  .companyDetailsModel
                                                   .typeActivityCompanies[index]
                                                   .id);
                                           form
                                               .control("typeActivity_id")
                                               .updateValue(value);
                                         } else {
-                                          value
-                                              .add(widget.companyDetailsModel
+                                          value.add(widget.companyDetailsModel
                                               .typeActivityCompanies[index].id);
                                           form
                                               .control("typeActivity_id")

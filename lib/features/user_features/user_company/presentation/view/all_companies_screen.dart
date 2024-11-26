@@ -18,6 +18,8 @@ import '../../../../../ui/shared_widgets/select_language_tile.dart';
 import '../../data/model/company_details_model.dart';
 import '../../data/model/company_model.dart';
 
+final companyDetails = StateProvider<CompanyDetailsModel?>((ref) => null);
+
 class AllCompaniesScreen extends ConsumerStatefulWidget {
   const AllCompaniesScreen({super.key});
 
@@ -29,7 +31,6 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
   final ScrollController scrollController = ScrollController();
   late final AutoDisposeStateProvider<bool> hideNavBarProvider2;
   UserCompanyModel2? companyModel;
-  CompanyDetailsModel? res;
 
   @override
   void initState() {
@@ -80,21 +81,31 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
                   child: HideNavBarWidget(
                     customProvider: hideNavBarProvider2,
                     child: Consumer(builder: (context, ref, _) {
-                      final companies = ref.watch(fetchUserCompaniesViewProvider);
-                      res = ref.watch(fetchUserCompanyDetailsViewProvider(companyModel?.id ?? 0)).valueOrNull;
+                      final companies =
+                          ref.watch(fetchUserCompaniesViewProvider);
+                      final res= ref
+                          .watch(fetchUserCompanyDetailsViewProvider(
+                          companyModel?.id ?? 0))
+                          .valueOrNull;
+                      Future.delayed(const Duration(seconds: 1)).then((_){
+                        ref.read(companyDetails.notifier).state = res;
+                      });
                       return companies.customWhen(
                           ref: ref,
                           refreshable: fetchUserCompaniesViewProvider.future,
                           data: (companiesData) {
                             if (companiesData.isEmpty) {
-                              return NotFoundWidget(title: "No Companies right now.!".tr);
+                              return NotFoundWidget(
+                                  title: "No Companies right now.!".tr);
                             }
                             companyModel = companiesData.first;
                             return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: ListView.separated(
                                   itemBuilder: (context, index) {
-                                    return CompanyContainer(companyModel: companiesData[index]);
+                                    return CompanyContainer(
+                                        companyModel: companiesData[index]);
                                   },
                                   separatorBuilder: (context, index) {
                                     return const Gap(10);
@@ -146,14 +157,17 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: CustomFilledButton(
                     onPressed: () async {
-                      Get.to(() => OrderScreen(
-                          isGlobal: true,
-                          companyDetailsModel: res!,
-                          companyModel: companyModel!));
+                      if (ref.watch(companyDetails) != null) {
+                        Get.to(() => OrderScreen(
+                            isGlobal: true,
+                            companyDetailsModel: ref.watch(companyDetails)!,
+                            companyModel: companyModel!));
+                      }
                     },
                     text: "Skip".tr,
                     color: Colors.white,
                     fontColor: Colors.black,
+                    isValid: ref.watch(companyDetails) != null,
                     height: 48.h,
                     isExpanded: true,
                     textSize: 14,

@@ -27,6 +27,10 @@ import 'package:taiseer/features/user_features/order/domain/use_case/fetch_last_
 import 'package:taiseer/features/user_features/order/domain/use_case/fetch_order_history_use_case.dart';
 import 'package:taiseer/features/user_features/order/domain/use_case/get_filter_attr_use_case.dart';
 import 'package:taiseer/features/user_features/profile/data/data_sources/update_profile_date_source.dart';
+import 'package:taiseer/features/user_features/settings/data/data_source/policy_data_source.dart';
+import 'package:taiseer/features/user_features/settings/data/repo/policy_repo_imp.dart';
+import 'package:taiseer/features/user_features/settings/domain/repo/policy_repo.dart';
+import 'package:taiseer/features/user_features/settings/domain/use_case/fetch_policy_use_case.dart';
 import 'package:taiseer/features/user_features/shipments/data/data_source/shipment_data_source.dart';
 import 'package:taiseer/features/user_features/shipments/data/repo/shipment_repo_imp.dart';
 import 'package:taiseer/features/user_features/shipments/domain/repo/shipment_repo.dart';
@@ -137,7 +141,6 @@ Future setupLocator() async {
   getIt.registerLazySingleton<FetchAdsUseCase>(
       () => FetchAdsUseCase(adsRepo: getIt<AdsRepo>()));
 
-
   // register Chats entity
   getIt.registerLazySingleton<ChatsDataSource>(
       () => ChatsDataSourceImpl(getIt<ApiService>()));
@@ -149,6 +152,16 @@ Future setupLocator() async {
       () => FetchMessagesUseCase(chatsRepo: getIt<ChatsRepo>()));
   getIt.registerLazySingleton<SendMessageUseCase>(
       () => SendMessageUseCase(chatsRepo: getIt<ChatsRepo>()));
+
+  // register privacy entity
+  getIt.registerLazySingleton<PrivacyPolicyDataSource>(
+      () => PrivacyPolicyDataSourceImpl(apiService: getIt<ApiService>()));
+  getIt.registerLazySingleton<PrivacyPolicyRepo>(() => PrivacyPolicyRepoImp(
+      privacyPolicyDataSource: getIt<PrivacyPolicyDataSource>()));
+  getIt.registerLazySingleton<FetchPolicyUseCase>(
+      () => FetchPolicyUseCase(policyRepo: getIt<PrivacyPolicyRepo>()));
+  getIt.registerLazySingleton<FetchWhoAreWeUseCase>(
+      () => FetchWhoAreWeUseCase(policyRepo: getIt<PrivacyPolicyRepo>()));
 
   // register company
   getIt.registerLazySingleton<UserCompanyDataSource>(

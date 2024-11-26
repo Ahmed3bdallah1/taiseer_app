@@ -14,7 +14,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: CustomLogoAppbar(customTitleWidget: Text('Privacy Policy'.tr)),
+      appBar: CustomLogoAppbar(
+        customTitleWidget: Text('Privacy Policy'.tr),
+        hideActions: true,
+      ),
       body: Consumer(
         builder: (context, ref, _) {
           final terms = ref.watch(fetchPolicyProvider);
@@ -58,7 +61,10 @@ class WhoAreWeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: CustomLogoAppbar(customTitleWidget: Text('Who are we'.tr)),
+      appBar: CustomLogoAppbar(
+        customTitleWidget: Text('Who Are We'.tr),
+        hideActions: true,
+      ),
       body: Consumer(
         builder: (context, ref, _) {
           final terms = ref.watch(fetchWhoAreWeProvider);
@@ -69,7 +75,7 @@ class WhoAreWeScreen extends StatelessWidget {
               return SingleChildScrollView(
                 child: Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   child: HtmlWidget(
                     termsData.termsAr ?? "",
                   ),

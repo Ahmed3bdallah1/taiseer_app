@@ -27,55 +27,64 @@ class SettingsView extends ConsumerWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(left: 15.0.w, right: 15.w, bottom: 10.h),
-          child: Column(
-            children: [
-              SettingsItem(
-                  onTap: () => Get.to(() => const UpdateProfileView()),
-                  icon: CupertinoIcons.profile_circled,
-                  title: "Profile".tr),
-              Gap(12.h),
-              SettingsItem(
-                  onTap: () async => Get.to(() => const ChatsScreen()),
-                  icon: Icons.message,
-                  title: 'Chats'.tr),
-              Gap(12.h),
-              SettingsItem(
-                  onTap: () async => showModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) {
-                        return const SelectLanguageDialog();
-                      }),
-                  icon: Icons.language,
-                  title: 'Language'.tr),
-              Gap(12.h),
-              SettingsItem(
-                  onTap: () => Get.to(() => const PrivacyPolicyScreen()),
-                  icon: Icons.privacy_tip,
-                  title: 'Privacy Policy'.tr),
-              Gap(12.h),
-              SettingsItem(
-                  onTap: () => Get.to(() => const WhoAreWeScreen()),
-                  icon: Icons.info_outline,
-                  title: 'Who Are We'.tr),
-              const Spacer(),
-              TextButton(
-                onPressed: () async {
-                  localeService.dataManager.removeLoggedUser();
-                  Get.offAll(() => const LoginPage());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.logout),
-                    const Gap(10),
-                    Text('Logout'.tr),
-                  ],
-                ),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SettingsItem(
+                    onTap: () => Get.to(() => const UpdateProfileView()),
+                    icon: CupertinoIcons.profile_circled,
+                    title: "Profile".tr),
+                Gap(12.h),
+                SettingsItem(
+                    onTap: () async => Get.to(() => const ChatsScreen()),
+                    icon: Icons.message,
+                    title: 'Chats'.tr),
+                Gap(12.h),
+                SettingsItem(
+                    onTap: () async => showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) {
+                          return const SelectLanguageDialog();
+                        }),
+                    icon: Icons.language,
+                    title: 'Language'.tr),
+                Gap(12.h),
+                SettingsItem(
+                    onTap: () => Get.to(() => const PrivacyPolicyScreen()),
+                    icon: Icons.privacy_tip,
+                    title: 'Privacy Policy'.tr),
+                Gap(12.h),
+                SettingsItem(
+                    onTap: () => Get.to(() => const WhoAreWeScreen()),
+                    icon: Icons.info_outline,
+                    title: 'Who Are We'.tr),
+              ],
+            ),
           ),
+        ),
+      ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () async {
+                localeService.dataManager.removeLoggedUser();
+                Get.offAll(() => const LoginPage());
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.logout,color: AppColor.danger,),
+                  const Gap(10),
+                  Text('Logout'.tr,style: AppFont.font14W700Danger,),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

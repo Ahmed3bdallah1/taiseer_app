@@ -85,16 +85,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         customTitleWidget: Text("Profile".tr),
         isCenterTitle: false,
         hideBackButton: true,
-        buttonWidget: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
-          child: ContainerButton(
-            icon: Icons.logout,
-            iconColor: AppColor.danger,
-            onTap: () {
-              localeService.dataManager.removeLoggedUser();
-              Get.offAll(() => const LoginPage());
-            },
-          ),
+        buttonWidget: ContainerButton(
+          icon: Icons.logout,
+          iconColor: AppColor.danger,
+          onTap: () {
+            localeService.dataManager.removeLoggedUser();
+            Get.offAll(() => const LoginPage());
+          },
         ),
       ),
       body: SafeArea(

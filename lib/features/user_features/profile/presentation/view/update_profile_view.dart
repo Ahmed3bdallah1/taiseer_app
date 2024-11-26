@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:taiseer/config/app_color.dart';
-
-import '../../../../../../ui/shared_widgets/custom_app_bar.dart';
 import '../manager/update_profile_provider.dart';
 import 'edit_profile.dart';
 

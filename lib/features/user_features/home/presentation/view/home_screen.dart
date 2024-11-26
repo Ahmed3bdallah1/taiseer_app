@@ -9,6 +9,7 @@ import 'package:taiseer/core/service/auth_service.dart';
 import 'package:taiseer/features/user_features/home/presentation/managers/fetch_ads_provider.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/company_home_view.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/silder_item_widget.dart';
+import 'package:taiseer/features/user_features/profile/presentation/view/edit_profile.dart';
 import 'package:taiseer/features/user_features/profile/presentation/view/update_profile_view.dart';
 import 'package:taiseer/features/user_features/root/controller/root_controller.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/managers/fetch_shipment_providers.dart';
@@ -52,22 +53,16 @@ class HomeScreen extends ConsumerWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: () {
+                            onTap: () async {
                               final controller = ref.read(rootIndex.notifier);
+                              await Get.to(() => const UpdateProfileView());
                               controller.setSelectedIndex(3);
                             },
                             child: CircleAvatar(
                               radius: 30,
-                              backgroundImage: ref
-                                          .watch(userProvider)
-                                          ?.profilePhotoUrl ==
-                                      null
-                                  ? const ExtendedAssetImageProvider(
-                                      "assets/base/personal.png")
-                                  : ExtendedNetworkImageProvider(
-                                          cache: true,
-                                          "${ApiPath.uploadPath}${ref.watch(userProvider)?.profilePhotoUrl}")
-                                      as ImageProvider<Object>,
+                              backgroundImage: ref.watch(userProvider)?.profilePhotoUrl == null
+                                  ? const ExtendedAssetImageProvider("assets/base/personal.png")
+                                  : ExtendedNetworkImageProvider(cache: true, "${ApiPath.uploadPath}${ref.watch(userProvider)?.profilePhotoUrl}") as ImageProvider<Object>,
                             ),
                           ),
                           const Gap(10),

@@ -18,6 +18,9 @@ abstract class ApiPath {
   static const getChats = 'getChats';
   static const getMessages = 'getMessages/';
   static const storeMessage = 'storeMessage';
+  static const user = 'userProfile/';
+  static const countries = 'getCountryWithCity';
+  static const upload = 'upload/file';
 
 
   static const changePassword = 'forget/password/change/password';
@@ -25,18 +28,11 @@ abstract class ApiPath {
   static const notifications = 'notafication/all/';
   static const seen = 'seen/';
   static const loans = 'programs';
-  static const upload = 'upload/file';
-  static const interest = 'interest_calc';
   static const installment = 'order/installments';
-  static const loan = 'program/details';
   static const validateOTPForgetPassword = 'forget/password/verifyOtp';
-  static const user = 'userProfile/';
-  static const countries = 'getCountryWithCity';
-  static const banks = 'banks';
   static const verifyOTP = 'verify-otp';
   static const verifyForRegister = 'verifyOtp/For/Register';
   static const storeOrder = 'store/order';
-  static const contract = 'contract';
   static const lastOrder = 'all/orders/last';
   static const allOrders = 'all/orders';
   static const deleteOrder = 'remove/order';

@@ -29,6 +29,7 @@ class CustomTextField<T> extends StatelessWidget {
     this.type = TextFieldType.text,
     this.items,
     this.onChanged,
+    this.focusNode,
     this.borderRadius,
     this.hideSelectableIconIfIgnore = true,
     this.ignore = false,
@@ -46,6 +47,7 @@ class CustomTextField<T> extends StatelessWidget {
   final Widget? iconButton;
   final bool obscure;
   final bool ignore;
+  final FocusNode? focusNode;
   final int maxLines;
   final VoidCallback? onEditDone;
   final bool paddingFromTop;
@@ -96,17 +98,11 @@ class CustomTextField<T> extends StatelessWidget {
       ),
       disabledBorder: OutlineInputBorder(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        borderSide: BorderSide(
-          color: AppColor.grey1,
-          width: 2
-        ),
+        borderSide: BorderSide(color: AppColor.grey1, width: 2),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        borderSide: BorderSide(
-          color: AppColor.grey1,
-          width: 2
-        ),
+        borderSide: BorderSide(color: AppColor.grey1, width: 2),
       ),
       focusedBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -121,6 +117,7 @@ class CustomTextField<T> extends StatelessWidget {
     final wid = type == TextFieldType.text
         ? ReactiveTextField<T>(
             autofillHints: autofillHints,
+            focusNode: focusNode,
             contextMenuBuilder: (context, editableTextState) {
               final items = editableTextState.contextMenuButtonItems;
               return AdaptiveTextSelectionToolbar.buttonItems(
@@ -136,7 +133,7 @@ class CustomTextField<T> extends StatelessWidget {
                 : null,
             formControl: control,
             onEditingComplete: onEditDone == null
-                ? null
+                ? (x) => FocusScope.of(context).nextFocus()
                 : (controller) {
                     onEditDone?.call();
                   },

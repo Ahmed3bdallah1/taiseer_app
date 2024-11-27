@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:taiseer/config/app_font.dart';
 
 class SettingsItem extends StatelessWidget {
@@ -20,8 +21,8 @@ class SettingsItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          height: 60,
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          height: 55.h,
           decoration: BoxDecoration(
               color: AppColor.white,
               borderRadius: const BorderRadius.all(
@@ -40,8 +41,11 @@ class SettingsItem extends StatelessWidget {
                 icon,
                 color: color ?? AppColor.primaryDark,
               ),
-              const SizedBox(width: 20),
-              Text(title,style: AppFont.font14W700Black,),
+              Gap(20.w),
+              Text(
+                title,
+                style: AppFont.font14W700Black,
+              ),
             ],
           )),
     );

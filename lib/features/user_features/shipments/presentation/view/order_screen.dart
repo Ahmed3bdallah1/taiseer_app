@@ -193,9 +193,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                     ),
                     Gap(10.w),
                     ReactiveFormConsumer(builder: (context, form, _) {
-                      final value =
-                          form.control("typeActivity_id").value as List<int>? ??
-                              [];
+                      final value = form.control("typeActivity_id").value as List<int>? ?? [];
                       if (form.control("typeActivity_id").value == null) {
                         return const SizedBox.shrink();
                       }

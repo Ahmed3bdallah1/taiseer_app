@@ -61,7 +61,7 @@ class CompanyContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          companyModel.nameAr,
+                          localeService.isArabic?companyModel.nameAr:companyModel.nameEn,
                           style: AppFont.font16W600Black,
                         ),
                         Container(

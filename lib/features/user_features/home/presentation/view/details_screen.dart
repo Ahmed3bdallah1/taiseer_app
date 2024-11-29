@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/home/presentation/managers/fetch_ads_provider.dart';
+import 'package:taiseer/features/user_features/home/presentation/view/widgets/company_banner.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/silder_item_widget.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/order_screen.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
@@ -16,6 +17,7 @@ import 'package:taiseer/ui/shared_widgets/custom_outlined_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_logo_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import 'package:taiseer/ui/ui.dart';
+import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../../../../ui/shared_widgets/container_button.dart';
 import '../../../../../ui/shared_widgets/custom_slider.dart';
 import '../../../user_company/data/model/company_model.dart';
@@ -79,7 +81,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               child: CustomLogoAppbar(
                                 scrollController: controller,
                                 customTitleWidget: Text(
-                                  companyModel.nameAr ?? "",
+                                  localeService.isArabic?companyModel.nameAr??"":companyModel.nameEn??"",
+                                  // companyModel.nameAr ?? "",
                                 ),
                                 buttonWidget: Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
@@ -105,231 +108,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               top: 100.h,
                               left: 20.w,
                               right: 20.w,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: AppColor.white,
-                                    border: Border.all(color: AppColor.grey1),
-                                    borderRadius: BorderRadius.circular(24.r)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: AppColor.grey1),
-                                          borderRadius:
-                                              BorderRadius.circular(12.r),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(14),
-                                          child: Row(
-                                            children: [
-                                              ImageOrSvg(
-                                                companyModel.logo, height: 65.h,
-                                                isCompanyImage: true,
-                                                width: 65.h,
-                                                // assetImageOnNull: Assets.onboard.vector,
-                                                pickImageOnNull: true,
-                                              ),
-                                              Gap(10.w),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    companyModel.nameAr??"",
-                                                    style:
-                                                        AppFont.font20W600Black,
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  Gap(14.h),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      ...companyModel
-                                                          .typeActivityCompanies
-                                                          .map(
-                                                        (e) => Wrap(
-                                                          spacing: 6.w,
-                                                          children: [
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: AppColor
-                                                                      .primary
-                                                                      .withOpacity(
-                                                                          .2),
-                                                                  border: Border.all(
-                                                                      color: AppColor
-                                                                          .primary),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              12.r)),
-                                                              child: Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                  horizontal:
-                                                                      12.w,
-                                                                  vertical: 2.h,
-                                                                ),
-                                                                child: Text(
-                                                                  e.typeActivities
-                                                                          ?.infoAr ??
-                                                                      "",
-                                                                  style: AppFont
-                                                                      .font10w400Primary,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Gap(2.w)
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Gap(10.h),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.r),
-                                              border: Border.all(
-                                                  color: AppColor.grey1),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        CupertinoIcons.star,
-                                                        color: AppColor.orange,
-                                                      ),
-                                                      Gap(30.w),
-                                                      Text(
-                                                        companyModel
-                                                            .averageRating
-                                                            .toString(),
-                                                        style: AppFont
-                                                            .font20W600Black,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Gap(10.h),
-                                                  Text(
-                                                    "Ratings".tr,
-                                                    style:
-                                                        AppFont.font14W600Black,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.r),
-                                              border: Border.all(
-                                                  color: AppColor.grey1),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                        CupertinoIcons
-                                                            .hand_thumbsup,
-                                                        color: AppColor.green,
-                                                      ),
-                                                      Gap(30.w),
-                                                      Text(
-                                                        companyModel
-                                                            .followersCount
-                                                            .toString(),
-                                                        style: AppFont
-                                                            .font20W600Black,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Gap(10.h),
-                                                  Text(
-                                                    "Likes".tr,
-                                                    style:
-                                                        AppFont.font14W600Black,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.r),
-                                              border: Border.all(
-                                                  color: AppColor.grey1),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                        FontAwesomeIcons.ship,
-                                                        color: AppColor.primary,
-                                                      ),
-                                                      Gap(30.w),
-                                                      Text(
-                                                        companyModel
-                                                            .typeActivityCompanies[
-                                                                0]
-                                                            .companyId
-                                                            .toString(),
-                                                        style: AppFont
-                                                            .font20W600Black,
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Gap(10.h),
-                                                  Text(
-                                                    "Shipments".tr,
-                                                    style:
-                                                        AppFont.font14W600Black,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              child: CompanyDetailsBanner(companyModel: companyModel)
                             )
                           ],
                         ),

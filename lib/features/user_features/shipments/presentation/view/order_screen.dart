@@ -497,7 +497,6 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                 ),
                 Gap(16.h),
 
-                /// this will be replaced with string
                 ReactiveFormConsumer(
                   builder: (context, form, _) {
                     final value = form.control("shipment_type").value;
@@ -507,8 +506,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                           child: SelectableTile(
                             name: "Local shipping".tr,
                             isSelected: value == "general" ? false : true,
-                            onTap: () =>
-                                form.control("shipment_type").value = "",
+                            onTap: () => form.control("shipment_type").value = "specific",
                           ),
                         ),
                         Gap(10.w),
@@ -516,8 +514,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                           child: SelectableTile(
                             name: "Global shipping".tr,
                             isSelected: value == "general" ? true : false,
-                            onTap: () =>
-                                form.control("shipment_type").value = "general",
+                            onTap: () => form.control("shipment_type").value = "general",
                           ),
                         ),
                       ],

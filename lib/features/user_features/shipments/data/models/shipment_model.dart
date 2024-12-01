@@ -1,3 +1,4 @@
+import 'package:taiseer/features/user_features/shipments/domain/entities/shipment_image.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_model.dart';
 import 'package:taiseer/models/user_model.dart';
 import '../../domain/entities/address.dart';
@@ -49,7 +50,7 @@ class ShipmentModel {
   final UserCompanyModel2? company;
   final Address? addressTo;
   final Address? addressFrom;
-  final List<String>? shipmentImage;
+  final List<ShipmentImage>? shipmentImage;
 
   ShipmentModel({
     this.id,
@@ -100,7 +101,7 @@ class ShipmentModel {
     company: json["company"] == null ? null : UserCompanyModel2.fromJson(json["company"]),
     addressTo: json["address_to"] == null ? null : Address.fromJson(json["address_to"]),
     addressFrom: json["address_from"] == null ? null : Address.fromJson(json["address_from"]),
-    shipmentImage: json["shipment_image"] == null ? [] : List<String>.from(json["shipment_image"]!.map((x) => x)),
+    shipmentImage: json["shipment_image"] == null ? [] : List<ShipmentImage>.from(json["shipment_image"]!.map((x) => ShipmentImage.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -125,6 +126,6 @@ class ShipmentModel {
     "company": company?.toJson(),
     "address_to": addressTo?.toJson(),
     "address_from": addressFrom?.toJson(),
-    "shipment_image": shipmentImage == null ? [] : List<dynamic>.from(shipmentImage!.map((x) => x)),
+    "shipment_image": shipmentImage == null ? [] : List<ShipmentImage>.from(shipmentImage!.map((x) => x)),
   };
 }

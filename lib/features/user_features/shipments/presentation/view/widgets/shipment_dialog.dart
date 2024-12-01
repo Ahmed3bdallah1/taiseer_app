@@ -94,15 +94,33 @@ void showShipmentDialog(BuildContext context,
                     ),
                   ),
                   const SizedBox(width: 8),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: ImageOrSvg(
-                      order.shipmentImage?.toString() ?? "",
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
+                  if (order.shipmentImage!.length > 1)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Stack(
+                        children: [
+                          Center(
+                              child: Text("+${order.shipmentImage!.length}")),
+                          ImageOrSvg(
+                            order.shipmentImage!.first.image ?? "",
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                  if (order.shipmentImage!.length == 1 ||
+                      order.shipmentImage!.isEmpty)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: ImageOrSvg(
+                        order.shipmentImage?.toString() ?? "",
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    )
                 ],
               ),
               Padding(
@@ -252,7 +270,8 @@ void showTextDialog(BuildContext context,
                                     .read(isLoadingProvider("submit").notifier)
                                     .state = true;
                                 final res = await getIt<SendMessageUseCase>()
-                                    .call(Tuple2(order.id, formGroup.value.values.first));
+                                    .call(Tuple2(order.id,
+                                        formGroup.value.values.first));
                                 res.fold((l) async {
                                   await UIHelper.showAlert(l.message,
                                       type: DialogType.error);

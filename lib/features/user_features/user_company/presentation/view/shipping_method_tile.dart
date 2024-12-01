@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_common/get_reset.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
+import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../domain/entity/shipping_methods_entity.dart';
 
 class ShippingMethodTile extends StatelessWidget {
@@ -47,14 +48,14 @@ class ShippingMethodTile extends StatelessWidget {
                   Positioned.fill(
                       child: ImageOrSvg(
                     shippingMethodsEntity.typeActivities?.imageBack ?? "",
-                    pickImageOnNull: true,
+                    pickImageOnNull: false,
                     fit: BoxFit.fill,
                   )),
                   Positioned(
                     top: 10,
                     right: 10,
                     child: ImageOrSvg(
-                      shippingMethodsEntity.typeActivities?.imageFront??"",
+                      shippingMethodsEntity.typeActivities?.imageFront ?? "",
                       color: AppColor.white,
                     ),
                   ),
@@ -62,7 +63,9 @@ class ShippingMethodTile extends StatelessWidget {
                     bottom: 10,
                     right: 10,
                     child: Text(
-                      shippingMethodsEntity.typeActivities?.infoAr ?? "",
+                      localeService.isArabic
+                          ? shippingMethodsEntity.typeActivities?.infoAr ?? ""
+                          : shippingMethodsEntity.typeActivities?.infoEn ?? "",
                       style: AppFont.font12W600White,
                     ),
                   ),
@@ -95,21 +98,21 @@ class ShippingMethodTile extends StatelessWidget {
                   children: [
                     Positioned.fill(
                         child: ImageOrSvg(
-                          shippingMethodsEntity.typeActivities?.imageBack ?? "",
-                          pickImageOnNull: true,
-                          fit: BoxFit.fill,
-                        )),
+                      shippingMethodsEntity.typeActivities?.imageBack ?? "",
+                      pickImageOnNull: true,
+                      fit: BoxFit.fill,
+                    )),
                     Positioned(
                       top: 10,
                       right: 10,
                       child: ImageOrSvg(
-                        shippingMethodsEntity.typeActivities?.imageFront??"",
+                        shippingMethodsEntity.typeActivities?.imageFront ?? "",
                         color: AppColor.white,
                       ),
                     ),
-                    Positioned(
+                    PositionedDirectional(
                       bottom: 10,
-                      right: 10,
+                      end: 10,
                       child: Text(
                         shippingMethodsEntity.typeActivities?.nameAr ?? "",
                         style: AppFont.font12W600White,

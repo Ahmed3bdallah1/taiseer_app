@@ -79,6 +79,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               left: 0,
                               right: 0,
                               child: CustomLogoAppbar(
+                                applyPadding: false,
                                 scrollController: controller,
                                 customTitleWidget: Text(
                                   localeService.isArabic?companyModel.nameAr??"":companyModel.nameEn??"",
@@ -132,7 +133,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   style: AppFont.font18W700Black,
                                 ),
                                 Text(
-                                  companyModel.nameAr ?? "",
+                                  localeService.isArabic?companyModel.nameAr??"":companyModel.nameEn??"",
                                   style: AppFont.font18W700Black,
                                 )
                               ],
@@ -163,7 +164,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             ),
                             Gap(10.h),
                             Text(
-                              companyModel.aboutAr??"",
+                              localeService.isArabic?companyModel.aboutAr??"":companyModel.aboutEn??"",
                               style: AppFont.font14W500Grey2,
                               textAlign: TextAlign.start,
                             ),
@@ -273,6 +274,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   Icons.add,
                   color: AppColor.primary,
                 ),
+                textSize: 15.sp,
                 text: "Follow".tr,
                 onPressed: () async {
                   final res = await getIt<FollowCompanyUseCase>()

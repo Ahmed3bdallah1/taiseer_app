@@ -9,6 +9,7 @@ import '../../../../user_company/data/model/company_details_model.dart';
 
 class CompanyDetailsBanner extends StatelessWidget {
   final CompanyDetailsModel companyModel;
+
   const CompanyDetailsBanner({super.key, required this.companyModel});
 
   @override
@@ -24,10 +25,8 @@ class CompanyDetailsBanner extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                border:
-                Border.all(color: AppColor.grey1),
-                borderRadius:
-                BorderRadius.circular(12.r),
+                border: Border.all(color: AppColor.grey1),
+                borderRadius: BorderRadius.circular(12.r),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(14),
@@ -42,39 +41,39 @@ class CompanyDetailsBanner extends StatelessWidget {
                     ),
                     Gap(10.w),
                     Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          localeService.isArabic?companyModel.nameAr??"":companyModel.nameEn??"",
-                          style:
-                          AppFont.font20W600Black,
+                          localeService.isArabic
+                              ? companyModel.nameAr ?? ""
+                              : companyModel.nameEn ?? "",
+                          style: AppFont.font20W600Black,
                           textAlign: TextAlign.center,
                         ),
                         Gap(14.h),
                         Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment
-                              .spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ...companyModel
-                                .typeActivityCompanies
-                                .map(
-                                  (e) => Wrap(
+                            ...companyModel.typeActivityCompanies.map(
+                              (e) => Wrap(
                                 spacing: 6.w,
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
                                         color: AppColor.primary.withOpacity(.2),
-                                        border: Border.all(color: AppColor.primary),
-                                        borderRadius: BorderRadius.circular(12.r)),
+                                        border:
+                                            Border.all(color: AppColor.primary),
+                                        borderRadius:
+                                            BorderRadius.circular(12.r)),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 12.w,
                                         vertical: 2.h,
                                       ),
                                       child: Text(
-                                        e.typeActivities?.infoAr ?? "",
+                                        localeService.isArabic
+                                            ? e.typeActivities?.infoAr ?? ""
+                                            : e.typeActivities?.infoEn ?? "",
                                         style: AppFont.font10w400Primary,
                                       ),
                                     ),
@@ -93,22 +92,17 @@ class CompanyDetailsBanner extends StatelessWidget {
             ),
             Gap(10.h),
             Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.circular(12.r),
-                    border: Border.all(
-                        color: AppColor.grey1),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: AppColor.grey1),
                   ),
                   child: Padding(
-                    padding:
-                    const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -118,19 +112,15 @@ class CompanyDetailsBanner extends StatelessWidget {
                             ),
                             Gap(30.w),
                             Text(
-                              companyModel
-                                  .averageRating
-                                  .toString(),
-                              style: AppFont
-                                  .font20W600Black,
+                              companyModel.averageRating.toString(),
+                              style: AppFont.font20W600Black,
                             )
                           ],
                         ),
                         Gap(10.h),
                         Text(
                           "Ratings".tr,
-                          style:
-                          AppFont.font14W600Black,
+                          style: AppFont.font14W600Black,
                         )
                       ],
                     ),
@@ -138,40 +128,31 @@ class CompanyDetailsBanner extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.circular(12.r),
-                    border: Border.all(
-                        color: AppColor.grey1),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: AppColor.grey1),
                   ),
                   child: Padding(
-                    padding:
-                    const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             const Icon(
-                              CupertinoIcons
-                                  .hand_thumbsup,
+                              CupertinoIcons.hand_thumbsup,
                               color: AppColor.green,
                             ),
                             Gap(30.w),
                             Text(
-                              companyModel
-                                  .followersCount
-                                  .toString(),
-                              style: AppFont
-                                  .font20W600Black,
+                              companyModel.followersCount.toString(),
+                              style: AppFont.font20W600Black,
                             )
                           ],
                         ),
                         Gap(10.h),
                         Text(
                           "Likes".tr,
-                          style:
-                          AppFont.font14W600Black,
+                          style: AppFont.font14W600Black,
                         )
                       ],
                     ),
@@ -179,17 +160,13 @@ class CompanyDetailsBanner extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.circular(12.r),
-                    border: Border.all(
-                        color: AppColor.grey1),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(color: AppColor.grey1),
                   ),
                   child: Padding(
-                    padding:
-                    const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -199,21 +176,16 @@ class CompanyDetailsBanner extends StatelessWidget {
                             ),
                             Gap(30.w),
                             Text(
-                              companyModel
-                                  .typeActivityCompanies[
-                              0]
-                                  .companyId
+                              companyModel.typeActivityCompanies[0].companyId
                                   .toString(),
-                              style: AppFont
-                                  .font20W600Black,
+                              style: AppFont.font20W600Black,
                             )
                           ],
                         ),
                         Gap(10.h),
                         Text(
                           "Shipments".tr,
-                          style:
-                          AppFont.font14W600Black,
+                          style: AppFont.font14W600Black,
                         )
                       ],
                     ),

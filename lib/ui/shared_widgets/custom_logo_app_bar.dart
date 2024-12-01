@@ -14,6 +14,7 @@ class CustomLogoAppbar extends ConsumerStatefulWidget
   final Widget customTitleWidget;
   final bool isCenterTitle;
   final bool hideActions;
+  final bool applyPadding;
   final void Function()? onTap;
   final IconData? icon;
   final Widget? buttonWidget;
@@ -25,6 +26,7 @@ class CustomLogoAppbar extends ConsumerStatefulWidget
     this.hideBackButton = false,
     this.hideActions = false,
     this.isCenterTitle = true,
+    this.applyPadding = true,
     this.onTap,
     this.icon,
     this.buttonWidget,
@@ -71,22 +73,36 @@ class _CustomLogoAppbarState extends ConsumerState<CustomLogoAppbar> {
                 actions: widget.hideActions
                     ? []
                     : [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: widget.buttonWidget ??
-                              ContainerButton(
-                                color: Colors.transparent,
-                                size: 50,
-                                iconColor: AppColor.primary,
-                                icon: Icons.notifications_active_rounded,
-                                onTap: widget.onTap ??
-                                    () {
-                                      UIHelper.showGlobalSnackBar(
-                                        text: "Coming soon".tr,
-                                      );
-                                    },
-                              ),
-                        ),
+                        if (widget.applyPadding)
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: widget.buttonWidget ??
+                                ContainerButton(
+                                  color: Colors.transparent,
+                                  size: 50,
+                                  iconColor: AppColor.primary,
+                                  icon: Icons.notifications_active_rounded,
+                                  onTap: widget.onTap ??
+                                      () {
+                                        UIHelper.showGlobalSnackBar(
+                                          text: "Coming soon".tr,
+                                        );
+                                      },
+                                ),
+                          ),
+                        if (!widget.applyPadding)
+                          ContainerButton(
+                            color: Colors.transparent,
+                            size: 50,
+                            iconColor: AppColor.primary,
+                            icon: Icons.notifications_active_rounded,
+                            onTap: widget.onTap ??
+                                () {
+                                  UIHelper.showGlobalSnackBar(
+                                    text: "Coming soon".tr,
+                                  );
+                                },
+                          ),
                       ])),
       ),
     );

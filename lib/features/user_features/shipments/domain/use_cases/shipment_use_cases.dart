@@ -36,3 +36,14 @@ class SubmitShipmentUseCase extends UseCaseParam<bool, Map<String, dynamic>> {
     return shipmentRepo.submitShipment(data: param);
   }
 }
+
+class SubmitRateUseCase extends UseCaseParam<bool, Map<String, dynamic>> {
+  final ShipmentRepo shipmentRepo;
+
+  SubmitRateUseCase({required this.shipmentRepo});
+
+  @override
+  Future<Either<Failure, bool>> call(Map<String, dynamic> param) {
+    return shipmentRepo.submitRate(data: param);
+  }
+}

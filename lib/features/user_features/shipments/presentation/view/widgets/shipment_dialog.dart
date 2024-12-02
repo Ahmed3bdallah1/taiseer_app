@@ -1,3 +1,4 @@
+import 'package:animated_rating_stars/animated_rating_stars.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:taiseer/features/user_features/chat/presentation/chats_screen.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/rating_widget.dart';
+import 'package:taiseer/ui/shared_widgets/add_rating_widget.dart';
 import 'package:taiseer/ui/shared_widgets/custom_text_field.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
 import 'package:tuple/tuple.dart';
@@ -99,23 +102,26 @@ void showShipmentDialog(BuildContext context,
                       borderRadius: BorderRadius.circular(8.0),
                       child: Stack(
                         children: [
-                          Center(
-                              child: Text("+${order.shipmentImage!.length}")),
                           ImageOrSvg(
                             order.shipmentImage!.first.image ?? "",
                             height: 100,
                             width: 100,
                             fit: BoxFit.cover,
                           ),
+                          Positioned(top: 0, left: 0, right: 0, bottom: 0,
+                              child: Center(child: Text("+1",
+                                style: AppFont.font20W700Primary.copyWith(color: AppColor.primary.withOpacity(.5)),
+                              ))),
                         ],
                       ),
                     ),
-                  if (order.shipmentImage!.length == 1 ||
-                      order.shipmentImage!.isEmpty)
+                  if (order.shipmentImage!.length == 1 || order.shipmentImage!.isEmpty)
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: ImageOrSvg(
-                        order.shipmentImage?.toString() ?? "",
+                        order.shipmentImage!.isNotEmpty
+                            ? order.shipmentImage?.first.image ?? ""
+                            : "",
                         height: 100,
                         width: 100,
                         fit: BoxFit.cover,
@@ -141,7 +147,7 @@ void showShipmentDialog(BuildContext context,
                       },
                       height: 50,
                       text: 'Message'.tr,
-                      textSize: 20,
+                      textSize: 18,
                       isExpanded: true,
                       widget: const Icon(CupertinoIcons.location),
                     ),
@@ -150,13 +156,14 @@ void showShipmentDialog(BuildContext context,
                   Expanded(
                     child: CustomOutlinedButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Get.back();
+                        showRatingDialog(context, ref: ref, order: order);
                       },
                       height: 50,
                       isExpanded: true,
                       textSize: 20,
-                      text: "Ok".tr,
-                      widget: const Icon(Icons.close),
+                      text: "Rate Us".tr,
+                      widget: const Icon(Icons.thumb_up),
                     ),
                   ),
                 ],

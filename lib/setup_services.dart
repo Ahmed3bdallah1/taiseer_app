@@ -124,6 +124,8 @@ Future setupLocator() async {
       () => FetchShipmentsUseCase(shipmentRepo: getIt<ShipmentRepo>()));
   getIt.registerLazySingleton<SubmitShipmentUseCase>(
       () => SubmitShipmentUseCase(shipmentRepo: getIt<ShipmentRepo>()));
+  getIt.registerLazySingleton<SubmitRateUseCase>(
+      () => SubmitRateUseCase(shipmentRepo: getIt<ShipmentRepo>()));
 
   // register support entity
   getIt.registerLazySingleton<SupportDataSource>(

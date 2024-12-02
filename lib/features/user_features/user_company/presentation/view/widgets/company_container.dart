@@ -74,7 +74,7 @@ class CompanyContainer extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  companyModel.averageRating.toString(),
+                                  companyModel.averageRating.toString().substring(0,3),
                                   style: AppFont.font12W600White,
                                 ),
                                 Gap(4.w),

@@ -6,4 +6,5 @@ abstract class ShipmentRepo {
   Future<Either<Failure, ShipmentModel>> getLastShipment();
   Future<Either<Failure, ShipmentPaginationModel>> getShipments({required int page});
   Future<Either<Failure, bool>> submitShipment({required Map<String,dynamic> data});
+  Future<Either<Failure, bool>> submitRate({required Map<String,dynamic> data});
 }

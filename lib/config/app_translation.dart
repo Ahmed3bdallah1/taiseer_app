@@ -34,6 +34,8 @@ class Translation extends Translations {
           "Follow orders": "تتبع الشحنة",
           "Skip": "تخطى",
           "Register as new company": "تسجيل شركة جديدة",
+          "Rate submitted successfully":"تم ارسال التقييم بنجاح",
+          "Rate :":"التقييم :",
           "Shipping countries": "دول الشحن",
           "Shipment images": "صور الشحنة",
           "Select shipping methods": "اختر النشاط",

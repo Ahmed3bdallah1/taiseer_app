@@ -6,6 +6,7 @@ abstract class ShipmentDataSource {
   Future<ShipmentModel> getLastShipment();
   Future<bool> submitShipment(Map<String, dynamic> data);
   Future<ShipmentPaginationModel> getShipment({int? param});
+  Future<bool> submitRate(Map<String, dynamic> data);
 }
 
 class ShipmentDataSourceImp extends ShipmentDataSource {
@@ -36,6 +37,12 @@ class ShipmentDataSourceImp extends ShipmentDataSource {
   @override
   Future<bool> submitShipment(Map<String, dynamic> data) async {
     await apiService.post(url: ApiPath.submitShipment, returnDataOnly: false,requestBody: data);
+    return true;
+  }
+
+  @override
+  Future<bool> submitRate(Map<String, dynamic> data) async {
+    await apiService.post(url: ApiPath.submitRating, returnDataOnly: false,requestBody: data);
     return true;
   }
 }

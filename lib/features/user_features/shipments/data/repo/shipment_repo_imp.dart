@@ -52,4 +52,18 @@ class ShipmentRepoImp extends ShipmentRepo {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> submitRate({required Map<String, dynamic> data}) async {
+    try {
+      final response = await shipmentDataSource.submitRate(data);
+      return Right(response);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      } else {
+        return Left(GeneralError(e));
+      }
+    }
+  }
 }

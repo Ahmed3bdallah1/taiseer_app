@@ -14,6 +14,7 @@ import '../../../../../../ui/shared_widgets/custom_outlined_button.dart';
 import '../../../../search/presentation/view/search_view.dart';
 import '../../../../user_company/presentation/mangers/fetch_company_provider.dart';
 import '../../../../user_company/presentation/view/widgets/company_container.dart';
+import '../../../../user_company/presentation/view/widgets/company_shimmer_widget.dart';
 
 enum FilterTypes { top, bottom }
 
@@ -26,7 +27,7 @@ class UserHomeCompanyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final companies = ref.watch(fetchUserCompaniesViewProvider);
+        final companies = ref.watch(fetchUserCompaniesViewProvider(1));
         // final isShowed = ref.watch(hideNavBarProvider2);
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -157,7 +158,7 @@ class UserHomeCompanyView extends StatelessWidget {
             Gap(20.h),
             companies.customWhen(
                 ref: ref,
-                refreshable: fetchUserCompaniesViewProvider.future,
+                refreshable: fetchUserCompaniesViewProvider(1).future,
                 data: (companyModelList) {
                   return ListView.separated(
                       shrinkWrap: true,
@@ -169,14 +170,14 @@ class UserHomeCompanyView extends StatelessWidget {
                           delay: index.toDouble() + 1,
                           child: CompanyContainer(
                             hideButton: false,
-                            companyModel: companyModelList[index],
+                            companyModel: companyModelList.data[index],
                           ),
                         );
                       },
                       separatorBuilder: (context, index) {
                         return Gap(20.h);
                       },
-                      itemCount: companyModelList.length);
+                      itemCount: companyModelList.data.length);
                 },
                 loading: () {
                   return Column(
@@ -230,21 +231,7 @@ class UserHomeCompanyView extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: 5,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Shimmer.fromColors(
-                              baseColor: Colors.grey[900]!,
-                              highlightColor: Colors.green[100]!,
-                              child: Container(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(.15),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                              ),
-                            ),
-                          );
+                          return const CompanyShimmerWidget();
                         },
                       ),
                     ],

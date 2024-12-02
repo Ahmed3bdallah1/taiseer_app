@@ -36,7 +36,7 @@ class HomeScreen extends ConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(fetchNotificationsProvider);
-          ref.invalidate(fetchUserCompaniesViewProvider);
+          ref.invalidate(fetchUserCompaniesViewProvider(1));
           ref.invalidate(fetchAdsProvider);
           ref.invalidate(fetchLastShipmentProvider);
         },

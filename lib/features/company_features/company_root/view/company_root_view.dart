@@ -55,19 +55,19 @@ class _CompanyRootViewState extends ConsumerState<CompanyRootView> {
       },
       child: Consumer(
         builder: (context, ref, child) {
-          final provider = ref.watch(fetchUserCompaniesViewProvider);
+          final provider = ref.watch(fetchUserCompaniesViewProvider(1));
           return Scaffold(
               appBar: selectedIndex == 1
                   ? null
                   : CustomLogoAppbar(
                       customTitleWidget: provider.customWhen(
                           ref: ref,
-                          refreshable: fetchUserCompaniesViewProvider.future,
+                          refreshable: fetchUserCompaniesViewProvider(1).future,
                           data: (data) {
                             return Row(
                               children: [
                                 ImageOrSvg(
-                                  data[0].logo ?? "",
+                                  data.data[0].logo ?? "",
                                   isLocal: true,
                                 ),
                                 Gap(10.w),
@@ -75,7 +75,7 @@ class _CompanyRootViewState extends ConsumerState<CompanyRootView> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(data[0].nameAr ?? '',
+                                    Text(data.data[0].nameAr ?? '',
                                         style: AppFont.font14W700Black),
                                     Gap(4.h),
                                     Text('Admin',

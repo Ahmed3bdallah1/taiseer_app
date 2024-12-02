@@ -8,13 +8,15 @@ import 'package:tuple/tuple.dart';
 import '../../../../../main.dart';
 import '../../../order/domain/entity/order_entity.dart';
 import '../../data/model/company_model.dart';
+import '../../data/model/company_pagination_model.dart';
 import '../../domain/entity/comment_entity.dart';
 import '../../domain/use_case/company_use_case.dart';
 
 final fetchUserCompaniesViewProvider =
-    FutureProvider.autoDispose<List<UserCompanyModel2>>((ref) async {
+    FutureProvider.autoDispose.family<CompanyPaginationModel,int?>((ref,id) async {
   final attribute = ref.watch(filterProvider);
-  final companies = await getIt<FetchUserCompanyUseCase>().call(attribute.name);
+  print(attribute.name);
+  final companies = await getIt<FetchUserCompanyUseCase>().call(Tuple2(attribute.name,id??1));
 
   return companies.fold((l) {
     throw l;

@@ -5,17 +5,18 @@ import '../../../../../core/errors/failure.dart';
 import '../../../../../core/use_cases/use_case.dart';
 import '../../../order/domain/entity/order_entity.dart';
 import '../../data/model/company_model.dart';
+import '../../data/model/company_pagination_model.dart';
 import '../entity/comment_entity.dart';
 import '../repo/company_repo.dart';
 
 class FetchUserCompanyUseCase
-    extends UseCaseParam<List<UserCompanyModel2>, String> {
+    extends UseCaseParam<CompanyPaginationModel, Tuple2<String,int>> {
   final UserCompanyRepo companyRepo;
 
   FetchUserCompanyUseCase({required this.companyRepo});
 
   @override
-  Future<Either<Failure, List<UserCompanyModel2>>> call(String param) async {
+  Future<Either<Failure, CompanyPaginationModel>> call(Tuple2 param) async {
     final res = await companyRepo.getCompanies(param: param);
     return res;
   }

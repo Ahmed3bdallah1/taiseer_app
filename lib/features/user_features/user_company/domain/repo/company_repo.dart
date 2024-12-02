@@ -4,10 +4,11 @@ import 'package:tuple/tuple.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../order/domain/entity/order_entity.dart';
 import '../../data/model/company_model.dart';
+import '../../data/model/company_pagination_model.dart';
 import '../entity/comment_entity.dart';
 
 abstract class UserCompanyRepo {
-  Future<Either<Failure, List<UserCompanyModel2>>> getCompanies({String? param});
+  Future<Either<Failure, CompanyPaginationModel>> getCompanies({Tuple2? param});
 
   Future<Either<Failure, CompanyDetailsModel>> getCompanyDetails({required int id});
 

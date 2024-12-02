@@ -8,6 +8,7 @@ import '../../domain/repo/company_repo.dart';
 import '../data_source/company_data_source.dart';
 import '../model/company_details_model.dart';
 import '../model/company_model.dart';
+import '../model/company_pagination_model.dart';
 
 class UserCompanyRepoImp extends UserCompanyRepo {
   final UserCompanyDataSource companyDataSource;
@@ -15,11 +16,10 @@ class UserCompanyRepoImp extends UserCompanyRepo {
   UserCompanyRepoImp({required this.companyDataSource});
 
   @override
-  Future<Either<Failure, List<UserCompanyModel2>>> getCompanies({String? param}) async {
+  Future<Either<Failure, CompanyPaginationModel>> getCompanies({Tuple2? param}) async {
     try {
       final res = await companyDataSource.getCompanies(param: param);
-      final list = res.data;
-      return Right(list);
+      return Right(res);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));

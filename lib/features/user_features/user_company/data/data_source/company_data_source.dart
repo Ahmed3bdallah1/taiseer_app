@@ -1,10 +1,11 @@
 import 'package:taiseer/config/api_path.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_pagination_model.dart';
+import 'package:tuple/tuple.dart';
 import '../../../../../core/service/webservice/dio_helper.dart';
 
 abstract class UserCompanyDataSource {
-  Future<CompanyPaginationModel> getCompanies({String? param});
+  Future<CompanyPaginationModel> getCompanies({Tuple2? param});
 
   Future<CompanyDetailsModel> getCompanyDetails({required int id});
 
@@ -23,9 +24,9 @@ class UserCompanyDataSourceImp extends UserCompanyDataSource {
   UserCompanyDataSourceImp(this.apiService);
 
   @override
-  Future<CompanyPaginationModel> getCompanies({String? param}) async {
+  Future<CompanyPaginationModel> getCompanies({Tuple2? param}) async {
     final res = await apiService.post(
-        url: "${ApiPath.filteredCompanies}?filter=$param",
+        url: "${ApiPath.filteredCompanies}?filter=${param?.item1}&page=${param?.item2}",
         returnDataOnly: true);
     CompanyPaginationModel companies = CompanyPaginationModel.fromJson(res);
     return companies;

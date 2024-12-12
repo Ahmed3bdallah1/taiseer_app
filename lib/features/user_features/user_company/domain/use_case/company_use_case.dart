@@ -3,7 +3,6 @@ import 'package:taiseer/features/user_features/user_company/data/model/company_d
 import 'package:tuple/tuple.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/use_cases/use_case.dart';
-import '../../../order/domain/entity/order_entity.dart';
 import '../../data/model/company_model.dart';
 import '../../data/model/company_pagination_model.dart';
 import '../entity/comment_entity.dart';

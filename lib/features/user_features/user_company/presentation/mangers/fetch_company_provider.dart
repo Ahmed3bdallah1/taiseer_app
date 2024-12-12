@@ -4,9 +4,7 @@ import 'package:taiseer/features/user_features/user_company/data/model/company_d
 import 'package:taiseer/features/user_features/user_company/presentation/mangers/search_filter_provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:tuple/tuple.dart';
-
 import '../../../../../main.dart';
-import '../../../order/domain/entity/order_entity.dart';
 import '../../data/model/company_model.dart';
 import '../../data/model/company_pagination_model.dart';
 import '../../domain/entity/comment_entity.dart';

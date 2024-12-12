@@ -18,10 +18,12 @@ class CompanyContainer extends StatelessWidget {
   final UserCompanyModel2 companyModel;
   final ShipmentModel? shipmentModel;
 
-  const CompanyContainer({super.key,
-    required this.companyModel,
-    this.isDisabled,
-    this.hideButton, this.shipmentModel});
+  const CompanyContainer(
+      {super.key,
+      required this.companyModel,
+      this.isDisabled,
+      this.hideButton,
+      this.shipmentModel});
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +31,12 @@ class CompanyContainer extends StatelessWidget {
       onTap: isDisabled == true
           ? () {}
           : () {
-        Get.to(
-          DetailsScreen(userCompanyModel2: companyModel),
-        );
-      },
+              Get.to(
+                DetailsScreen(userCompanyModel2: companyModel),
+              );
+            },
       child: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: AppColor.whiteOrGrey,
           borderRadius: BorderRadius.circular(12.r),
@@ -61,7 +60,9 @@ class CompanyContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          localeService.isArabic?companyModel.nameAr:companyModel.nameEn,
+                          localeService.isArabic
+                              ? companyModel.nameAr
+                              : companyModel.nameEn,
                           style: AppFont.font16W600Black,
                         ),
                         Container(
@@ -74,7 +75,9 @@ class CompanyContainer extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  companyModel.averageRating.toString().substring(0,3),
+                                  companyModel.averageRating
+                                      .toString()
+                                      .substring(0, 3),
                                   style: AppFont.font12W600White,
                                 ),
                                 Gap(4.w),
@@ -90,39 +93,64 @@ class CompanyContainer extends StatelessWidget {
                       ],
                     ),
                     Gap(10.h),
-                    if(shipmentModel != null)
+                    if (shipmentModel != null)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: AppColor.primary.withOpacity(.15),
-                                borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(
-                                    color: AppColor.primary)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 2),
-                              child: Text(shipmentModel?.status ?? "",
-                                style: AppFont.font10w400Primary,
+                          ...shipmentModel!.typeActivity!.map(
+                            (e) => Container(
+                              decoration: BoxDecoration(
+                                  color: AppColor.primary.withOpacity(.15),
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  border: Border.all(color: AppColor.primary)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 2),
+                                child: Text(
+                                  localeService.isArabic
+                                      ? e.infoAr ?? ""
+                                      : e.infoEn ?? "",
+                                  style: AppFont.font10w400Primary,
+                                ),
                               ),
                             ),
                           ),
-                          Gap(10.w),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: AppColor.green.withOpacity(.15),
-                                borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(
-                                    color: AppColor.green)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 2),
-                              child: Text(shipmentModel?.company?.phone ?? "",
-                                style: AppFont.font10w400Primary.copyWith(color: AppColor.green),
-                              ),
+                          if (shipmentModel!.typeActivity!.isEmpty)
+                            Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColor.primary.withOpacity(.15),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      border:
+                                          Border.all(color: AppColor.primary)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 2),
+                                    child: Text(
+                                      shipmentModel?.status ?? "",
+                                      style: AppFont.font10w400Primary,
+                                    ),
+                                  ),
+                                ),
+                                Gap(10.w),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: AppColor.green.withOpacity(.15),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      border: Border.all(color: AppColor.green)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 2),
+                                    child: Text(
+                                      shipmentModel?.company?.email ?? "",
+                                      style: AppFont.font10w400Primary
+                                          .copyWith(color: AppColor.green),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
                         ],
                       ),
                     if (companyModel.typeActivityCompanies!.isNotEmpty)
@@ -130,24 +158,22 @@ class CompanyContainer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           ...companyModel.typeActivityCompanies!.map(
-                                (e) =>
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: AppColor.primary.withOpacity(.15),
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      border: Border.all(
-                                          color: AppColor.primary)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 2),
-                                    child: Text(
-                                      localeService.isArabic
-                                          ? e.typeActivities?.infoAr ?? ""
-                                          : e.typeActivities?.infoEn ?? "",
-                                      style: AppFont.font10w400Primary,
-                                    ),
-                                  ),
+                            (e) => Container(
+                              decoration: BoxDecoration(
+                                  color: AppColor.primary.withOpacity(.15),
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  border: Border.all(color: AppColor.primary)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 2),
+                                child: Text(
+                                  localeService.isArabic
+                                      ? e.typeActivities?.infoAr ?? ""
+                                      : e.typeActivities?.infoEn ?? "",
+                                  style: AppFont.font10w400Primary,
                                 ),
+                              ),
+                            ),
                           )
                         ],
                       )

@@ -3,6 +3,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../core/enum/language.dart';
 import '../features/user_features/home/presentation/view/widgets/company_home_view.dart';
+import '../features/user_features/shipments/presentation/managers/fetch_shipment_providers.dart';
 
 class Translation extends Translations {
   @override
@@ -223,6 +224,12 @@ class Translation extends Translations {
           Language.english.name: "English",
           FilterTypes.top.name: "الاعلى تقييما",
           FilterTypes.bottom.name: "الاقل تقييما",
+          FilterShipmentProviderEnums.New.name:"جديد",
+          FilterShipmentProviderEnums.accepted.name:"تم الموافقة عليه",
+          FilterShipmentProviderEnums.closed.name:"اغلق",
+          FilterShipmentProviderEnums.in_transit.name:"فى الطريق",
+          FilterShipmentProviderEnums.rejected.name:"مرفوض",
+          FilterShipmentProviderEnums.delivered.name:"تم التوصيل",
           "You have followed the company successfully":
               "لقد تابعت هذى الشركة بنجاح",
           "You have un followed the company successfully":

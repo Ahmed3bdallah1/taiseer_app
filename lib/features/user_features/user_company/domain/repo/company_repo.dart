@@ -2,7 +2,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
 import 'package:tuple/tuple.dart';
 import '../../../../../core/errors/failure.dart';
-import '../../../order/domain/entity/order_entity.dart';
 import '../../data/model/company_model.dart';
 import '../../data/model/company_pagination_model.dart';
 import '../entity/comment_entity.dart';

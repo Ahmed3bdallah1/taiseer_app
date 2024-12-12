@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:tuple/tuple.dart';
 import '../../../../../core/errors/failure.dart';
-import '../../../order/domain/entity/order_entity.dart';
 import '../../domain/entity/comment_entity.dart';
 import '../../domain/repo/company_repo.dart';
 import '../data_source/company_data_source.dart';

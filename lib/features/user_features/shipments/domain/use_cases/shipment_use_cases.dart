@@ -2,15 +2,16 @@ import 'package:fpdart/fpdart.dart';
 import 'package:taiseer/core/errors/failure.dart';
 import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
 import 'package:taiseer/features/user_features/shipments/domain/repo/shipment_repo.dart';
+import 'package:tuple/tuple.dart';
 import '../../../../../core/use_cases/use_case.dart';
 
-class FetchShipmentsUseCase extends UseCaseParam<ShipmentPaginationModel, int> {
+class FetchShipmentsUseCase extends UseCaseParam<ShipmentPaginationModel, Tuple2<int,String>> {
   final ShipmentRepo shipmentRepo;
 
   FetchShipmentsUseCase({required this.shipmentRepo});
 
   @override
-  Future<Either<Failure, ShipmentPaginationModel>> call(int param) {
+  Future<Either<Failure, ShipmentPaginationModel>> call(Tuple2<int,String> param) {
     return shipmentRepo.getShipments(page: param);
   }
 }

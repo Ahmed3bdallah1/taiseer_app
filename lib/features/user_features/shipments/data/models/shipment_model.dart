@@ -1,5 +1,6 @@
 import 'package:taiseer/features/user_features/shipments/domain/entities/shipment_image.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_model.dart';
+import 'package:taiseer/features/user_features/user_company/domain/entity/shipping_methods_entity.dart';
 import 'package:taiseer/models/user_model.dart';
 import '../../domain/entities/address.dart';
 
@@ -45,7 +46,7 @@ class ShipmentModel {
   final String? rejectionReason;
   final String? createdAt;
   final String? updatedAt;
-  final String? typeActivityId;
+  final List<TypeActivities>? typeActivity;
   final UserModel? user;
   final UserCompanyModel2? company;
   final Address? addressTo;
@@ -70,7 +71,7 @@ class ShipmentModel {
     this.rejectionReason,
     this.createdAt,
     this.updatedAt,
-    this.typeActivityId,
+    this.typeActivity,
     this.user,
     this.company,
     this.addressTo,
@@ -96,7 +97,7 @@ class ShipmentModel {
     rejectionReason: json["rejection_reason"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
-    typeActivityId: json["typeActivity_id"],
+    typeActivity: json["typeActivities"] == null ? [] : List<TypeActivities>.from(json["typeActivities"]!.map((x) => TypeActivities.fromJson(x))),
     user: json["user"] == null ? null : UserModel.fromJson(json["user"]),
     company: json["company"] == null ? null : UserCompanyModel2.fromJson(json["company"]),
     addressTo: json["address_to"] == null ? null : Address.fromJson(json["address_to"]),
@@ -121,7 +122,7 @@ class ShipmentModel {
     "rejection_reason": rejectionReason,
     // "created_at": createdAt?.toIso8601String(),
     // "updated_at": updatedAt?.toIso8601String(),
-    "typeActivity_id": typeActivityId,
+    "typeActivity_id": typeActivity== null ? [] : List<TypeActivities>.from(typeActivity!.map((x) => x)),
     "user": user?.toJson(),
     "company": company?.toJson(),
     "address_to": addressTo?.toJson(),

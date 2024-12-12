@@ -1,48 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:taiseer/config/app_translation.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../../../config/app_font.dart';
 import '../../../../../shared/notifications/presentation/managers/notifications_filter.dart';
-import '../../../../order/presentation/managers/history_filter_notifier_provider.dart';
+import '../../managers/fetch_shipment_providers.dart';
+import '../order_history_view.dart';
 
-class CustomActionChip extends ConsumerWidget {
-  const CustomActionChip({
+class CustomShipmentHistoryActionChip extends ConsumerWidget {
+  const CustomShipmentHistoryActionChip({
     super.key,
     required this.value,
-    required this.onChange,
     this.alwaysActive = false,
   });
 
-  final FilterAttributes value;
+  final FilterShipmentProviderEnums value;
   final bool alwaysActive;
-  final Function(HistoryFilterNotifier data) onChange;
 
   @override
   Widget build(BuildContext context, ref) {
     final isSelected =
-        alwaysActive || ref.watch(historyProvider)[value.key] == value.value;
+        alwaysActive || ref.watch(shipmentTypeProvider).name == value.name;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: ActionChip(
         onPressed: () {
-          onChange.call(ref.read(historyProvider.notifier))(value);
+          ref.read(shipmentTypeProvider.notifier).state = value;
         },
         label: Text(
-          value.title.tr,
+          value.name.tr,
           style: AppFont.labelTextField.copyWith(
               color: !isSelected ? AppColor.black : AppColor.white,
               fontSize: 14),
         ),
         backgroundColor: (isSelected
-            ? value.value == 0
+            ? value.name.toLowerCase() == "new"
                 ? AppColor.primary
-                : value.value == 1
+                : value.name.toLowerCase() == "in_transit"
                     ? AppColor.orange
-                    : value.value == 2
+                    : value.name.toLowerCase() == "accepted" || value.name.toLowerCase() == "delivered"
                         ? AppColor.green
-                        : value.value == 3
+                        : value.name.toLowerCase() == "rejected" || value.name.toLowerCase() == "closed"
                             ? AppColor.danger
                             : AppColor.primary
             : AppColor.grey1.withOpacity(.4)),

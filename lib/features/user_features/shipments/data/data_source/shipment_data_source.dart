@@ -1,11 +1,12 @@
 import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
+import 'package:tuple/tuple.dart';
 import '../../../../../config/api_path.dart';
 import '../../../../../core/service/webservice/dio_helper.dart';
 
 abstract class ShipmentDataSource {
   Future<ShipmentModel> getLastShipment();
   Future<bool> submitShipment(Map<String, dynamic> data);
-  Future<ShipmentPaginationModel> getShipment({int? param});
+  Future<ShipmentPaginationModel> getShipment({Tuple2<int,String>? param});
   Future<bool> submitRate(Map<String, dynamic> data);
 }
 
@@ -15,8 +16,8 @@ class ShipmentDataSourceImp extends ShipmentDataSource {
   ShipmentDataSourceImp(this.apiService);
 
   @override
-  Future<ShipmentPaginationModel> getShipment({int? param}) async {
-    final res = await apiService.get(url: "${ApiPath.getShipments}?page=$param", returnDataOnly: false);
+  Future<ShipmentPaginationModel> getShipment({Tuple2<int,String>? param}) async {
+    final res = await apiService.get(url: "${ApiPath.getShipments}?page=${param?.item1??1}?status=${param?.item2??""}", returnDataOnly: false);
     ShipmentPaginationModel shipment = ShipmentPaginationModel.fromJson(res["shipments"]);
     return shipment;
   }

@@ -4,6 +4,7 @@ import 'package:taiseer/core/errors/failure.dart';
 import 'package:taiseer/features/user_features/shipments/data/data_source/shipment_data_source.dart';
 import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
 import 'package:taiseer/features/user_features/shipments/domain/repo/shipment_repo.dart';
+import 'package:tuple/tuple.dart';
 
 class ShipmentRepoImp extends ShipmentRepo {
   final ShipmentDataSource shipmentDataSource;
@@ -26,7 +27,7 @@ class ShipmentRepoImp extends ShipmentRepo {
 
   @override
   Future<Either<Failure, ShipmentPaginationModel>> getShipments(
-      {required int page}) async {
+      {required Tuple2<int,String> page}) async {
     try {
       final response = await shipmentDataSource.getShipment(param: page);
       return Right(response);

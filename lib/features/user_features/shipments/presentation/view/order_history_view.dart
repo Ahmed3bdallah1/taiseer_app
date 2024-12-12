@@ -8,7 +8,6 @@ import 'package:taiseer/config/app_translation.dart';
 import 'package:taiseer/features/user_features/chat/data/models/conversation_model.dart';
 import 'package:taiseer/features/user_features/chat/domain/use_case/chats_use_cases.dart';
 import 'package:taiseer/features/user_features/chat/presentation/chats_screen.dart';
-import 'package:taiseer/features/user_features/order/presentation/managers/fetch_order_history_provider.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/order_screen.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/custom_action_chip.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/history_container.dart';
@@ -20,9 +19,12 @@ import 'package:taiseer/ui/shared_widgets/custom_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/fade_in_animation.dart';
 import 'package:taiseer/ui/shared_widgets/not_found_widget.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tuple/tuple.dart';
 import '../../../../../main.dart';
 import '../../../../../ui/shared_widgets/container_button.dart';
-import '../../../order/presentation/managers/filter_model_provider.dart';
+
+final shipmentTypeProvider = StateProvider<FilterShipmentProviderEnums>(
+    (ref) => FilterShipmentProviderEnums.New);
 
 class OrderHistoryView extends ConsumerStatefulWidget {
   const OrderHistoryView({super.key});
@@ -36,7 +38,7 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
       PagingController(firstPageKey: 1);
 
   Future<void> _fetchPage(int pageKey) async {
-    final response = await getIt<FetchShipmentsUseCase>().call(pageKey);
+    final response = await getIt<FetchShipmentsUseCase>().call(Tuple2(pageKey, ref.watch(shipmentTypeProvider).name));
     response.fold((l) {
       _pagingController.error = l;
     }, (r) {
@@ -83,73 +85,27 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
             child: Row(
               children: [
                 Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Consumer(builder: (context, ref, child) {
-                      final attr = ref.watch(fetchFilterModelProvider);
-                      return attr.customWhen(
-                        ref: ref,
-                        refreshable: fetchFilterModelProvider.future,
-                        error: (e, ei) => const SizedBox.shrink(),
-                        loading: () => Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: List.generate(
-                                3,
-                                (_) => Padding(
-                                      padding: const EdgeInsetsDirectional.only(
-                                          end: 8.0),
-                                      child: Shimmer.fromColors(
-                                        baseColor: Colors.grey[900]!,
-                                        highlightColor: Colors.green[100]!,
-                                        child: Container(
-                                          height: 40,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey.withOpacity(.15),
-                                            borderRadius:
-                                                BorderRadius.circular(35),
-                                          ),
-                                        ),
-                                      ),
-                                    ))),
-                        data: (data) {
-                          return Row(
-                            children: [
-                              CustomActionChip(
-                                onChange: (sad) {
-                                  return sad.updateFilter;
-                                },
-                                value: const FilterAttributes(
-                                    key: 'order_status',
-                                    title: 'all',
-                                    value: null),
-                              ),
-                              ...data.status.map((e) => CustomActionChip(
-                                    onChange: (sad) {
-                                      return sad.updateFilter;
-                                    },
-                                    value: FilterAttributes(
-                                        value: e.id,
-                                        key: 'order_status',
-                                        title: e.title!),
-                                  )),
-                            ],
-                          );
-                        },
-                      );
-                    }),
+                    child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ...FilterShipmentProviderEnums.values
+                          .map((e) => CustomShipmentHistoryActionChip(
+                                value: e,
+                              )),
+                    ],
                   ),
-                ),
+                )),
               ],
             ),
           ),
           Gap(10.h),
           Expanded(
             child: Consumer(builder: (context, ref, _) {
-              final historyList = ref.watch(fetchShipmentsProvider(1));
+              final historyList = ref.watch(fetchShipmentsProvider(Tuple2(1, ref.watch(shipmentTypeProvider).name)));
               return historyList.customWhen(
                   ref: ref,
-                  refreshable: fetchShipmentsProvider(1).future,
+                  refreshable: fetchShipmentsProvider(Tuple2(1, ref.watch(shipmentTypeProvider).name)).future,
                   data: (history) {
                     if (history.data.isEmpty) {
                       return NotFoundWidget(title: "No orders right now.!".tr);
@@ -166,12 +122,13 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
                               fadeOffset: 40,
                               delay: (index.toDouble() + 1) - (index - 1),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 6),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6),
                                 child: InkWell(
                                   onTap: () => showShipmentDialog(context,
-                                      ref: ref,
-                                      order: shipment),
-                                  child: HistoryContainer(historyEntity: shipment),
+                                      ref: ref, order: shipment),
+                                  child:
+                                      HistoryContainer(historyEntity: shipment),
                                 ),
                               ),
                             );

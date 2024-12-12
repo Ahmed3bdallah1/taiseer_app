@@ -19,13 +19,6 @@ import 'package:taiseer/features/shared/notifications/data/data_source/notificat
 import 'package:taiseer/features/shared/notifications/data/repo/notification_repo_imp.dart';
 import 'package:taiseer/features/shared/notifications/domain/repos/notification_repo.dart';
 import 'package:taiseer/features/shared/notifications/domain/use_case/fetch_notifications_use_case.dart';
-import 'package:taiseer/features/user_features/order/data/data_source/order_data_source.dart';
-import 'package:taiseer/features/user_features/order/data/repo/order_repo_imp.dart';
-import 'package:taiseer/features/user_features/order/domain/repo/order_repo.dart';
-import 'package:taiseer/features/user_features/order/domain/use_case/delete_order_use_case.dart';
-import 'package:taiseer/features/user_features/order/domain/use_case/fetch_last_order_use_case.dart';
-import 'package:taiseer/features/user_features/order/domain/use_case/fetch_order_history_use_case.dart';
-import 'package:taiseer/features/user_features/order/domain/use_case/get_filter_attr_use_case.dart';
 import 'package:taiseer/features/user_features/profile/data/data_sources/update_profile_date_source.dart';
 import 'package:taiseer/features/user_features/settings/data/data_source/policy_data_source.dart';
 import 'package:taiseer/features/user_features/settings/data/repo/policy_repo_imp.dart';
@@ -56,7 +49,6 @@ import 'features/shared/auth/domain/repositories/auth_repo.dart';
 import 'features/shared/auth/domain/use_cases/login_user_use_case.dart';
 import 'features/shared/auth/domain/use_cases/register_user_use_case.dart';
 import 'features/shared/forget_password/domain/repositories/forget_password_repo.dart';
-import 'features/user_features/order/domain/use_case/submit_order_use_case.dart';
 import 'features/shared/notifications/domain/use_case/fetch_seen_use_case.dart';
 import 'features/user_features/profile/data/data_sources/upload_file_data_source.dart';
 import 'features/user_features/profile/data/repositories/update_profile_repo_impl.dart';
@@ -97,21 +89,6 @@ Future setupLocator() async {
   getIt.registerLazySingleton<SeenNotificationUseCase>(() =>
       SeenNotificationUseCase(notificationRepo: getIt<NotificationRepo>()));
 
-  // register history entity
-  getIt.registerLazySingleton<FetchOrderHistoryUseCase>(
-      () => FetchOrderHistoryUseCase(orderRepo: getIt<OrderRepo>()));
-  getIt.registerLazySingleton<GetFilterAttrUseCase>(
-      () => GetFilterAttrUseCase(orderRepo: getIt<OrderRepo>()));
-
-  // register last order entity
-  getIt.registerLazySingleton<OrderDataSource>(
-      () => OrderDataSourceImp(getIt<ApiService>()));
-  getIt.registerLazySingleton<OrderRepo>(
-      () => OrderRepoImp(orderDataSource: getIt<OrderDataSource>()));
-  getIt.registerLazySingleton<FetchLastOrderUseCase>(
-      () => FetchLastOrderUseCase(orderRepo: getIt<OrderRepo>()));
-  getIt.registerLazySingleton<FetchDeleteOrderUseCase>(
-      () => FetchDeleteOrderUseCase(orderRepo: getIt<OrderRepo>()));
 
   // register shipment entity
   getIt.registerLazySingleton<ShipmentDataSource>(
@@ -202,8 +179,8 @@ Future setupLocator() async {
       () => AddCompanyUseCase(addCompanyRepo: getIt<AddCompanyRepo>()));
 
   //register order
-  getIt.registerLazySingleton<SubmitOrderUseCase>(
-      () => SubmitOrderUseCase(orderRepo: getIt<OrderRepo>()));
+  // getIt.registerLazySingleton<SubmitOrderUseCase>(
+  //     () => SubmitOrderUseCase(orderRepo: getIt<OrderRepo>()));
   getIt.registerLazySingleton<FetchCountriesUseCase>(
       () => FetchCountriesUseCase(getIt<AuthRepo>()));
 

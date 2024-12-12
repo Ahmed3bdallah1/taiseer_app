@@ -10,6 +10,7 @@ class CustomFilledButton extends StatelessWidget {
     this.text,
     this.isLoading = false,
     this.isExpanded = false,
+    this.isCirclar = false,
     this.color,
     this.fontColor,
     this.height,
@@ -32,6 +33,7 @@ class CustomFilledButton extends StatelessWidget {
   final bool isValid;
   final bool hideText;
   final bool isExpanded;
+  final bool isCirclar;
   final double? height;
   final double? width;
   final double? textSize;
@@ -47,7 +49,7 @@ class CustomFilledButton extends StatelessWidget {
           backgroundColor: WidgetStateProperty.all(
               !isValid ? AppColor.disabled : color ?? AppColor.primary),
           shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6.r)))),
+              borderRadius: isCirclar?BorderRadius.circular(50.r):BorderRadius.circular(6.r)))),
       onPressed:
           isLoading || (ignorePressOnNotValid && !isValid) ? null : onPressed,
       child: isLoading

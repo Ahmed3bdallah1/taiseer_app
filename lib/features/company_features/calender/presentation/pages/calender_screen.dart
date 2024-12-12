@@ -5,6 +5,7 @@ import 'package:taiseer/config/app_color.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/core/service/localization_service/localization_service.dart';
 import 'package:taiseer/features/company_features/calender/presentation/widgets/calender_header.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/shipment_dialog.dart';
 import 'package:taiseer/ui/shared_widgets/hide_nav_bar_widget.dart';
 import 'package:taiseer/ui/shared_widgets/not_found_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -255,7 +256,7 @@ class InstallmentDetails extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    showOrderDialog(context);
+                    // showShipmentDialog(context, ref: ref,);
                   },
                   child: ListTile(
                     tileColor: item.status == 0

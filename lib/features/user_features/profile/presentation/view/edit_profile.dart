@@ -5,6 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:taiseer/config/api_path.dart';
 import 'package:taiseer/core/service/auth_service.dart';
 import 'package:taiseer/core/service/loading_provider.dart';
 import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
@@ -15,6 +18,7 @@ import 'package:taiseer/ui/shared_widgets/container_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_app_bar.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../../../../config/app_font.dart';
+import '../../../../../core/service/image_picker_cropper.dart';
 import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../../../../helper/map_not_equals_validator.dart';
 import '../../../../../main.dart';
@@ -37,6 +41,14 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late final FormGroup formGroup;
 
+  Future<File> urlToFile(String imageUrl) async {
+    var response = await http.get(Uri.parse(imageUrl));
+    final tempDir = await getTemporaryDirectory();
+    File file = File('${tempDir.path}/temp.png');
+    await file.writeAsBytes(response.bodyBytes);
+    return file;
+  }
+
   @override
   void initState() {
     formGroup = FormGroup({
@@ -46,8 +58,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       'last_name': FormControl(
           validators: [Validators.required],
           value: ref.read(userProvider)?.name?.split(" ").last ?? ""),
-      'image': FormControl<String>(
-          validators: [], value: ref.read(userProvider)?.profilePhotoUrl),
+      'image': FormControl<File>(
+        validators: [Validators.required]
+      ),
       'phone': FormControl(validators: [
         Validators.minLength(8),
         Validators.maxLength(8),
@@ -62,9 +75,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       MapNotEqualsValidator(Map.from(formGroup.value)),
     ], autoValidate: true);
 
+    urlToFile("${ApiPath.uploadPathUsers}${ref.read(userProvider)!.profilePhotoUrl??" "}").then((imageFile) {
+      formGroup.control("image").updateValue(imageFile);
+      // formGroup.controls['image']!.value = imageFile;
+      // formGroup.controls['image']!.updateValueAndValidity();
+    });
+
     formGroup.control('phone').setValidators([
       Validators.compose([
-        Validators.required,
+        // Validators.required,
         Validators.delegate((controls) {
           final res = formGroup.control('country').value is int;
           if (res) {
@@ -80,6 +99,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(ref.watch(userProvider)?.profilePhotoUrl);
     return Scaffold(
       appBar: CustomLogoAppbar(
         customTitleWidget: Text("Profile".tr),
@@ -107,24 +127,36 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(200),
-                        child: Consumer(
-                          builder: (context, ref, child) {
-                            return ImageOrSvg(
-                              ref.watch(uploadFileNotifierProvider) ??
-                                  Assets.base.personal.path,
-                              fit: BoxFit.cover,
-                              isLocal:
-                                  ref.watch(uploadFileNotifierProvider) != null
-                                      ? false
-                                      : true,
-                              height: 120.h,
-                              width: 120.h,
-                              isLoading:
-                                  ref.watch(isLoadingProvider("setImage")),
-                              magnifier: true,
-                            );
-                          },
-                        ),
+                        child: ReactiveFormConsumer(builder: (context, form, _) {
+                          return Consumer(
+                            builder: (context, ref, child) {
+                              final file =
+                              formGroup.control("image").value as File?;
+                              return file != null
+                                  ? Image.file(
+                                file,
+                                fit: BoxFit.cover,
+                                height: 120.h,
+                                width: 120.h,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Image.asset(
+                                    "assets/base/personal.png",
+                                    // Fallback image in case of error
+                                    fit: BoxFit.cover,
+                                    height: 120.h,
+                                    width: 120.h,
+                                  );
+                                },
+                              )
+                                  : Image.asset(
+                                "assets/base/personal.png",
+                                fit: BoxFit.cover,
+                                height: 120.h,
+                                width: 120.h,
+                              );
+                            },
+                          );
+                        }),
                       ),
                       Positioned.directional(
                           bottom: 10,
@@ -132,25 +164,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                           textDirection: TextDirection.rtl,
                           child: InkWell(
                             onTap: () async {
-                              final newImageProvider =
-                                  ref.read(uploadFileNotifierProvider.notifier);
-                              final image = await newImageProvider.pickImage();
+                              final image =
+                              await getIt<ImagePickerService>().pickImage();
                               if (image != null) {
-                                try {
-                                  ref
-                                      .read(isLoadingProvider("setImage")
-                                          .notifier)
-                                      .state = true;
-
-                                  final uploaded = await newImageProvider
-                                      .uploadFile(File(image.path));
-                                  formGroup.control('image').value = uploaded;
-                                } finally {
-                                  ref
-                                      .read(isLoadingProvider("setImage")
-                                          .notifier)
-                                      .state = false;
-                                }
+                                ref
+                                    .read(isLoadingProvider("image").notifier)
+                                    .state = true;
+                                formGroup.control('image').value =
+                                    File(image.path);
+                                print(formGroup.control('image').value);
                               }
                             },
                             child: Container(
@@ -170,6 +192,74 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                           ))
                     ],
                   ),
+                  // Stack(
+                  //   alignment: Alignment.bottomCenter,
+                  //   children: [
+                  //     ClipRRect(
+                  //       borderRadius: BorderRadius.circular(200),
+                  //       child: Consumer(
+                  //         builder: (context, ref, child) {
+                  //           return ImageOrSvg(
+                  //             ref.watch(uploadFileNotifierProvider) ??
+                  //                 Assets.base.personal.path,
+                  //             fit: BoxFit.cover,
+                  //             isLocal:
+                  //                 ref.watch(uploadFileNotifierProvider) != null
+                  //                     ? false
+                  //                     : true,
+                  //             height: 120.h,
+                  //             width: 120.h,
+                  //             isLoading:
+                  //                 ref.watch(isLoadingProvider("setImage")),
+                  //             magnifier: true,
+                  //           );
+                  //         },
+                  //       ),
+                  //     ),
+                  //     Positioned.directional(
+                  //         bottom: 10,
+                  //         start: 0,
+                  //         textDirection: TextDirection.rtl,
+                  //         child: InkWell(
+                  //           onTap: () async {
+                  //             final newImageProvider =
+                  //                 ref.read(uploadFileNotifierProvider.notifier);
+                  //             final image = await newImageProvider.pickImage();
+                  //             if (image != null) {
+                  //               try {
+                  //                 ref
+                  //                     .read(isLoadingProvider("setImage")
+                  //                         .notifier)
+                  //                     .state = true;
+                  //
+                  //                 final uploaded = await newImageProvider
+                  //                     .uploadFile(File(image.path));
+                  //                 formGroup.control('image').value = uploaded;
+                  //               } finally {
+                  //                 ref
+                  //                     .read(isLoadingProvider("setImage")
+                  //                         .notifier)
+                  //                     .state = false;
+                  //               }
+                  //             }
+                  //           },
+                  //           child: Container(
+                  //             height: 30.h,
+                  //             width: 30.h,
+                  //             decoration: BoxDecoration(
+                  //                 color: AppColor.primary,
+                  //                 shape: BoxShape.circle,
+                  //                 border: Border.all(
+                  //                     color: AppColor.primary, width: 2)),
+                  //             child: const Icon(
+                  //               FontAwesomeIcons.pen,
+                  //               color: Colors.white,
+                  //               size: 14,
+                  //             ),
+                  //           ),
+                  //         ))
+                  //   ],
+                  // ),
                   Text(
                     "ID: #${ref.read(userProvider)?.id}",
                     style: AppFont.subLabelTextField

@@ -62,7 +62,7 @@ class HomeScreen extends ConsumerWidget {
                               radius: 30,
                               backgroundImage: ref.watch(userProvider)?.profilePhotoUrl == null
                                   ? const ExtendedAssetImageProvider("assets/base/personal.png")
-                                  : ExtendedNetworkImageProvider(cache: true, "${ApiPath.uploadPath}${ref.watch(userProvider)?.profilePhotoUrl}") as ImageProvider<Object>,
+                                  : ExtendedNetworkImageProvider(cache: true, "${ApiPath.uploadPathUsers}${ref.watch(userProvider)?.profilePhotoUrl}") as ImageProvider<Object>,
                             ),
                           ),
                           const Gap(10),

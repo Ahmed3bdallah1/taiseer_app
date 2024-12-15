@@ -16,6 +16,7 @@ import 'package:taiseer/ui/shared_widgets/custom_filled_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_outlined_button.dart';
 import 'package:taiseer/ui/shared_widgets/custom_logo_app_bar.dart';
 import 'package:taiseer/ui/shared_widgets/image_or_svg.dart';
+import 'package:taiseer/ui/shared_widgets/loading_widget.dart';
 import 'package:taiseer/ui/ui.dart';
 import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../../../../ui/shared_widgets/container_button.dart';
@@ -35,7 +36,7 @@ class DetailsScreen extends ConsumerStatefulWidget {
 }
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
-  final controller = ScrollController();
+  // final controller = ScrollController();
   CompanyDetailsModel? companyDetailsModel;
 
   @override
@@ -68,7 +69,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               height: 160.h,
                               width: MediaQuery.of(context).size.width,
                               child: ImageOrSvg(
-                                companyModel.cover??"",
+                                companyModel.cover ?? "",
                                 isCompanyImage: true,
                                 pickImageOnNull: true,
                                 fit: BoxFit.fitWidth,
@@ -79,14 +80,17 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               left: 0,
                               right: 0,
                               child: CustomLogoAppbar(
-                                applyPadding: false,
-                                scrollController: controller,
+                                applyPadding: true,
+                                // scrollController: controller,
                                 customTitleWidget: Text(
-                                  localeService.isArabic?companyModel.nameAr??"":companyModel.nameEn??"",
+                                  localeService.isArabic
+                                      ? companyModel.nameAr ?? ""
+                                      : companyModel.nameEn ?? "",
                                   // companyModel.nameAr ?? "",
                                 ),
+                                // hideActions: true,
                                 buttonWidget: Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
+                                  padding: EdgeInsetsDirectional.only(start: 8.0),
                                   child: ContainerButton(
                                     color: Colors.transparent,
                                     size: 50,
@@ -106,11 +110,11 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               ),
                             ),
                             Positioned(
-                              top: 100.h,
-                              left: 20.w,
-                              right: 20.w,
-                              child: CompanyDetailsBanner(companyModel: companyModel)
-                            )
+                                top: 100.h,
+                                left: 20.w,
+                                right: 20.w,
+                                child: CompanyDetailsBanner(
+                                    companyModel: companyModel))
                           ],
                         ),
                       ),
@@ -133,19 +137,24 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   style: AppFont.font18W700Black,
                                 ),
                                 Text(
-                                  localeService.isArabic?companyModel.nameAr??"":companyModel.nameEn??"",
+                                  localeService.isArabic
+                                      ? companyModel.nameAr ?? ""
+                                      : companyModel.nameEn ?? "",
                                   style: AppFont.font18W700Black,
                                 )
                               ],
                             ),
                             CustomSlider(
-                              ref.watch(fetchAdsProvider).value!
+                              ref
+                                  .watch(fetchAdsProvider)
+                                  .value!
                                   .map((e) => SliderItem(e))
                                   .toList(),
                               // height: 170.h,
                               autoPlay: true,
                               onPageChanged: (index, _) {
-                                ref.read(sliderIndexProvider.notifier).state = index;
+                                ref.read(sliderIndexProvider.notifier).state =
+                                    index;
                               },
                             ),
                             Gap(20.h),
@@ -164,7 +173,9 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             ),
                             Gap(10.h),
                             Text(
-                              localeService.isArabic?companyModel.aboutAr??"":companyModel.aboutEn??"",
+                              localeService.isArabic
+                                  ? companyModel.aboutAr ?? ""
+                                  : companyModel.aboutEn ?? "",
                               style: AppFont.font14W500Grey2,
                               textAlign: TextAlign.start,
                             ),
@@ -202,7 +213,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               ),
                             ),
                             Gap(20.h),
-                            if(companyModel.rating.isNotEmpty)
+                            if (companyModel.rating.isNotEmpty)
                               Column(
                                 children: [
                                   Row(
@@ -228,14 +239,14 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                           return const Gap(10);
                                         },
                                         itemBuilder: (context, index) {
-                                          if(companyModel.rating.isEmpty){
+                                          if (companyModel.rating.isEmpty) {
                                             return Gap(10);
                                           }
                                           return CommentContainer(
-                                              shippingMethods:
-                                              companyModel.typeActivityCompanies,
+                                              shippingMethods: companyModel
+                                                  .typeActivityCompanies,
                                               commentsEntity:
-                                              companyModel.rating[index]);
+                                                  companyModel.rating[index]);
                                         }),
                                   )
                                 ],
@@ -270,12 +281,16 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
             Expanded(
               flex: 1,
               child: CustomOutlinedButton(
-                widget: const Icon(
-                  Icons.add,
-                  color: AppColor.primary,
-                ),
+                // widget: Icon(
+                //   companyDetailsModel?.isFollowed == 1
+                //       ? Icons.remove
+                //       : Icons.add,
+                //   color: AppColor.primary,
+                // ),
                 textSize: 15.sp,
-                text: "Follow".tr,
+                text: companyDetailsModel?.isFollowed == 1
+                    ? "Un Follow".tr
+                    : "Follow".tr,
                 onPressed: () async {
                   final res = await getIt<FollowCompanyUseCase>()
                       .call(companyDetailsModel?.id ?? 0);

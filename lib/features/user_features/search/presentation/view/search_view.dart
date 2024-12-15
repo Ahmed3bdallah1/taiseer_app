@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/config/app_font.dart';
+import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/history_container.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_model.dart';
 import 'package:taiseer/features/user_features/user_company/domain/entity/comment_entity.dart';
 import 'package:taiseer/ui/shared_widgets/custom_logo_app_bar.dart';
@@ -72,8 +74,10 @@ class _SearchViewState extends ConsumerState<SearchUserView> {
                                     } else if (e is CommentsEntity) {
                                       return CommentContainer(
                                           commentsEntity: e);
-                                    } else {
-                                      return SizedBox.shrink();
+                                    } else if(e is ShipmentModel){
+                                      return ShipmentContainer(shipment: e);
+                                    } else{
+                                      return const SizedBox.shrink();
                                     }
                                   })
                                 ],

@@ -14,6 +14,7 @@ class CompanyDetailsModel {
   final String? aboutAr;
   final String? aboutEn;
   final int companyStatusId;
+  final int? isFollowed;
   final String? logo;
   final String? cover;
   final DateTime createdAt;
@@ -33,6 +34,7 @@ class CompanyDetailsModel {
     this.bl,
     this.blImage,
     this.idFrontImage,
+    this.isFollowed,
     this.aboutAr,
     this.aboutEn,
     required this.companyStatusId,
@@ -59,6 +61,7 @@ class CompanyDetailsModel {
         idFrontImage: json["id_front_image"],
         aboutAr: json["about_ar"],
         aboutEn: json["about_en"],
+        isFollowed: json["isFollowed"],
         companyStatusId: json["company_status_id"],
         logo: json["logo"],
         cover: json["cover"],
@@ -88,6 +91,7 @@ class CompanyDetailsModel {
         "company_status_id": companyStatusId,
         "logo": logo,
         "cover": cover,
+        "isFollowed": isFollowed,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "followers_count": followersCount,

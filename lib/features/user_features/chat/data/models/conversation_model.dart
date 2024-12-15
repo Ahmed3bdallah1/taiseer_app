@@ -19,7 +19,7 @@ class ChatsPaginationModel {
 
   factory ChatsPaginationModel.fromJson(Map<String, dynamic> json) => ChatsPaginationModel(
     currentPage: json["current_page"],
-    data: json["data"] == null ? [] : List<ConversationModel>.from(json["data"]!.map((x) => ConversationModel.fromJson(x))),
+    data: json["data"] == null ? [] : List<ConversationModel>.from(json["data"]!.map((x) => ConversationModel.fromJson(x))).reversed.toList(),
     from: json["from"],
     lastPage: json["last_page"],
     perPage: json["per_page"],

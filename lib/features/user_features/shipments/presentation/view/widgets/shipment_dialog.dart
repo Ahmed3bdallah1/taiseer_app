@@ -41,11 +41,17 @@ void showShipmentDialog(BuildContext context,
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                      radius: 30,
-                      child: ImageOrSvg(
-                        order!.user?.profilePhotoUrl ?? "",
-                        pickImageOnNull: true,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(30.r),
+                      child: SizedBox(
+                        height: 60,
+                        width: 60,
+                        child: ImageOrSvg(
+                          order.user?.profilePhotoUrl ?? "",
+                          fit: BoxFit.fill,
+                          isUserImage: true,
+                          // pickImageOnNull: true,
+                        ),
                       )),
                   Gap(6.w),
                   Expanded(
@@ -109,7 +115,7 @@ void showShipmentDialog(BuildContext context,
                             fit: BoxFit.cover,
                           ),
                           Positioned(top: 0, left: 0, right: 0, bottom: 0,
-                              child: Center(child: Text("+1",
+                              child: Center(child: Text(order.shipmentImage!.length.toString(),
                                 style: AppFont.font20W700Primary.copyWith(color: AppColor.primary.withOpacity(.5)),
                               ))),
                         ],

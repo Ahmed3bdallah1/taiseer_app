@@ -128,7 +128,7 @@ class _OrderHistoryViewState extends ConsumerState<OrderHistoryView> {
                                   onTap: () => showShipmentDialog(context,
                                       ref: ref, order: shipment),
                                   child:
-                                      HistoryContainer(historyEntity: shipment),
+                                      ShipmentContainer(shipment: shipment),
                                 ),
                               ),
                             );

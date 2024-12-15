@@ -1,8 +1,11 @@
 import 'package:taiseer/config/api_path.dart';
+import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_details_model.dart';
+import 'package:taiseer/features/user_features/user_company/data/model/company_model.dart';
 import 'package:taiseer/features/user_features/user_company/data/model/company_pagination_model.dart';
 import 'package:tuple/tuple.dart';
 import '../../../../../core/service/webservice/dio_helper.dart';
+import '../../domain/entity/comment_entity.dart';
 
 abstract class UserCompanyDataSource {
   Future<CompanyPaginationModel> getCompanies({Tuple2? param});
@@ -25,8 +28,11 @@ class UserCompanyDataSourceImp extends UserCompanyDataSource {
 
   @override
   Future<CompanyPaginationModel> getCompanies({Tuple2? param}) async {
+    print(
+        "${ApiPath.filteredCompanies}?filter=${param?.item1}&page=${param?.item2}");
     final res = await apiService.post(
-        url: "${ApiPath.filteredCompanies}?filter=${param?.item1}&page=${param?.item2}",
+        url:
+            "${ApiPath.filteredCompanies}?filter=${param?.item1}&page=${param?.item2}",
         returnDataOnly: true);
     CompanyPaginationModel companies = CompanyPaginationModel.fromJson(res);
     return companies;
@@ -94,11 +100,32 @@ class UserCompanyDataSourceImp extends UserCompanyDataSource {
   @override
   Future<List<dynamic>> searchCompanies2({String? search}) async {
     await Future.delayed(const Duration(seconds: 2));
-    return [
-      // companies[0],
-      // comments[0],
-      // companies[1],
-    ];
+    final res = await apiService.get<List>(
+      url: ApiPath.search,
+      returnDataOnly: false,
+      queryParameters: {"text": search},
+    );
+    final list = res.map((e) {
+      if (e.containsKey('rating_avg_rate') &&
+          e.containsKey('name_ar') &&
+          e.containsKey('type_activity_companies')) {
+        return UserCompanyModel2.fromJson(e);
+      } else if (e.containsKey('user_id') &&
+          e.containsKey('comment') &&
+          e.containsKey('rate')) {
+        return CommentsEntity.fromJson(e);
+      } else if(e.containsKey('tracking_number') &&
+          e.containsKey('expected_delivery_date') &&
+          e.containsKey('shipment_type')){
+        return ShipmentModel.fromJson(e);
+      }
+    }).toList();
+    return list;
+    // [
+    //   // companies[0],
+    //   // comments[0],
+    //   // companies[1],
+    // ];
   }
 
   @override

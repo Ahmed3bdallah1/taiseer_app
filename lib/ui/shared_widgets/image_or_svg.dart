@@ -20,6 +20,7 @@ class ImageOrSvg extends StatefulWidget {
   final bool magnifier;
   final bool isLocal;
   final bool isCompanyImage;
+  final bool isUserImage;
   final bool isLoading;
   final bool isCircleLoading;
   final bool pickImageOnNull;
@@ -39,6 +40,7 @@ class ImageOrSvg extends StatefulWidget {
     this.pickImageOnNull = false,
     this.assetImageOnNull,
     this.isCompanyImage = false,
+    this.isUserImage = false,
   }) : super(key: ValueKey(url));
 
   @override
@@ -85,9 +87,11 @@ class _ImageOrSvgState extends State<ImageOrSvg>
         ? widget.url
         : widget.url!.startsWith("http")
             ? widget.url
-            : widget.isCompanyImage == true
-                ? "${ApiPath.uploadPath2}${widget.url}"
-                : "${ApiPath.uploadPath}${widget.url}";
+            : widget.isUserImage
+                ? "${ApiPath.uploadPathUsers}${widget.url}"
+                : widget.isCompanyImage
+                    ? "${ApiPath.uploadPath2}${widget.url}"
+                    : "${ApiPath.uploadPath}${widget.url}";
     return fullPath!.endsWith(".svg")
         ? widget.isLocal
             ? SvgPicture.asset(

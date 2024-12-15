@@ -48,7 +48,8 @@ class ShippingMethodTile extends StatelessWidget {
                   Positioned.fill(
                       child: ImageOrSvg(
                     shippingMethodsEntity.typeActivities?.imageBack ?? "",
-                    pickImageOnNull: false,
+                    // pickImageOnNull: false,
+                    //     isCompanyImage: true,
                     fit: BoxFit.fill,
                   )),
                   Positioned(

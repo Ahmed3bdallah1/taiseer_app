@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:taiseer/config/api_path.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/user_company/domain/entity/shipping_methods_entity.dart';
 import '../../../../../../core/service/localization_service/localization_service.dart';
@@ -33,11 +34,15 @@ class CommentContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                ImageOrSvg(
-                  commentsEntity.user.profilePhotoUrl ?? "",
-                  pickImageOnNull: true,
-                  height: 60,
-                  width: 60,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30.r),
+                  child: ImageOrSvg(
+                    commentsEntity.user.profilePhotoUrl ??"",
+                    fit: BoxFit.fill,
+                    isUserImage: true,
+                    height: 60,
+                    width: 60,
+                  ),
                 ),
                 Gap(10.w),
                 Expanded(

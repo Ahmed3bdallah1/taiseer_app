@@ -157,6 +157,8 @@ class Translation extends Translations {
           "program type": "نوع البرنامج",
           "done": "تم",
           "paid": "مدفوع",
+          "Un Follow": "الغاء المتابعة",
+          "Rate Us": "تقييم",
           "Welcome,we are happy to see you again 👋":
               'اهلا بك, مسرورون لرؤيتك مرة اخري 👋',
           "Login": "تسجيل الدخول",

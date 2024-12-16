@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../../../../config/app_font.dart';
 import '../../../../../shared/notifications/presentation/managers/notifications_filter.dart';
 import '../../managers/fetch_shipment_providers.dart';
-import '../order_history_view.dart';
+import '../shipment_history_view.dart';
 
 class CustomShipmentHistoryActionChip extends ConsumerWidget {
   const CustomShipmentHistoryActionChip({

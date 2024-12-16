@@ -8,7 +8,7 @@ import 'package:taiseer/config/app_translation.dart';
 import 'package:taiseer/features/user_features/chat/data/models/conversation_model.dart';
 import 'package:taiseer/features/user_features/chat/domain/use_case/chats_use_cases.dart';
 import 'package:taiseer/features/user_features/chat/presentation/chats_screen.dart';
-import 'package:taiseer/features/user_features/shipments/presentation/view/order_screen.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/make_shipment_screen.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/custom_action_chip.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/widgets/history_container.dart';
 import 'package:taiseer/features/user_features/shipments/data/models/shipment_model.dart';

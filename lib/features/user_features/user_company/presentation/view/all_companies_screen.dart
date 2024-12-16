@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:taiseer/config/app_font.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/widgets/company_home_view.dart';
-import 'package:taiseer/features/user_features/shipments/presentation/view/order_screen.dart';
+import 'package:taiseer/features/user_features/shipments/presentation/view/make_shipment_screen.dart';
 import 'package:taiseer/features/user_features/user_company/domain/use_case/company_use_case.dart';
 import 'package:taiseer/features/user_features/user_company/presentation/mangers/fetch_company_provider.dart';
 import 'package:taiseer/features/user_features/user_company/presentation/view/widgets/company_container.dart';
@@ -245,7 +245,7 @@ class _AllCompaniesScreenState extends ConsumerState<AllCompaniesScreen> {
                   child: CustomFilledButton(
                     onPressed: () async {
                       if (ref.watch(companyDetails) != null) {
-                        Get.to(() => OrderScreen(
+                        Get.to(() => MakeShipmentScreen(
                             isGlobal: true,
                             companyDetailsModel: ref.watch(companyDetails)!,
                             companyModel: companyModel!));

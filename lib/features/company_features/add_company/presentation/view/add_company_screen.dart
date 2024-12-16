@@ -29,7 +29,7 @@ import '../../../../../ui/shared_widgets/image_or_svg.dart';
 import '../../../../../ui/shared_widgets/select_language_tile.dart';
 import '../../../../../ui/ui.dart';
 import '../../../../shared/auth/domain/entities/auth_entity.dart';
-import '../../../../user_features/shipments/presentation/view/order_screen.dart';
+import '../../../../user_features/shipments/presentation/view/make_shipment_screen.dart';
 import '../../../../user_features/shipments/presentation/view/widgets/selectable_tile.dart';
 import '../../../../user_features/user_company/domain/entity/attributes_entity.dart';
 

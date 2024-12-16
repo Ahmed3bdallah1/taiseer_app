@@ -18,13 +18,13 @@ import 'shipment_view_widgets/shipment_title_widget.dart';
 import 'shipment_view_widgets/shipment_to_from_widgets.dart';
 import 'shipment_view_widgets/shipment_types_image_widget.dart';
 
-class OrderScreen extends ConsumerStatefulWidget {
+class MakeShipmentScreen extends ConsumerStatefulWidget {
   final CompanyDetailsModel companyDetailsModel;
   final UserCompanyModel2 companyModel;
   final bool isGlobal;
   final bool viewOnly;
 
-  const OrderScreen({
+  const MakeShipmentScreen({
     super.key,
     required this.companyDetailsModel,
     required this.companyModel,
@@ -33,10 +33,10 @@ class OrderScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<OrderScreen> createState() => _OrderScreenState();
+  ConsumerState<MakeShipmentScreen> createState() => _MakeShipmentScreenState();
 }
 
-class _OrderScreenState extends ConsumerState<OrderScreen> {
+class _MakeShipmentScreenState extends ConsumerState<MakeShipmentScreen> {
   late final FormGroup formGroup;
   final ScrollController scrollController = ScrollController();
 

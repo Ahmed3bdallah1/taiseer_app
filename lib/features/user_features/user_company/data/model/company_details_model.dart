@@ -68,7 +68,7 @@ class CompanyDetailsModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         followersCount: json["followers_count"] ?? 0,
-        averageRating: json["average_rating"] ?? 0,
+        averageRating: json["average_rating"],
         typeActivityCompanies: List<ShippingMethodsEntity>.from(
             json["type_activity_companies"]
                 .map((x) => ShippingMethodsEntity.fromJson(x))),

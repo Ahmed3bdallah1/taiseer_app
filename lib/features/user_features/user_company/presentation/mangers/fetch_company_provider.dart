@@ -13,7 +13,7 @@ import '../../domain/use_case/company_use_case.dart';
 final fetchUserCompaniesViewProvider =
     FutureProvider.autoDispose.family<CompanyPaginationModel,int?>((ref,id) async {
   final attribute = ref.watch(filterProvider);
-  print(attribute.name);
+  // print(attribute.name);
   final companies = await getIt<FetchUserCompanyUseCase>().call(Tuple2(attribute.name,id??1));
 
   return companies.fold((l) {

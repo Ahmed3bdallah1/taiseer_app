@@ -112,7 +112,7 @@ class CompanyDetailsBanner extends StatelessWidget {
                             ),
                             Gap(30.w),
                             Text(
-                              companyModel.averageRating.toString().substring(0,3),
+                              companyModel.averageRating!=null?companyModel.averageRating.toString().substring(0,3):"0",
                               style: AppFont.font20W600Black,
                             )
                           ],

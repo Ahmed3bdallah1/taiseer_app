@@ -10,6 +10,7 @@ import 'package:taiseer/ui/shared_widgets/fade_in_animation.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../ui/shared_widgets/custom_outlined_button.dart';
+import '../../../../../../ui/ui.dart';
 import '../../../../search/presentation/view/search_view.dart';
 import '../../../../user_company/presentation/mangers/fetch_company_provider.dart';
 import '../../../../user_company/presentation/view/widgets/company_container.dart';
@@ -89,7 +90,8 @@ class UserHomeCompanyView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CustomOutlinedButton(
-                      onPressed: () => Get.to(() => const SearchUserView()),
+                      onPressed: () => UIHelper.showGlobalSnackBar(
+                          text: "coming soon"),
                       text: "Search".tr,
                       height: 48.h,
                       isExpanded: true,

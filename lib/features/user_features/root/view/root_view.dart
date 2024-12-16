@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/core/service/auth_service.dart';
 import 'package:taiseer/features/shared/auth/presentation/manager/auth_provuder.dart';
+import 'package:taiseer/features/shared/notifications/presentation/view/notifications_screen.dart';
 import 'package:taiseer/features/user_features/home/presentation/view/home_screen.dart';
 import 'package:taiseer/features/user_features/shipments/presentation/view/order_history_view.dart';
 import 'package:taiseer/features/user_features/profile/presentation/view/edit_profile.dart';
@@ -93,15 +94,15 @@ class _RootViewState extends ConsumerState<RootView> {
                         BottomNavigationBarItem(
                           icon: Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.h),
-                            child: SvgPicture.asset(
-                              Assets.navigationBar.messageQuestion,
+                            child: Icon(
+                              Icons.notifications_active,
                               color: controller.isSelectedIndex(2)
                                   ? AppColor.primary
                                   : AppColor.black,
-                              height: 21.h,
+                              size: 21.h,
                             ),
                           ),
-                          label: "Support".tr,
+                          label: "Notifications".tr,
                         ),
                         BottomNavigationBarItem(
                           icon: Padding(
@@ -143,7 +144,7 @@ class _RootViewState extends ConsumerState<RootView> {
     return switch (index) {
       0 => HomeScreen(profileNotCompleted),
       1 => const OrderHistoryView(),
-      2 => const SupportScreen(),
+      2 => const NotificationsScreen(),
       _ => const SettingsView(),
     };
   }

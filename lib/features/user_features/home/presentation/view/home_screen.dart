@@ -39,6 +39,7 @@ class HomeScreen extends ConsumerWidget {
           ref.invalidate(fetchUserCompaniesViewProvider(1));
           ref.invalidate(fetchAdsProvider);
           ref.invalidate(fetchLastShipmentProvider);
+          ref.refresh(fetchUserProvider);
         },
         child: SafeArea(
           child: SingleChildScrollView(
@@ -98,8 +99,7 @@ class HomeScreen extends ConsumerWidget {
                                     color: Colors.transparent,
                                     iconColor: AppColor.primary,
                                     icon: Icons.notifications_active,
-                                    onTap: () => Get.to(
-                                        () => const NotificationsScreen()),
+                                    onTap: () => ref.read(rootIndex.notifier).setSelectedIndex(2),
                                   ),
                                 );
                               } else {
@@ -111,8 +111,7 @@ class HomeScreen extends ConsumerWidget {
                                         color: Colors.transparent,
                                         iconColor: AppColor.primary,
                                         icon: Icons.notifications_active,
-                                        onTap: () => Get.to(
-                                            () => const NotificationsScreen()),
+                                        onTap: () => ref.read(rootIndex.notifier).setSelectedIndex(2),
                                       ),
                                     ),
                                     const Positioned(

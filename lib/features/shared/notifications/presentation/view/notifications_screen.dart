@@ -37,33 +37,32 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: "Notifications".tr,
+        isCenterTitle: false,
+        hideBackButton: true,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedSizeAndFade.showHide(
               show: !ref.watch(hideNavBarProvider2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomAppBar2(title: "Notifications".tr),
-                  Consumer(builder: (context, ref, child) {
-                    const data = NotificationFilterType.values;
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                            children: data
-                                .map(
-                                  (e) =>
-                                      NotificationsCustomActionChip(value: e),
-                                )
-                                .toList()),
-                      ),
-                    );
-                  }),
-                ],
-              )),
+              child: Consumer(builder: (context, ref, child) {
+                const data = NotificationFilterType.values;
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                        children: data
+                            .map(
+                              (e) =>
+                                  NotificationsCustomActionChip(value: e),
+                            )
+                            .toList()),
+                  ),
+                );
+              })),
           Expanded(
             child: HideNavBarWidget(
               customProvider: hideNavBarProvider2,

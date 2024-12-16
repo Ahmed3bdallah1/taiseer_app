@@ -1,4 +1,5 @@
 import 'package:taiseer/core/service/webservice/dio_helper.dart';
+import 'package:taiseer/gen/assets.gen.dart';
 import '../../../../../config/api_path.dart';
 import '../../domain/entities/notification_entity.dart';
 
@@ -15,13 +16,14 @@ class NotificationDataSourceImp extends NotificationDataSource {
   @override
   Future<List<NotificationModel>> getNotification(
       Map<String, dynamic> data) async {
-    final status = data['status'];
-    final res = await apiService.get(
-      url: '${ApiPath.notifications}$status',
-    );
-    final List<NotificationModel> list =
-        (res as List).map((e) => NotificationModel.fromJson(e)).toList();
-    return list;
+    // final status = data['status'];
+    // final res = await apiService.get(
+    //   url: '${ApiPath.notifications}$status',
+    // );
+    // final List<NotificationModel> list =
+    //     (res as List).map((e) => NotificationModel.fromJson(e)).toList();
+    await Future.delayed(const Duration(seconds: 2));
+    return generateDummyNotificationList(10);
   }
 
   @override
@@ -31,4 +33,25 @@ class NotificationDataSourceImp extends NotificationDataSource {
     );
     return true;
   }
+}
+
+List<NotificationModel> generateDummyNotificationList(int count) {
+  List<NotificationModel> dummyList = [];
+
+  for (int i = 1; i <= count; i++) {
+    dummyList.add(NotificationModel(
+      id: i,
+      customerId: i + 100,
+      title: 'Shipment $i',
+      logo: Assets.base.fingerScan,
+      description: 'Description $i',
+      type: 'Type $i',
+      seen: i % 2,
+      related: i + 200,
+      createdAt: '2024-12-16',
+      updatedAt: '2024-12-16',
+    ));
+  }
+
+  return dummyList;
 }

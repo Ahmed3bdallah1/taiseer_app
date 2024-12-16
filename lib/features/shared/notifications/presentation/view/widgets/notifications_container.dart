@@ -50,10 +50,10 @@ class NotificationContainer extends ConsumerWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(35),
+            borderRadius: BorderRadius.circular(15.r),
             border: Border.all(color: AppColor.grey1)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Badge(
             isLabelVisible: notificationEntity.seen == 0,
             smallSize: 15,
@@ -72,14 +72,14 @@ class NotificationContainer extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
-                        child: ImageOrSvg(notificationEntity.logo),
+                        child: ImageOrSvg(notificationEntity.logo,isLocal: true,),
                       ),
                     ),
                     const Gap(10),
                     Flexible(
                       child: Text(
                         notificationEntity.title,
-                        style: AppFont.font15W500Black,
+                        style: AppFont.font14W600Primary,
                       ),
                     ),
                   ],
@@ -87,7 +87,7 @@ class NotificationContainer extends ConsumerWidget {
                 const Gap(15),
                 Text(
                   notificationEntity.description,
-                  style: AppFont.font12w400Black,
+                  style: AppFont.font12W600Black,
                 ),
                 const Gap(10),
               ],

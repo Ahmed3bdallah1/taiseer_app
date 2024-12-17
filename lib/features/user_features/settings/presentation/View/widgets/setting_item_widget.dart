@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:taiseer/config/app_font.dart';
+
+import '../../../../../../gen/assets.gen.dart';
 
 class SettingsItem extends StatelessWidget {
   const SettingsItem({
@@ -9,9 +12,11 @@ class SettingsItem extends StatelessWidget {
     required this.icon,
     required this.onTap,
     this.color,
+    this.isSupport = false,
   });
 
   final String title;
+  final bool isSupport;
   final IconData icon;
   final Color? color;
   final VoidCallback onTap;
@@ -37,10 +42,16 @@ class SettingsItem extends StatelessWidget {
               ]),
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: color ?? AppColor.primaryDark,
-              ),
+              isSupport
+                  ? SvgPicture.asset(
+                      Assets.navigationBar.messageQuestion,
+                      height: 21.h,
+                      color: color ?? AppColor.primaryDark,
+                    )
+                  : Icon(
+                      icon,
+                      color: color ?? AppColor.primaryDark,
+                    ),
               Gap(20.w),
               Text(
                 title,

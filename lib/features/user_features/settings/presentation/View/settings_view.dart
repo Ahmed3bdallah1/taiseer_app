@@ -8,6 +8,7 @@ import 'package:taiseer/features/user_features/chat/presentation/chats_screen.da
 import 'package:taiseer/features/user_features/profile/presentation/view/update_profile_view.dart';
 import 'package:taiseer/features/user_features/settings/presentation/View/privacy_policy_screen.dart';
 import 'package:taiseer/features/user_features/settings/presentation/View/widgets/setting_item_widget.dart';
+import 'package:taiseer/features/user_features/support/presentation/view/support_screen.dart';
 import '../../../../../core/service/localization_service/localization_service.dart';
 import '../../../../../ui/shared_widgets/custom_app_bar.dart';
 import '../../../../../ui/shared_widgets/select_language_dialog.dart';
@@ -49,6 +50,12 @@ class SettingsView extends ConsumerWidget {
                         }),
                     icon: Icons.language,
                     title: 'Language'.tr),
+                Gap(12.h),
+                SettingsItem(
+                    onTap: () => Get.to(() => const SupportScreen()),
+                    icon: Icons.support_agent,
+                    isSupport: true,
+                    title: 'Support'.tr),
                 Gap(12.h),
                 SettingsItem(
                     onTap: () => Get.to(() => const PrivacyPolicyScreen()),

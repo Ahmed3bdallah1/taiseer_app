@@ -13,7 +13,7 @@ class ChatRoomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => Get.to(() => ChatPage(id: chatsRoomEntity.id ?? 0)),
+        onTap: () => Get.to(() => ChatPage(shipmentId:chatsRoomEntity.shipmentId??0,id: chatsRoomEntity.id ?? 0)),
         child: ListTile(
           trailing: Text(
             intl.DateFormat.yMd().add_jm().format(chatsRoomEntity.updatedAt!),

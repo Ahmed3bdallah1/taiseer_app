@@ -15,9 +15,10 @@ import 'managers/get_chat_provider.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   final int id;
+  final int shipmentId;
   final bool? isDisabled;
 
-  const ChatPage({super.key, required this.id, this.isDisabled = false});
+  const ChatPage({super.key, required this.id, this.isDisabled = false,required this.shipmentId,});
 
   @override
   ConsumerState<ChatPage> createState() => _ChatPageState();
@@ -95,7 +96,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                         text: message.text,
                       );
                       await getIt<SendMessageUseCase>().call(
-                          Tuple2(widget.id, textMessage.text));
+                          Tuple2(widget.shipmentId, textMessage.text));
                       ref.invalidate(fetchChatsProvider(1));
                       ref.invalidate(fetchMessagesProvider);
                     },

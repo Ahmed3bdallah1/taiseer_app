@@ -37,8 +37,7 @@ class CompanyDetailsBanner extends StatelessWidget {
                       isCompanyImage: true,
                       width: 65.h,
                       // assetImageOnNull: Assets.onboard.vector,
-                      pickImageOnNull: true,
-                    ),
+                     ),
                     Gap(10.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

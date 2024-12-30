@@ -125,7 +125,7 @@ class ShipmentFromWidget extends StatelessWidget {
                             height: 30,
                             width: 40,
                           ),
-                          Gap(8.w),
+                          Gap(4.w),
                           Text(
                             e.nameAr ?? "",
                             style: AppFont.font14W600Primary,
@@ -174,7 +174,7 @@ class ShipmentFromWidget extends StatelessWidget {
               9;
           return CustomTextField(
             iconButton: SizedBox(
-              width: 124,
+              width: 126,
               height: 55,
               child: ReactiveDropdownField(
                 onChanged: (_) {
@@ -197,14 +197,14 @@ class ShipmentFromWidget extends StatelessWidget {
                       children: [
                         ImageOrSvg(
                           e.countryImage,
-                          height: 30,
+                          height: 25,
                           width: 30,
                           fit: BoxFit.fill,
                         ),
-                        Gap(8.w),
+                        Gap(4.w),
                         Text(
                           e.nameAr ?? "",
-                          style: AppFont.font14W600Primary,
+                          style: AppFont.font12W600Primary,
                         )
                       ],
                     ),
@@ -373,7 +373,7 @@ class ShipmentToWidget extends StatelessWidget {
               9;
           return CustomTextField(
             iconButton: SizedBox(
-              width: 124,
+              width: 126,
               height: 55,
               child: ReactiveDropdownField(
                 onChanged: (_) {
@@ -396,14 +396,14 @@ class ShipmentToWidget extends StatelessWidget {
                       children: [
                         ImageOrSvg(
                           e.countryImage,
-                          height: 30,
+                          height: 25,
                           width: 30,
                           fit: BoxFit.fill,
                         ),
-                        Gap(8.w),
+                        Gap(4.w),
                         Text(
                           e.nameAr ?? "",
-                          style: AppFont.font14W600Primary,
+                          style: AppFont.font12W600Primary,
                         )
                       ],
                     ),

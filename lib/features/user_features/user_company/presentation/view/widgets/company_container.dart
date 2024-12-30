@@ -48,7 +48,6 @@ class CompanyContainer extends StatelessWidget {
               ImageOrSvg(
                 companyModel.logo ?? "",
                 isCompanyImage: true,
-                pickImageOnNull: true,
                 height: 60.h,
                 width: 60.h,
               ),

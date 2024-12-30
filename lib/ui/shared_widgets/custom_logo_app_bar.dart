@@ -75,7 +75,7 @@ class _CustomLogoAppbarState extends ConsumerState<CustomLogoAppbar> {
                     : [
                         if (widget.applyPadding)
                           Padding(
-                            padding: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.only(bottom: 8.0),
                             child: widget.buttonWidget ??
                                 ContainerButton(
                                   color: Colors.transparent,

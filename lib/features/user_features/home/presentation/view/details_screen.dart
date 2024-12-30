@@ -71,7 +71,6 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               child: ImageOrSvg(
                                 companyModel.cover ?? "",
                                 isCompanyImage: true,
-                                pickImageOnNull: true,
                                 fit: BoxFit.fitWidth,
                               ),
                             ),

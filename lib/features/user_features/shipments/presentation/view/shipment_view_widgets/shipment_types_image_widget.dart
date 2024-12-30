@@ -89,15 +89,15 @@ class _ShipmentTypeAndImagesWidgetState extends ConsumerState<ShipmentTypeAndIma
                           final value = form.control("typeActivity_id").value
                           as List<int>? ??
                               [];
-                          if (index !=
-                              widget.companyDetailsModel.typeActivityCompanies
-                                  .length) {
+                          // if (index !=
+                          //     widget.companyDetailsModel.typeActivityCompanies
+                          //         .length) {
                             final isSelected = value.contains(widget
                                 .companyDetailsModel
                                 .typeActivityCompanies[index]
                                 .id);
                             return ShippingMethodTile(
-                              color: AppColor.black.withOpacity(.1),
+                              color: AppColor.grey2,
                               shippingMethodsEntity: widget.companyDetailsModel
                                   .typeActivityCompanies[index],
                               hideSelectedItem: false,
@@ -121,23 +121,23 @@ class _ShipmentTypeAndImagesWidgetState extends ConsumerState<ShipmentTypeAndIma
                                 setState(() {});
                               },
                             );
-                          } else {
-                            return ReactiveFormConsumer(
-                              builder: (context, form, _) {
-                                bool isFastSelected =
-                                    form.control("is_fast_shipping").value ==
-                                        true;
-                                return FastShippingMethodTile(
-                                  color: Colors.white,
-                                  isSelected: isFastSelected,
-                                  onTap: () {
-                                    form.control("is_fast_shipping").value =
-                                    !isFastSelected;
-                                  },
-                                );
-                              },
-                            );
-                          }
+                          // } else {
+                          //   return ReactiveFormConsumer(
+                          //     builder: (context, form, _) {
+                          //       bool isFastSelected =
+                          //           form.control("is_fast_shipping").value ==
+                          //               true;
+                          //       return FastShippingMethodTile(
+                          //         color: Colors.white,
+                          //         isSelected: isFastSelected,
+                          //         onTap: () {
+                          //           form.control("is_fast_shipping").value =
+                          //           !isFastSelected;
+                          //         },
+                          //       );
+                          //     },
+                          //   );
+                          // }
                         },
                       );
                     },
@@ -145,8 +145,7 @@ class _ShipmentTypeAndImagesWidgetState extends ConsumerState<ShipmentTypeAndIma
                       return Gap(10.w);
                     },
                     itemCount: widget
-                        .companyDetailsModel.typeActivityCompanies.length +
-                        1,
+                        .companyDetailsModel.typeActivityCompanies.length,
                   ),
                 ),
               ],

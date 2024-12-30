@@ -66,8 +66,7 @@ class OtpScreen extends ConsumerWidget {
           child: SelectLanguageTile(),
         ),
       ),
-      body: stateProvider is LoadingState && stateProvider.key == "all" ||
-              stateProvider is CloseState
+      body: stateProvider is LoadingState && stateProvider.key == "all"
           ? const LoadingWidget()
           : SingleChildScrollView(
               child: Padding(
@@ -116,21 +115,17 @@ class OtpScreen extends ConsumerWidget {
                           child: CustomFilledButton(
                             text: "Verify".tr,
                             isLoading: isLoading ||
-                                (stateProvider is LoadingState &&
-                                    stateProvider.key == "verify"),
+                                (stateProvider is LoadingState && stateProvider.key == "verify"),
                             ignorePressOnNotValid: true,
                             onPressed: () async {
-                              try {
                                 await ref
                                     .read(authNotifierProvider.notifier)
                                     .register({
                                   ...((repo as CheckPhoneRepo).data),
                                   "otp": ref.read(numberProvider.notifier).state
-                                });
-                              } catch (e) {
-                                UIHelper.showAlert(e.toString(),
-                                    type: DialogType.error);
-                              }
+                                },true);
+                                await UIHelper.showAlert("User Registered Successfully".tr,type: DialogType.success);
+                                Get.offAll(() => const LoginPage());
                             },
                             isValid: ref.watch(numberProvider)?.length == 4,
                           ),

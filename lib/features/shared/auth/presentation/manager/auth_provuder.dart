@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:taiseer/features/company_features/company_root/view/company_root_view.dart';
+import 'package:taiseer/features/shared/auth/presentation/view/login_page.dart';
 import 'package:taiseer/models/user_model.dart';
 import '../../../../../core/service/auth_service.dart';
 import '../../../../../core/service/local_data_manager.dart';
@@ -24,7 +25,6 @@ class AuthNotifier extends StateNotifier<bool> {
   Future login(Map<String, dynamic> data) async {
     state = true;
     try {
-      print(data);
       final res = await getIt<LoginUserUseCase>()(data);
       res.fold((l) {
         throw l;
@@ -36,14 +36,17 @@ class AuthNotifier extends StateNotifier<bool> {
     }
   }
 
-  Future register(Map<String, dynamic> data) async {
+  Future register(Map<String, dynamic> data,bool? isRegister) async {
     state = true;
     try {
       final res = await getIt<RegisterUserUseCase>()(data);
       res.fold((l) {
         throw l;
       }, (r) {
-        handleUser(r, data, checkIsVerified: true);
+        if(isRegister == true){
+          Get.to(()=>const LoginPage());
+        }
+        handleUser(r, data);
       });
     } finally {
       state = false;

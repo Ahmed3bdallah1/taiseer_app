@@ -1,0 +1,4 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <item name="keep_resource" type="string" tools:keep="*" />
+    <item name="discard_resource" type="string" tools:discard="*" />
+</resources>
